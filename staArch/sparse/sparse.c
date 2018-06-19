@@ -76,6 +76,8 @@ void print1d(struct Array *a){
 void coo_comp(struct Matrix Orig, struct Array *row, struct Array *col, struct Array *data);
 void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct Array *data);
 
+void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res);
+
 int main(){
 	struct Matrix Orig;
 	initMat(&Orig,4,4,"Origin");
@@ -109,8 +111,34 @@ int main(){
 	timersub(&tval_after, &tval_before, &tval_result);
 	printf("Time: %ld\n",(long int)tval_result.tv_usec);
 	*/
+
+	/////////////////
+	//SpMV Solution//
+	/////////////////
+	
+	//Initialize the vector to be multiplied
+	struct Array x;
+	initArr(&x, Orig.rowM, "MulVec");
+	for(int i = 0; i < Orig.rowM; i++)
+		x.arr[i] = i+1;
+	#if COO
+		//Later
+	#endif
+	#if CSR
+		struct Array csr_res;
+		csr_sclr(csr_ptr, csr_ind, csr_data, x , &csr_res);
+	#endif
+	#if ELL
+		//Later
+	#endif
+	#if SELL
+		//Later
+	#endif
+
+	//Sanity Check
 	#if SANITY
 		print2d(Orig);
+		print1d(&x);
 		#if COO
 			print1d(&coo_data);
 			print1d(&coo_row);
@@ -120,6 +148,9 @@ int main(){
 			print1d(&csr_data);
 			print1d(&csr_ind);
 			print1d(&csr_ptr);
+			printf("\nSolution:");
+			print1d(&csr_res);
+
 		#endif
 		#if ELL
 			//Later
@@ -179,3 +210,13 @@ void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct A
 	}
 }
 
+void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res){
+	initArr(res, ptr.size-1,"CsrScl");
+	int temp;
+	for(int i = 0; i < ptr.size-1; i++){
+		res->arr[i] = 0;
+		for(int j = ptr.arr[i]; j < ptr.arr[i+1] ;j++){
+			res->arr[i] += data.arr[j] * x.arr[ind.arr[j]];
+		}
+	}
+}
