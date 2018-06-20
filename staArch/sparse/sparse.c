@@ -8,8 +8,7 @@
 #define SANITY 1
 #define COO 0
 #define CSR 1
-#define ELL 0
-#define SELL 0
+#define CSR5 1
 
 struct timeval tval_before, tval_after, tval_result;
 
@@ -25,6 +24,19 @@ struct Matrix{
 	size_t rowM;
 	size_t colN;
 	size_t matSize;
+	size_t nonZero;
+};
+
+struct Tile{
+	struct Matrix *BitF;
+	struct Matrix *Data;
+	struct Matrix *Ind;
+	long *yOff;
+	long *segOff;
+	long *empOff;
+	struct TileDesc *next;
+	size_t tileSize;
+	size_t tileNum;
 };
 
 void initMat(struct Matrix *m, size_t M, size_t N, char varName[7]){
@@ -44,6 +56,12 @@ void initMat(struct Matrix *m, size_t M, size_t N, char varName[7]){
 			}
 		}
 	#endif
+	int cnt = 0;
+	for(int i = 0; i < m->matSize; i++)
+		if(*(i + m->matSize))
+			cnt++;
+
+	m -> nonZero = 	cnt;
 }
 
 void initArr(struct Array *a, int N,char varName[7]){
@@ -75,8 +93,10 @@ void print1d(struct Array *a){
 
 void coo_comp(struct Matrix Orig, struct Array *row, struct Array *col, struct Array *data);
 void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct Array *data);
+void csr5_comp();
 
 void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res);
+void csr_seg(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res);
 
 int main(){
 	struct Matrix Orig;
@@ -93,11 +113,10 @@ int main(){
 		struct Array csr_ptr, csr_ind, csr_data;
 		csr_comp(Orig, &csr_ptr, &csr_ind, &csr_data);
 	#endif
-	#if ELL
-		//Later
-	#endif
-	#if SELL
-		//Later
+	#if CSR5
+		struct Array csr5_row_ptr, csr5_tile_ptr;
+		struct TileDesc csr5_desc;
+		csr5_comp();
 	#endif
 	
 	/*
@@ -126,13 +145,7 @@ int main(){
 	#endif
 	#if CSR
 		struct Array csr_res;
-		csr_sclr(csr_ptr, csr_ind, csr_data, x , &csr_res);
-	#endif
-	#if ELL
-		//Later
-	#endif
-	#if SELL
-		//Later
+		csr_seg(csr_ptr, csr_ind, csr_data, x , &csr_res);
 	#endif
 
 	//Sanity Check
@@ -150,12 +163,8 @@ int main(){
 			print1d(&csr_ptr);
 			printf("\nSolution:");
 			print1d(&csr_res);
-
 		#endif
-		#if ELL
-			//Later
-		#endif
-		#if SELL
+		#if CSR5
 			//Later
 		#endif
 	#endif
@@ -164,15 +173,11 @@ int main(){
 
 
 void coo_comp(struct Matrix Orig, struct Array *row, struct Array *col, struct Array *data){
-	int cnt = 0;
-	for(int i = 0; i < Orig.matSize; i++)
-		if(*(i + Orig.mat) != 0)
-			cnt++;
-	initArr(row, cnt, "CooRow");
-	initArr(col, cnt, "CooCol");
-	initArr(data, cnt, "CooDat");
+	initArr(row, Orig.nonZero, "CooRow");
+	initArr(col, Orig.nonZero, "CooCol");
+	initArr(data, Orig.nonZero, "CooDat");
 
-	cnt = 0;
+	int cnt = 0;
 	for(int i = 0; i < Orig.matSize; i++){
 		if(*(i + Orig.mat) != 0){
 			data->arr[cnt] = *(i + Orig.mat);
@@ -184,15 +189,11 @@ void coo_comp(struct Matrix Orig, struct Array *row, struct Array *col, struct A
 }
 
 void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct Array *data){
-	int cnt = 0;
-	for(int i = 0; i < Orig.matSize; i++)
-		if(*(i + Orig.mat) != 0)
-			cnt++;
-	initArr(data, cnt, "CsrDat");
-	initArr(ind, cnt, "CsrInd");
+	initArr(data, Orig.nonZero, "CsrDat");
+	initArr(ind, Orig.nonZero, "CsrInd");
 	initArr(ptr, (Orig.rowM + 1), "CsrPtr");
 
-	cnt = 0;
+	int cnt = 0;
 	int locCnt = 0;
 	ptr->arr[0] = 0;
 	for(int i = 0; i < Orig.rowM; i++){
@@ -210,6 +211,49 @@ void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct A
 	}
 }
 
+void csr5_comp(){
+	//Initialize sigma and omega paramters and cnt for non-zero elements
+	int sigma = 2;
+	int omega = 2;
+	int cnt = 0;
+	int tileCnt = Orig.nonZero / (omega*sigma);
+	
+	//Initialize all data types
+	initArr(rowPtr, (Orig.rowM + 1), "Csr5RP");
+	initArr(tilePtr, tileCnt, "Csr5TP");
+
+	initMat(Data, omega, sigma, "Csr5Dt");	
+	initMat(Ind, omega, sigma, "Csr5In");	
+	initMat(&Tile->bitF, omega, sigma, "Csr5Bt");
+	Tile->yOff = (long*)malloc(tileCnt*sizeof(long));
+	Tile->segOff = (long*)malloc(tileCnt*sizeof(long));
+	Tile->empOff = (long*)malloc(tileCnt*sizeof(long));
+	
+	//Set up data tile, ind tile, bit tile, and row pointer
+	cnt = 0;
+	int tileCnt = 0
+	int locCnt = 0;
+	ptr->arr[0] = 0;
+	for(int i = 0; i < Orig.rowM; i++){
+		locCnt = 0;
+		for(int j = 0; j < Orig.colN; j++){
+			if(*(Orig.mat+i*Orig.colN+j) != 0){
+				data->arr[cnt][] = *(Orig.mat+i*Orig.colN+j);
+				ind->arr[cnt] = j;
+				cnt++;
+				locCnt++;
+			}
+		}
+		ptr->arr[i+1] = ptr->arr[i] + locCnt;
+
+	}
+
+	//Find tile pointer
+	for(int i = 0; i < tileCnt; i++){
+		
+	}
+}
+
 void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res){
 	initArr(res, ptr.size-1,"CsrScl");
 	int temp;
@@ -218,5 +262,43 @@ void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Arra
 		for(int j = ptr.arr[i]; j < ptr.arr[i+1] ;j++){
 			res->arr[i] += data.arr[j] * x.arr[ind.arr[j]];
 		}
+	}
+}
+
+void csr_seg(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res){
+	initArr(res, ptr.size-1, "CsrSeg");
+	struct Array bitFlag, prod;
+	initArr(&bitFlag, data.size, "BitFlg");
+	initArr(&prod, data.size, "PrdHld");
+
+	//Initialize Bit Array to false (0)
+	for(int i = 0; i < bitFlag.size; i++)
+		bitFlag.arr[i] = 0;
+	//Set prt values to true (1)
+	for(int i =0; i < ptr.size; i++)
+		bitFlag.arr[ptr.arr[i]] = 1;
+	//
+	for(int i = 0; i < prod.size; i++)
+		prod.arr[i] = data.arr[i] * x.arr[ind.arr[i]];
+	//Segmentation Sum
+	int j;
+	for(int i = 0; i < prod.size; i++){
+		if(bitFlag.arr[i] == 1){
+			j = i + 1;
+			while(bitFlag.arr[j] == 0 && j < prod.size){
+				prod.arr[i] += prod.arr[j];
+				j++;
+			}
+		}
+		else{
+			prod.arr[i] = 0;
+		}
+	}
+	//
+	for(int i = 0; i < res->size; i++){
+		if(ptr.arr[i] == ptr.arr[i+1])
+			res->arr[i] = 0;
+		else
+			res->arr[i] = prod.arr[ptr.arr[i]];
 	}
 }
