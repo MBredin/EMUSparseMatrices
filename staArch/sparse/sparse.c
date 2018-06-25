@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <time.h>
 #include <sys/time.h>
 #include <cilk/cilk.h>
@@ -172,7 +173,7 @@ void print1d(struct Array *a){
 void printLong(double *a, int size){
 	printf(" = [");
 	for(int i = 0; i < size; i++)
-		printf("%f ",a[i]);
+		printf("%1.0f ",a[i]);
 	printf("]\n");
 }
 
@@ -221,7 +222,7 @@ int binSearch(double *rowPtr, int bnd, size_t upper){
 
 void coo_comp(struct Matrix Orig, struct Array *row, struct Array *col, struct Array *data);
 void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct Array *data);
-void csr5_comp(struct Matrix Orig, struct Tile tileArr[], double *rowPrt, double *tilePtr, int *rowPLen, int *tilePLen);
+void csr5_comp(struct Matrix Orig, struct Tile *tileArr, double *rowPrt, double *tilePtr, int *rowPLen, int *tilePLen);
 
 void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res);
 void csr_seg(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res);
@@ -244,9 +245,10 @@ int main(){
 	#if CSR5
 		int tileCnt = Orig.nonZero / (OMEGA * SIGMA) + 1;
 		struct Tile *tileArr = malloc(tileCnt * sizeof(struct Tile));
-		double rowPtr, tilePtr;
 		int rowPLen, tilePLen;
-		csr5_comp(Orig, tileArr, &rowPtr, &tilePtr, &rowPLen, &tilePLen);
+		double *rowPtr = malloc((Orig.rowM+1)*sizeof(double));
+		double *tilePtr = malloc((tileCnt+1)*sizeof(double));
+		csr5_comp(Orig, tileArr, rowPtr, tilePtr, &rowPLen, &tilePLen);
 	#endif
 	
 	/*
@@ -296,9 +298,10 @@ int main(){
 			print1d(&csr_res);
 		#endif
 		#if CSR5
-			printf("CSR5 Compressed Matrix\n");
-			printLong(&rowPtr, rowPLen);
-			printLong(&tilePtr, tilePLen);
+			printf("CSR5 Compressed Matrix\nRow_Pointer");
+			printLong(rowPtr, rowPLen);
+			printf("Tile_Pointer");
+			printLong(tilePtr, tilePLen+1);
 			for(int i = 0; i < tileCnt; i++)
 				printTile(tileArr[i],i);
 		#endif
@@ -349,12 +352,12 @@ void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct A
 void csr5_comp(struct Matrix Orig, struct Tile *tileArr, double *rowPtr, double *tilePtr, int *rowPLen, int *tilePLen){
 	//Initialize all data types
 	int tileSize = OMEGA * SIGMA;
-	int tileCnt = Orig.nonZero / tileSize + 2;
+	int tileCnt = Orig.nonZero / tileSize + 1;
 	*rowPLen = (int)Orig.rowM + 1;
 	//Dupilcate Varialbe, get rid of it
 	*tilePLen = (int)tileCnt;
-	rowPtr = (double *)malloc((Orig.rowM+1)*sizeof(double));
-	tilePtr = (double *)malloc(tileCnt*sizeof(double));
+	//*rowPtr = malloc((Orig.rowM+1)*sizeof(double));
+	//*tilePtr = malloc(tileCnt*sizeof(double));
 	//initArr(rowPtr, (Orig.rowM + 1), "Csr5RP");
 	//initArr(tilePtr, tileCnt, "Csr5TP");
 
@@ -385,19 +388,17 @@ void csr5_comp(struct Matrix Orig, struct Tile *tileArr, double *rowPtr, double 
 	int bnd;
 	for(int i = 0; i < tileCnt; i++){
 		bnd = i * OMEGA * SIGMA;
-		printf("Looking for: %d   ", bnd);
 		tilePtr[i] = binSearch(&rowPtr[0], bnd, Orig.rowM);
-		printf("Found: %f\n", tilePtr[i]);
 	}
+	tilePtr[tileCnt] = Orig.rowM;
 	for(int i = 0; i < tileCnt; i++){
-		for(int j = tilePtr[i]; j < tilePtr[i+1]; j++)
+		for(int j = (int)tilePtr[i]; j < (int)tilePtr[i+1]; j++)
 			if(rowPtr[j] == rowPtr[j+1]){
-				tilePtr[i] = -1 * tilePtr[i];
+				tilePtr[i] = -1.0 * tilePtr[i];
 				break;
 			}
 	}
 	
-
 	//Find the other tile desciptors
 	long *bitT = malloc(OMEGA * sizeof(long));
 	for(int t = 0; t < tileCnt; t++){
@@ -412,14 +413,33 @@ void csr5_comp(struct Matrix Orig, struct Tile *tileArr, double *rowPtr, double 
 		}
 		//Find y_Offset
 		exPreSum(&tileArr[t].yOff[0]);
-		//find Empty_Offset
 		
+		//Find empty_Offest
+		if(tilePtr[t] < 0 || tilePtr[t] == -0.0){
+			int length = 0;
+			int eid = 0;
+			int ptr, idx;
+			for(int i = 0 ; i < OMEGA; i++)
+				for(int j = 0; j < SIGMA; j++)
+					length += tileArr[t].BitF[j][i];
+		
+			for(int i = 0 ; i < OMEGA; i++){
+				for(int j = 0; j < SIGMA; j++){
+					if(tileArr[t].BitF[j][i] == 1){
+						ptr = t * OMEGA * SIGMA + i * SIGMA + j;
+						idx = binSearch(&rowPtr[0], ptr, Orig.rowM);
+						idx = idx - fabs(tilePtr[t]);
+						tileArr[t].empOff[eid] = idx;
+						eid++;
+					}
+				}
+			}
+		}
 	}
 }
 
 void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res){
 	initArr(res, ptr.size-1,"CsrScl");
-	int temp;
 	for(int i = 0; i < ptr.size-1; i++){
 		res->arr[i] = 0;
 		for(int j = ptr.arr[i]; j < ptr.arr[i+1] ;j++){
