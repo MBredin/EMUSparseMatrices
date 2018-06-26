@@ -14,14 +14,14 @@ struct timeval tval_before, tval_after, tval_result;
 struct Matrix{
 	long *mat;
 	char name[7];
-	size_t rowM;
-	size_t colN;
-	size_t matSize;
-	size_t nonZero;
+	int rowM;
+	int colN;
+	int matSize;
+	int nonZero;
 };
 
 
-void initMat(struct Matrix *m, size_t M, size_t N, char varName[7]){
+void initMat(struct Matrix *m, int M, int N, char varName[7]){
 	m -> mat = (long *)malloc(M*N*sizeof(long));
 	m -> rowM = M;
 	m -> colN = N;
@@ -90,10 +90,10 @@ void initMat(struct Matrix *m, size_t M, size_t N, char varName[7]){
 
 void print2d(struct Matrix m){
 	for(int i = 0; i < m.matSize; i++){
-		if(i % 8 == 0)
+		if(i % m.rowM == 0)
 			printf("| ");
 		printf("%3ld ",*(i + m.mat));
-		if(i % 8 == 7)
+		if(i % m.rowM == m.rowM-1)
 			printf("|\n");
 	}
 }
@@ -101,7 +101,7 @@ void print2d(struct Matrix m){
 void printLong(long *arr, int size){
 	printf("[");
 	for(int i = 0 ; i < size; i++)
-		printf("%2ld", arr[i]);
+		printf("%3ld", arr[i]);
 	printf("]");
 }
 
@@ -113,18 +113,17 @@ void csr_seg(long ptr[], long ind[], long data[], long x[], long *res, int size)
 int main(){
 	struct Matrix Orig;
 	initMat(&Orig,10,10,"Origin");
-	long csr_ptr, csr_ind, csr_data;
 
 	//Start Compression timer
 	gettimeofday(&tval_before, NULL);
 
-	long *scr_ind = malloc(Orig.rowM * sizeof(long));
-	long *scr_data = malloc(Orig.rowM * sizeof(long));
-	long *scr_ptr = malloc(Orig.rowM * sizeof(long));
+	long *csr_ind = malloc(Orig.nonZero * sizeof(long));
+	long *csr_data = malloc(Orig.nonZero * sizeof(long));
+	long *csr_ptr = malloc((Orig.rowM+1) * sizeof(long));
 
-	csr_comp(Orig, &csr_ptr, &csr_ind, &csr_data);
+	csr_comp(Orig, csr_ptr, csr_ind, csr_data);
 
-	//End Compression timer
+	//End Compression time
 	gettimeofday(&tval_after, NULL);
 	timersub(&tval_after, &tval_before, &tval_result);
 	long compTime = (long int)tval_result.tv_usec;
@@ -154,7 +153,7 @@ int main(){
 	//Start Execution timer
 	gettimeofday(&tval_before, NULL);
 
-	csr_sclr(&csr_ptr, &csr_ind, &csr_data, x , csr_res, Orig.rowM);
+	csr_sclr(csr_ptr, csr_ind, csr_data, x , csr_res, Orig.rowM);
 	//End Execution timer
 	gettimeofday(&tval_after, NULL);
 	timersub(&tval_after, &tval_before, &tval_result);
@@ -166,11 +165,11 @@ int main(){
 		printf("X = ");
 		printLong(x, Orig.rowM);
 		printf("\nData = ");
-		printLong(&csr_data, Orig.rowM);
+		printLong(csr_data, Orig.nonZero);
 		printf("\nIndex = ");
-		printLong(&csr_ind, Orig.rowM);
+		printLong(csr_ind, Orig.nonZero);
 		printf("\nPointer = ");
-		printLong(&csr_ptr, Orig.rowM);
+		printLong(csr_ptr, Orig.rowM+1);
 		printf("\n\nSolution:");
 		printLong(csr_res, Orig.rowM);
 	#endif
@@ -192,7 +191,7 @@ void csr_comp(struct Matrix Orig, long *ptr, long *ind, long *data){
 				locCnt++;
 			}
 		}
-		ptr[i+1] = ptr[i] + locCnt;
+		*(ptr+i+1) = *(ptr+i) + locCnt;
 
 	}
 }
