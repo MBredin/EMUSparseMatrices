@@ -2,12 +2,15 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <memoryweb.h>
 #include <sys/time.h>
 #include <cilk/cilk.h>
 
 #define GENERATEMAT 1
 #define GENERATEMATEXAMPLE 0
 #define SANITY 1
+
+#define NODELETS 8
 
 struct timeval tval_before, tval_after, tval_result;
 
@@ -114,14 +117,27 @@ int main(){
 	struct Matrix Orig;
 	initMat(&Orig,10,10,"Origin");
 
+	//Initialize the vector to be multiplied
+	long *x = malloc(Orig.rowM * sizeof(long));
+	x[0] = 1;
+	for(int i = 1; i < Orig.rowM; i++)
+		x[i] = 0;
+	long *csr_res = malloc(Orig.rowM * sizeof(long));
+
 	//Start Compression timer
 	gettimeofday(&tval_before, NULL);
+
+	//Might just want to compress and solve each row at the same time. (Should improve permformance on EMU)
+	for(int i = 0; i < Orig.rowM; i++){
+		cilk_spawn csr_comp(Orig, csr_ptr, csr_ind, csr_data);
+	}
 
 	long *csr_ind = malloc(Orig.nonZero * sizeof(long));
 	long *csr_data = malloc(Orig.nonZero * sizeof(long));
 	long *csr_ptr = malloc((Orig.rowM+1) * sizeof(long));
 
 	csr_comp(Orig, csr_ptr, csr_ind, csr_data);
+	printf("Size of Array: %zu\n", sizeof(csr_data));
 
 	//End Compression time
 	gettimeofday(&tval_after, NULL);
@@ -144,12 +160,6 @@ int main(){
 	//SpMV Solution//
 	/////////////////
 	
-	//Initialize the vector to be multiplied
-	long *x = malloc(Orig.rowM * sizeof(long));
-	for(int i = 0; i < Orig.rowM; i++)
-		x[i] = i+1;
-	long *csr_res = malloc(Orig.rowM * sizeof(long));
-
 	//Start Execution timer
 	gettimeofday(&tval_before, NULL);
 
@@ -181,7 +191,7 @@ void csr_comp(struct Matrix Orig, long *ptr, long *ind, long *data){
 	int cnt = 0;
 	int locCnt = 0;
 	ptr[0] = 0;
-	cilk_for(int i = 0; i < Orig.rowM; i++){
+	for(int i = 0; i < Orig.rowM; i++){
 		locCnt = 0;
 		for(int j = 0; j < Orig.colN; j++){
 			if(*(Orig.mat+i*Orig.colN+j) != 0){
@@ -191,8 +201,7 @@ void csr_comp(struct Matrix Orig, long *ptr, long *ind, long *data){
 				locCnt++;
 			}
 		}
-		*(ptr+i+1) = *(ptr+i) + locCnt;
-
+		ptr[i+1] = ptr[i] + locCnt;
 	}
 }
 
