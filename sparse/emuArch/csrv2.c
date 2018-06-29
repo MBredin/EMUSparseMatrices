@@ -114,11 +114,11 @@ void printLong(long *arr, int size){
 	printf("]");
 }
 
-void csr_comp(long *orig, long *ptr, long *x, long *csr_res, int size);
+void csr_comp(long *orig, long *ptr, long *x, long *csr_res, long *nodeId, long rowId);
 
 int main(){
 	struct Matrix Orig;
-	initMat(&Orig,8,8,"Origin");
+	initMat(&Orig,10000,10000,"Origin");
 
 	//Rearrange Matrix in memory
 	//starttiming();
@@ -156,22 +156,26 @@ int main(){
 	}
 	
 	
-	//Initialize the vector to be multiplied (replicated across each node)
-	long x[Orig.rowM];
-	for(int j = 0; j < Orig.rowM; j++)
-		mw_replicated_init(&x[j], j+1);
-
-	//Remotely update the row_ptr (May not need since each row is seperated and empty rows are not dropped)
-	long *csr_ptr = malloc((Orig.rowM+1) * sizeof(long));
-	csr_ptr[0] = 0;
-	//initialize Resolution Array (Update remotely from nodes)
+	//Initialize the vector to be multiplied
+	long *x = malloc(Orig.rowM * sizeof(long));
+	for(int i = 0; i < Orig.rowM; i++)
+		x[i] = i+1;
 	long *csr_res = malloc(Orig.rowM * sizeof(long));
+
+	//Pass a pointer each of the nodes (might not need)
+	long *csr_ptr = malloc((Orig.rowM+1) * sizeof(long));
+
+	//Allocate a local for each nodelet
+	long *iden = mw_malloc1dlong(NODELETS);
+	for(int i = 0; i < NODELETS; i++)
+		iden[i] = i;
+	csr_ptr[0] = 0;
 
 	//Split the Original Matrix by its rows, allocating different rows to each node
 	
 	starttiming();
 	for(int i = 0; i < Orig.rowM; i++){
-		cilk_spawn csr_comp(emuRows[i], &csr_ptr[i+1], x, &csr_res[i], Orig.colN);
+		cilk_spawn csr_comp(emuRows[i], &csr_ptr[i+1], x, csr_res, &iden[i%NODELETS], i);
 	}
 	cilk_sync;
 	
@@ -209,23 +213,24 @@ int main(){
 
 }
 
-void csr_comp(long *orig, long *ptr, long *x, long *csr_res, int size){
+void csr_comp(long *orig, long *ptr, long *x, long *csr_res, long *nodeId, long rowId){
 	long cnt = 0;
-	for(int i = 0; i < size; i++)
-		if(orig[i] != 0)
-			cnt++;
-	long *loc_data = malloc(cnt * sizeof(long));
-	long *loc_ind = malloc(cnt * sizeof(long));
+	int rowCnt = 10000;
+	long *loc_data = malloc(rowCnt * sizeof(long));
+	long *loc_ind = malloc(rowCnt * sizeof(long));
 	
-	for(int i = 0; i < cnt; i++){
+	for(int i = 0; i < rowCnt; i++){
 		if(orig[i] != 0){
 			loc_data[cnt] = orig[i];
 			loc_ind[cnt] = i;
+			cnt++;
 		}
 	}
+	*ptr = cnt;
 
-	long loc_res = 0;
+	csr_res[rowId] = 0;
 	for(int i = 0; i < cnt; i++)
-		loc_res += loc_data[i] * x[loc_ind[i]];
+		csr_res[rowId] += loc_data[i] * x[loc_ind[i]];
+	
 }
 
