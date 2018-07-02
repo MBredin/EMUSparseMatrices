@@ -23,7 +23,6 @@ struct Matrix{
 	int nonZero;
 };
 
-
 void initMat(struct Matrix *m, int M, int N, char varName[7]){
 	m -> mat = (long **)malloc(M * sizeof(long *));
 	for(int i = 0; i < M; i++)
@@ -38,18 +37,12 @@ void initMat(struct Matrix *m, int M, int N, char varName[7]){
 		for(int j = 0; j < N; j++)
 			m -> mat[i][j] = 0;
 	#if GENERATEMAT
-		int temp = 1;
 		for(int i = 0; i < M; i++){
 			for(int j = 0; j < N; j++){
-				//*(m->mat+i*N+j) = i*N+j;
-				if(i == j){
+				if(i == j)
 					m->mat[i][j] = 2;
-					temp++;
-				}
-				else if(abs(i - j) == 1){
+				else if(abs(i - j) == 1)
 					m->mat[i][j] = 1;
-					temp++;
-				}
 			}
 		}
 	#endif
@@ -98,12 +91,11 @@ void initMat(struct Matrix *m, int M, int N, char varName[7]){
 }
 
 void print2d(struct Matrix m){
-	for(int i = 0; i < m.matSize; i++){
-		if(i % m.rowM == 0)
-			printf("| ");
-		printf("%3ld ",*(i + m.mat));
-		if(i % m.rowM == m.rowM-1)
-			printf("|\n");
+	for(int i = 0; i < m.rowM; i++){
+		printf("|");
+		for(int j = 0; j < m.colN; j++)
+			printf("%3ld ",m.mat[i][j]);
+		printf("|\n");
 	}
 }
 
@@ -114,11 +106,32 @@ void printLong(long *arr, int size){
 	printf("]");
 }
 
+void emuMat(long *nodeId, struct Matrix Orig, long **emuRows, int rowSplit){
+	MIGRATE(&nodeId);
+	
+	//Allocate memory for given node
+	for(int j = 0; j < rowSplit; j++){
+		emuRows[*nodeId * rowSplit + j] = malloc(Orig.colN * sizeof(long));
+	}
+	//Handle and leftover rows
+	for(int i = 0; i < Orig.rowM % NODELETS; i++)
+		emuRows[NODELETS * rowSplit + i] = malloc(Orig.colN * sizeof(long));
+	//Set data values
+	int temp = 0;
+	if(*nodeId == NODELETS-1)
+		temp = Orig.rowM % NODELETS;
+	for(int i = 0; i < Orig.rowM; i++){
+		for(int j = 0; j < rowSplit + temp; j++){
+			emuRows[i][j] = Orig.mat[i][j];
+		}
+	}
+}
+
 void csr_comp(long *orig, long *ptr, long *x, long *csr_res, int size);
 
 int main(){
 	struct Matrix Orig;
-	initMat(&Orig,8,8,"Origin");
+	initMat(&Orig,100,100,"Origin");
 
 	//Rearrange Matrix in memory
 	//starttiming();
@@ -137,25 +150,16 @@ int main(){
 	for(int i = 0; i < cnt; i++)
 		csr_res[rowId] += loc_data[i] * x[loc_ind[i]];
 	*/
-	
+	starttiming();
 	long *nodes = malloc(NODELETS * sizeof(long *));
-	//long *nodes = mw_malloc1dlong(NODELETS);
 	long *emuRows[Orig.rowM];
-	for(int i = 0; i < Orig.rowM; i++){
-		emuRows[i] = mw_localmalloc(Orig.colN * sizeof(long), &nodes[i%NODELETS]);
-		for(int j = 0; j < Orig.colN; j++){
-			//emuRows[i][j] = 0;
-			//if(i == j){
-			//	emuRows[i][j] = 2;
-			//}
-			//else if(abs(i - j) == 1){
-			//	emuRows[i][j] = 1;
-			//}
-			emuRows[i][j] = Orig.mat[i][j];
-		}
+	int rowSplit = Orig.rowM / NODELETS + (Orig.rowM % NODELETS != 0);
+	for(int i = 0; i < NODELETS; i++){
+		cilk_spawn emuMat(&nodes[i], Orig, emuRows, rowSplit);
 	}
+	cilk_sync;
 	
-	
+	/*
 	//Initialize the vector to be multiplied (replicated across each node)
 	long x[Orig.rowM];
 	for(int j = 0; j < Orig.rowM; j++)
@@ -174,7 +178,7 @@ int main(){
 		cilk_spawn csr_comp(emuRows[i], &csr_ptr[i+1], x, &csr_res[i], Orig.colN);
 	}
 	cilk_sync;
-	
+	*/	
 
 
 	/////////////////
@@ -185,15 +189,15 @@ int main(){
 
 	//Sanity Check
 	#if SANITY
-		//print2d(Orig);
+		print2d(Orig);
 		//printf("X = ");
-		//printf("Emu Matrix");
-		//for(int i = 0; i < Orig.rowM; i++){
-		//	printf("| ");
-		//	for(int j = 0; j < Orig.colN; j++)
-		//		printf("%3ld",emuRows[i][j]);
-		//	printf(" |\n");
-		//}
+		printf("Emu Matrix\n");
+		for(int i = 0; i < Orig.rowM; i++){
+			printf("| ");
+			for(int j = 0; j < Orig.colN; j++)
+				printf("%3ld",emuRows[i][j]);
+			printf(" |\n");
+		}
 		//printLong(x, Orig.rowM);
 		//printf("\nData = ");
 		//printLong(csr_data, Orig.nonZero);
@@ -201,8 +205,8 @@ int main(){
 		//printLong(csr_ind, Orig.nonZero);
 		//printf("\nPointer = ");
 		//printLong(csr_ptr, Orig.rowM+1);
-		printf("\n\nSolution:");
-		printLong(csr_res, Orig.rowM);
+		//printf("\n\nSolution:");
+		//printLong(csr_res, Orig.rowM);
 	#endif
 	//printf("Compression Time: %ld\n", compTime);
 	//printf("Execution Time: %ld\n", execTime);
