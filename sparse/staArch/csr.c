@@ -5,30 +5,25 @@
 #include <sys/time.h>
 #include <cilk/cilk.h>
 
-#define GENERATEMAT 0
-#define GENERATEMATEXAMPLE 1
+#define GENERATEMAT 1
+#define GENERATEMATEXAMPLE 0
 #define SANITY 1
 
+#pragma grainsize = 8
 
 struct timeval tval_before, tval_after, tval_result;
-
-struct Array{
-	long *arr;
-	char name[7];
-	size_t size;
-};
 
 struct Matrix{
 	long *mat;
 	char name[7];
-	size_t rowM;
-	size_t colN;
-	size_t matSize;
-	size_t nonZero;
+	int rowM;
+	int colN;
+	int matSize;
+	int nonZero;
 };
 
 
-void initMat(struct Matrix *m, size_t M, size_t N, char varName[7]){
+void initMat(struct Matrix *m, int M, int N, char varName[7]){
 	m -> mat = (long *)malloc(M*N*sizeof(long));
 	m -> rowM = M;
 	m -> colN = N;
@@ -41,11 +36,11 @@ void initMat(struct Matrix *m, size_t M, size_t N, char varName[7]){
 			for(int j = 0; j < N; j++){
 				//*(m->mat+i*N+j) = i*N+j;
 				if(i == j){
-					*(m->mat+i*N+j) = temp;
+					*(m->mat+i*N+j) = 2;
 					temp++;
 				}
 				else if(abs(i - j) == 1){
-					*(m->mat+i*N+j) = temp;
+					*(m->mat+i*N+j) = 1;
 					temp++;
 				}
 			}
@@ -95,152 +90,132 @@ void initMat(struct Matrix *m, size_t M, size_t N, char varName[7]){
 	m -> nonZero = 	cnt;
 }
 
-void initArr(struct Array *a, int N,char varName[7]){
-	a -> arr = (long *)malloc(N * sizeof(long));
-	a -> size = N;
-	for(int i = 0; i < 7; i++)
-		a->name[i] = varName[i];
-}
-
-
 void print2d(struct Matrix m){
 	for(int i = 0; i < m.matSize; i++){
-		if(i % 8 == 0)
+		if(i % m.rowM == 0)
 			printf("| ");
 		printf("%3ld ",*(i + m.mat));
-		if(i % 8 == 7)
+		if(i % m.rowM == m.rowM-1)
 			printf("|\n");
 	}
 }
 
-void print1d(struct Array *a){
-	for(int i = 0; i < 7; i++){
-		printf("%c",a->name[i]);
-	}
-	printf(" = [");
-	for(int i = 0; i < a->size; i++)
-		printf("%ld ",a->arr[i]);
-	printf("]\n");
+void printLong(long *arr, int size){
+	printf("[");
+	for(int i = 0 ; i < size; i++)
+		printf("%5ld", arr[i]);
+	printf("]");
 }
 
+void csr_comp(struct Matrix Orig, long *ptr, long *ind, long *data);
 
-
-void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct Array *data);
-
-void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res);
-void csr_seg(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res);
+void csr_sclr(long ptr[], long ind[], long data[], long x[], long *res, int size);
+void csr_seg(long ptr[], long ind[], long data[], long x[], long *res, int size);
 
 int main(){
-	struct Matrix Orig;
-	initMat(&Orig,8,8,"Origin");
-	struct Array csr_ptr, csr_ind, csr_data;
-	csr_comp(Orig, &csr_ptr, &csr_ind, &csr_data);
-	
-	/*
 	gettimeofday(&tval_before, NULL);
-	//Spawn Workers
-	for(int i = 0; i < WORKERS; i++)
-		cilk_spawn worker(i,&A[0],&B[0]);
-	cilk_sync;
+	struct Matrix Orig;
+	initMat(&Orig,2000,2000,"Origin");
 
-	gettimeofday(&tval_after, NULL);
-	timersub(&tval_after, &tval_before, &tval_result);
-	printf("Time: %ld\n",(long int)tval_result.tv_usec);
-	*/
+	long *csr_ind = malloc(Orig.nonZero * sizeof(long));
+	long *csr_data = malloc(Orig.nonZero * sizeof(long));
+	long *csr_ptr = malloc((Orig.rowM+1) * sizeof(long));
+
+	csr_comp(Orig, csr_ptr, csr_ind, csr_data);
 
 	/////////////////
 	//SpMV Solution//
 	/////////////////
 	
 	//Initialize the vector to be multiplied
-	struct Array x;
-	initArr(&x, Orig.rowM, "MulVec");
+	long *x = malloc(Orig.rowM * sizeof(long));
 	for(int i = 0; i < Orig.rowM; i++)
-		x.arr[i] = i+1;
-	struct Array csr_res;
-	csr_seg(csr_ptr, csr_ind, csr_data, x , &csr_res);
+		x[i] = i+1;
+	long *csr_res = malloc(Orig.rowM * sizeof(long));
+
+	csr_sclr(csr_ptr, csr_ind, csr_data, x , csr_res, Orig.rowM);
+	//End Execution timer
+	gettimeofday(&tval_after, NULL);
+	timersub(&tval_after, &tval_before, &tval_result);
+	long execTime = (long int)tval_result.tv_usec;
 
 	//Sanity Check
 	#if SANITY
-		print2d(Orig);
-		print1d(&x);
-		printf("\n");
-		print1d(&csr_data);
-		print1d(&csr_ind);
-		print1d(&csr_ptr);
-		printf("\nSolution:");
-		print1d(&csr_res);
+		//print2d(Orig);
+		//printf("X = ");
+		//printLong(x, Orig.rowM);
+		//printf("\nData = ");
+		//printLong(csr_data, Orig.nonZero);
+		//printf("\nIndex = ");
+		//printLong(csr_ind, Orig.nonZero);
+		//printf("\nPointer = ");
+		//printLong(csr_ptr, Orig.rowM+1);
+		printf("\n\nSolution:");
+		printLong(csr_res, Orig.rowM);
 	#endif
-
+	printf("Execution Time: %ld\n", execTime);
 }
 
-void csr_comp(struct Matrix Orig, struct Array *ptr, struct Array *ind, struct Array *data){
-	initArr(data, Orig.nonZero, "CsrDat");
-	initArr(ind, Orig.nonZero, "CsrInd");
-	initArr(ptr, (Orig.rowM + 1), "CsrPtr");
-
+void csr_comp(struct Matrix Orig, long *ptr, long *ind, long *data){
 	int cnt = 0;
 	int locCnt = 0;
-	ptr->arr[0] = 0;
+	ptr[0] = 0;
 	for(int i = 0; i < Orig.rowM; i++){
 		locCnt = 0;
 		for(int j = 0; j < Orig.colN; j++){
 			if(*(Orig.mat+i*Orig.colN+j) != 0){
-				data->arr[cnt] = *(Orig.mat+i*Orig.colN+j);
-				ind->arr[cnt] = j;
+				data[cnt] = *(Orig.mat+i*Orig.colN+j);
+				ind[cnt] = j;
 				cnt++;
 				locCnt++;
 			}
 		}
-		ptr->arr[i+1] = ptr->arr[i] + locCnt;
-
+		ptr[i+1] = ptr[i] + locCnt;
 	}
 }
 
-void csr_sclr(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res){
-	initArr(res, ptr.size-1,"CsrScl");
-	for(int i = 0; i < ptr.size-1; i++){
-		res->arr[i] = 0;
-		for(int j = ptr.arr[i]; j < ptr.arr[i+1] ;j++){
-			res->arr[i] += data.arr[j] * x.arr[ind.arr[j]];
+void csr_sclr(long ptr[], long ind[], long data[], long x[], long *res, int size){
+	#pragma grainsize = 8
+	for(int i = 0; i < size; i++){
+		res[i] = 0;
+		for(int j = ptr[i]; j < ptr[i+1] ;j++){
+			res[i] += data[j] * x[ind[j]];
 		}
 	}
 }
 
-void csr_seg(struct Array ptr, struct Array ind, struct Array data, struct Array x, struct Array *res){
-	initArr(res, ptr.size-1, "CsrSeg");
-	struct Array bitFlag, prod;
-	initArr(&bitFlag, data.size, "BitFlg");
-	initArr(&prod, data.size, "PrdHld");
+void csr_seg(long ptr[], long ind[], long data[], long x[], long *res, int size){
+	long *bitFlag = malloc(size * sizeof(long));
+	long *prod = malloc(size * sizeof(long));
 
 	//Initialize Bit Array to false (0)
-	for(int i = 0; i < bitFlag.size; i++)
-		bitFlag.arr[i] = 0;
+	cilk_for(int i = 0; i < size; i++)
+		bitFlag[i] = 0;
 	//Set prt values to true (1)
-	for(int i =0; i < ptr.size; i++)
-		bitFlag.arr[ptr.arr[i]] = 1;
+	cilk_for(int i =0; i < size; i++)
+		bitFlag[ptr[i]] = 1;
 	//
-	for(int i = 0; i < prod.size; i++)
-		prod.arr[i] = data.arr[i] * x.arr[ind.arr[i]];
+	cilk_for(int i = 0; i < size; i++)
+		prod[i] = data[i] * x[ind[i]];
 	//Segmentation Sum
 	int j;
-	for(int i = 0; i < prod.size; i++){
-		if(bitFlag.arr[i] == 1){
+	cilk_for(int i = 0; i < size; i++){
+		if(bitFlag[i] == 1){
 			j = i + 1;
-			while(bitFlag.arr[j] == 0 && j < prod.size){
-				prod.arr[i] += prod.arr[j];
+			while(bitFlag[j] == 0 && j < size){
+				prod[i] += prod[j];
 				j++;
 			}
 		}
 		else{
-			prod.arr[i] = 0;
+			prod[i] = 0;
 		}
 	}
 	//
-	for(int i = 0; i < res->size; i++){
-		if(ptr.arr[i] == ptr.arr[i+1])
-			res->arr[i] = 0;
+	cilk_for(int i = 0; i < size; i++){
+		if(ptr[i] == ptr[i+1])
+			res[i] = 0;
 		else
-			res->arr[i] = prod.arr[ptr.arr[i]];
+			res[i] = prod[ptr[i]];
 	}
 }
