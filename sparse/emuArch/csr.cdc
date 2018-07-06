@@ -1,5 +1,5 @@
-Post Untimed portion: CurrentRSS (MB)=40.0938
-Post Untimed portion: PeakRSS (MB)=40.0938
+Post Untimed portion: CurrentRSS (MB)=40.8672
+Post Untimed portion: PeakRSS (MB)=40.8672
 ************************************************
 Program Name/Arguments: 
 csr.mwx 
@@ -17,5 +17,5 @@ Core Clock=3600 MHz, Pd=0.278
 Memory DDR4-2133: Bandwidth = 1.886 GiB/s = 2.025 GB/s
 SRIO SystemIC bandwidth=2.32 GiB/s (2.5GB/s)
 ************************************************
-Post SystemC Startup: CurrentRSS (MB)=40.0938
-Post SystemC Startup: PeakRSS (MB)=40.0938
+Post SystemC Startup: CurrentRSS (MB)=40.8672
+Post SystemC Startup: PeakRSS (MB)=40.8672
