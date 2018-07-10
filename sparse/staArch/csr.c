@@ -3,13 +3,19 @@
 #include <math.h>
 #include <time.h>
 #include <sys/time.h>
-#include <cilk/cilk.h>
 
-#define GENERATEMAT 1
-#define SANITY 1
+#define SANITY 0
 
-#define ROWM 10
-#define COLN 10
+//Bool for which matrix to generate (one must be on, the rest must be 0)
+#define RANDOMMATRIX 1
+#define DIAGMATRIX 0
+#define CROSSMATRIX 0
+
+//Constants for random generated matrix
+#define SPARSITY 0.5
+#define RANDRANGE 10
+
+#define MATDIM 2000
 
 #pragma grainsize = 8
 
@@ -22,54 +28,68 @@ void csr_seg(long ptr[], long ind[], long data[], long x[], long *res, int size)
 
 int main(){
 	srand(time(NULL));
-	gettimeofday(&tval_before, NULL);
-	double tempR, tempC;
+	double rowPer, colPer, randNum;
 
 	//Allocate Memory
-	long **matrix = malloc(ROWM * sizeof(long *));
-	for(int i = 0; i < COLN; i++)
-		matrix[i] = malloc(COLN * sizeof(long));
+	long **matrix = malloc(MATDIM * sizeof(long *));
+	for(int i = 0; i < MATDIM; i++)
+		matrix[i] = malloc(MATDIM * sizeof(long));
 
-	for(int i = 0; i < ROWM; i++){
-		tempR = (double)i / (double)ROWM;
-		for(int j = 0; j < COLN; j++){
-			tempC = (double)j / (double)COLN;
-			
-			if(i == j)
-				matrix[i][j] = rand() % 10 + 1;
-			else if(abs(i - j) == 1)
-				matrix[i][j] = rand() % 10 + 1;
-			
-			/*
-			if((tempR >= 0.1 && tempR <= 0.4) || (tempC >= 0.1 && tempC <= 0.4))
-				matrix[i][j] = 0;
-			else
-				matrix[i][j] = rand() % 10 + 1;
-			*/
+	for(int i = 0; i < MATDIM; i++){
+		rowPer = (double)i / (double)MATDIM;
+		for(int j = 0; j < MATDIM; j++){
+			colPer = (double)j / (double)MATDIM;
+			#if RANDOMMATRIX
+                                randNum = rand() % RANDRANGE;
+                                if(randNum/RANDRANGE >= SPARSITY)
+                                        matrix[i][j] = rand() % RANDRANGE;
+                                else
+                                        matrix[i][j] = 0;
+                        #endif
+                        #if DIAGMATRIX
+                                if(matRow == j)
+                                        matrix[i][j] = 2;
+                                else if(abs(matRow - j) == 1)
+                                        matrix[i][j] = 1;
+                                else
+                                        matrix[i][j] = 0;
+                        #endif
+
+                        #if CROSSMATRIX
+                                if((rowPer >= 0.2 && rowPer <= 0.3) || (colPer >= 0.2 && colPer <= 0.3))
+                                        matrix[i][j] = 0;
+                                else
+                                        matrix[i][j] = rand() % RANDRANGE + 1;
+                        #endif
 		}
 	}
 
+	gettimeofday(&tval_after, NULL);
 	int nonZero = 0;
-	for(int i = 0; i < ROWM; i++)
-		for(int j = 0; j < COLN; j++)
+	for(int i = 0; i < MATDIM; i++)
+		for(int j = 0; j < MATDIM; j++)
 			if(matrix[i][j] != 0)
 				nonZero++;
 
+	gettimeofday(&tval_before, NULL);
 	long *ind = malloc(nonZero * sizeof(long));
 	long *data = malloc(nonZero * sizeof(long));
-	long *ptr = malloc((ROWM+1) * sizeof(long));
+	long *ptr = malloc((MATDIM+1) * sizeof(long));
 
 	csr_comp(matrix, ptr, ind, data);
+	timersub(&tval_after, &tval_before, &tval_result);
+	long compTime = (long int)tval_result.tv_usec;
 
 	/////////////////
 	//SpMV Solution//
 	/////////////////
 	
 	//Initialize the vector to be multiplied
-	long *x = malloc(ROWM * sizeof(long));
-	for(int i = 0; i < ROWM; i++)
+	gettimeofday(&tval_before, NULL);
+	long *x = malloc(MATDIM * sizeof(long));
+	for(int i = 0; i < MATDIM; i++)
 		x[i] = i+1;
-	long *res = malloc(ROWM * sizeof(long));
+	long *res = malloc(MATDIM * sizeof(long));
 
 	csr_sclr(ptr, ind, data, x, res);
 	//End Execution timer
@@ -80,22 +100,22 @@ int main(){
 	//Sanity Check
 	#if SANITY
 		printf("Original Matrix:\n");
-		for(int i = 0; i < ROWM; i++){
+		for(int i = 0; i < MATDIM; i++){
 			printf("|");
-			for(int j = 0; j < COLN; j++)
+			for(int j = 0; j < MATDIM; j++)
 				printf("%3ld", matrix[i][j]);
 			printf("|\n");
 		}
-		for(int i = 0; i < ROWM; i++){
+		for(int i = 0; i < MATDIM; i++){
 			if(i % 2 == 0 && i < 8)
 				printf("\n\nNode: %d\n", i/2);
 			printf("|");
-			for(int j = 0; j < COLN; j++)
+			for(int j = 0; j < MATDIM; j++)
 				printf("%3ld", matrix[i][j]);
 			printf("|\n");
 		}
 		printf("\n\nX: [");
-		for(int i = 0; i < ROWM; i++)
+		for(int i = 0; i < MATDIM; i++)
 			printf("%3ld", x[i]);
 		printf("]\n");
 		printf("Data:  [");
@@ -107,24 +127,25 @@ int main(){
 			printf("%3ld", ind[i]);
 		printf("]\n");
 		printf("Pointer: [");
-		for(int i = 0; i < ROWM+1; i++)
+		for(int i = 0; i < MATDIM+1; i++)
 			printf("%3ld", ptr[i]);
 		printf("]\n");
 		printf("Solution: [");
-		for(int i = 0; i < ROWM; i++)
+		for(int i = 0; i < MATDIM; i++)
 			printf("%3ld", res[i]);
 		printf("]\n");
 	#endif
 	printf("Execution Time: %ld\n", execTime);
+	printf("Compression Time: %ld\n", compTime);
 }
 
 void csr_comp(long **matrix, long *ptr, long *ind, long *data){
 	int cnt = 0;
 	int locCnt = 0;
 	ptr[0] = 0;
-	for(int i = 0; i < ROWM; i++){
+	for(int i = 0; i < MATDIM; i++){
 		locCnt = 0;
-		for(int j = 0; j < COLN; j++){
+		for(int j = 0; j < MATDIM; j++){
 			if(matrix[i][j] != 0){
 				data[cnt] = matrix[i][j];
 				ind[cnt] = j;
@@ -137,46 +158,10 @@ void csr_comp(long **matrix, long *ptr, long *ind, long *data){
 }
 
 void csr_sclr(long ptr[], long ind[], long data[], long x[], long *res){
-	for(int i = 0; i < ROWM; i++){
+	for(int i = 0; i < MATDIM; i++){
 		res[i] = 0;
 		for(int j = ptr[i]; j < ptr[i+1] ;j++){
 			res[i] += data[j] * x[ind[j]];
 		}
-	}
-}
-
-void csr_seg(long ptr[], long ind[], long data[], long x[], long *res, int size){
-	long *bitFlag = malloc(size * sizeof(long));
-	long *prod = malloc(size * sizeof(long));
-
-	//Initialize Bit Array to false (0)
-	cilk_for(int i = 0; i < size; i++)
-		bitFlag[i] = 0;
-	//Set prt values to true (1)
-	cilk_for(int i =0; i < size; i++)
-		bitFlag[ptr[i]] = 1;
-	//
-	cilk_for(int i = 0; i < size; i++)
-		prod[i] = data[i] * x[ind[i]];
-	//Segmentation Sum
-	int j;
-	cilk_for(int i = 0; i < size; i++){
-		if(bitFlag[i] == 1){
-			j = i + 1;
-			while(bitFlag[j] == 0 && j < size){
-				prod[i] += prod[j];
-				j++;
-			}
-		}
-		else{
-			prod[i] = 0;
-		}
-	}
-	//
-	cilk_for(int i = 0; i < size; i++){
-		if(ptr[i] == ptr[i+1])
-			res[i] = 0;
-		else
-			res[i] = prod[ptr[i]];
 	}
 }
