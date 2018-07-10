@@ -1,0 +1,1553 @@
+NLET[0]: 
+	num_created=1, num_spawns=2, num_quits=17
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 2577338 ps, 6.33e-05, 40452103314 ps, 0.994
+	RunQ, 1, 0 s, 0, 40684861316 ps, 1
+	MigrQ, 1, 4507770 ps, 0.000111, 40451901208 ps, 0.994
+	RemoteQ, 1, 17795614 ps, 0.000437, 40684877996 ps, 1
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 14
+	num timed out, 0
+	num rescheduling, 0
+	num services, 1
+	num rmos out, 0
+	num insts retired, 3656260
+	IPC (max=4): 0.0249831
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 21
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 255015
+	mem b/w utilization, 0.0247587
+	num releases, 17
+
+    GC->NQM Stall Stats:
+	stall_length[0]=21
+	stall_length[1]=13
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[6]=14
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=18
+
+	outgoing_xactions=34
+	outgoing_cycles=496
+	outgoing_bw_utilization (max=4)=3.38916e-06
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[20]=1
+	gc_from_nqm_lengths[21]=29
+
+	incoming_xactions=32
+	incoming_cycles=663
+	incoming_bw_utilization (max=4)=4.53026e-06
+
+    NQM Total Stats:
+	incoming_packet_lengths[3]=21
+	incoming_packet_lengths[6]=14
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=46
+
+	incoming_xactions=83
+	incoming_cycles=1147
+	incoming_bw_utilization (max=4)=7.83742e-06
+
+	outgoing_packet_lengths[1]=21
+	outgoing_packet_lengths[3]=21
+	outgoing_packet_lengths[6]=14
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[20]=1
+	outgoing_packet_lengths[21]=46
+
+	outgoing_xactions=105
+	outgoing_cycles=1188
+	outgoing_bw_utilization (max=4)=8.11758e-06
+*
+NLET[1]: 
+	num_created=0, num_spawns=2, num_quits=0
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 4662894 ps, 0.000115, 40430511054 ps, 0.994
+	RunQ, 1, 4526952 ps, 0.000111, 40430511054 ps, 0.994
+	MigrQ, 1, 4738510 ps, 0.000116, 40656625134 ps, 0.999
+	RemoteQ, 0, 0 s, 0, 0 s, 0
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 4
+	num timed out, 0
+	num rescheduling, 0
+	num services, 0
+	num rmos out, 3
+	num insts retired, 3651286
+	IPC (max=4): 0.0249492
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 0
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 253894
+	mem b/w utilization, 0.0246499
+	num releases, 0
+
+    GC->NQM Stall Stats:
+	stall_length[0]=3
+	stall_length[1]=6
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[3]=3
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=4
+
+	outgoing_xactions=9
+	outgoing_cycles=127
+	outgoing_bw_utilization (max=4)=8.67788e-07
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[21]=2
+
+	incoming_xactions=4
+	incoming_cycles=76
+	incoming_bw_utilization (max=4)=5.19306e-07
+
+    NQM Total Stats:
+	incoming_packet_lengths[1]=3
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=6
+
+	incoming_xactions=14
+	incoming_cycles=172
+	incoming_bw_utilization (max=4)=1.17527e-06
+
+	outgoing_packet_lengths[3]=3
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[21]=6
+
+	outgoing_xactions=11
+	outgoing_cycles=169
+	outgoing_bw_utilization (max=4)=1.15477e-06
+*
+NLET[2]: 
+	num_created=0, num_spawns=2, num_quits=0
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 6784034 ps, 0.000167, 40434101702 ps, 0.994
+	RunQ, 1, 6647536 ps, 0.000163, 40434101702 ps, 0.994
+	MigrQ, 1, 6859650 ps, 0.000169, 40660219674 ps, 0.999
+	RemoteQ, 0, 0 s, 0, 0 s, 0
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 4
+	num timed out, 0
+	num rescheduling, 0
+	num services, 0
+	num rmos out, 3
+	num insts retired, 3651286
+	IPC (max=4): 0.0249492
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 0
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 253894
+	mem b/w utilization, 0.0246499
+	num releases, 0
+
+    GC->NQM Stall Stats:
+	stall_length[0]=6
+	stall_length[1]=3
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[3]=3
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=4
+
+	outgoing_xactions=9
+	outgoing_cycles=127
+	outgoing_bw_utilization (max=4)=8.67788e-07
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[21]=2
+
+	incoming_xactions=4
+	incoming_cycles=76
+	incoming_bw_utilization (max=4)=5.19306e-07
+
+    NQM Total Stats:
+	incoming_packet_lengths[1]=3
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=6
+
+	incoming_xactions=14
+	incoming_cycles=172
+	incoming_bw_utilization (max=4)=1.17527e-06
+
+	outgoing_packet_lengths[3]=3
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[21]=6
+
+	outgoing_xactions=11
+	outgoing_cycles=169
+	outgoing_bw_utilization (max=4)=1.15477e-06
+*
+NLET[3]: 
+	num_created=0, num_spawns=2, num_quits=0
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 8905174 ps, 0.000219, 40437696242 ps, 0.994
+	RunQ, 1, 8768676 ps, 0.000216, 40437696242 ps, 0.994
+	MigrQ, 1, 8980790 ps, 0.000221, 40663814214 ps, 0.999
+	RemoteQ, 0, 0 s, 0, 0 s, 0
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 4
+	num timed out, 0
+	num rescheduling, 0
+	num services, 0
+	num rmos out, 3
+	num insts retired, 3651286
+	IPC (max=4): 0.0249492
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 0
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 253894
+	mem b/w utilization, 0.0246499
+	num releases, 0
+
+    GC->NQM Stall Stats:
+	stall_length[0]=2
+	stall_length[1]=7
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[3]=3
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=4
+
+	outgoing_xactions=9
+	outgoing_cycles=127
+	outgoing_bw_utilization (max=4)=8.67788e-07
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[21]=2
+
+	incoming_xactions=4
+	incoming_cycles=76
+	incoming_bw_utilization (max=4)=5.19306e-07
+
+    NQM Total Stats:
+	incoming_packet_lengths[1]=3
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=6
+
+	incoming_xactions=14
+	incoming_cycles=172
+	incoming_bw_utilization (max=4)=1.17527e-06
+
+	outgoing_packet_lengths[3]=3
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[21]=6
+
+	outgoing_xactions=11
+	outgoing_cycles=169
+	outgoing_bw_utilization (max=4)=1.15477e-06
+*
+NLET[4]: 
+	num_created=0, num_spawns=2, num_quits=0
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 11026314 ps, 0.000271, 40441282998 ps, 0.994
+	RunQ, 1, 10889816 ps, 0.000268, 40441282998 ps, 0.994
+	MigrQ, 1, 11101930 ps, 0.000273, 40667380954 ps, 1
+	RemoteQ, 0, 0 s, 0, 0 s, 0
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 4
+	num timed out, 0
+	num rescheduling, 0
+	num services, 0
+	num rmos out, 3
+	num insts retired, 3651286
+	IPC (max=4): 0.0249492
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 0
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 253894
+	mem b/w utilization, 0.0246499
+	num releases, 0
+
+    GC->NQM Stall Stats:
+	stall_length[0]=6
+	stall_length[1]=3
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[3]=3
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=4
+
+	outgoing_xactions=9
+	outgoing_cycles=127
+	outgoing_bw_utilization (max=4)=8.67788e-07
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[21]=2
+
+	incoming_xactions=4
+	incoming_cycles=76
+	incoming_bw_utilization (max=4)=5.19306e-07
+
+    NQM Total Stats:
+	incoming_packet_lengths[1]=3
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=6
+
+	incoming_xactions=14
+	incoming_cycles=172
+	incoming_bw_utilization (max=4)=1.17527e-06
+
+	outgoing_packet_lengths[3]=3
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[21]=6
+
+	outgoing_xactions=11
+	outgoing_cycles=169
+	outgoing_bw_utilization (max=4)=1.15477e-06
+*
+NLET[5]: 
+	num_created=0, num_spawns=2, num_quits=0
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 13151346 ps, 0.000323, 40444865306 ps, 0.994
+	RunQ, 1, 13015404 ps, 0.00032, 40444865306 ps, 0.994
+	MigrQ, 1, 13226962 ps, 0.000325, 40670979386 ps, 1
+	RemoteQ, 0, 0 s, 0, 0 s, 0
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 4
+	num timed out, 0
+	num rescheduling, 0
+	num services, 0
+	num rmos out, 3
+	num insts retired, 3651286
+	IPC (max=4): 0.0249492
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 0
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 253894
+	mem b/w utilization, 0.0246499
+	num releases, 0
+
+    GC->NQM Stall Stats:
+	stall_length[0]=7
+	stall_length[1]=2
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[3]=3
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=4
+
+	outgoing_xactions=9
+	outgoing_cycles=127
+	outgoing_bw_utilization (max=4)=8.67788e-07
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[21]=2
+
+	incoming_xactions=4
+	incoming_cycles=76
+	incoming_bw_utilization (max=4)=5.19306e-07
+
+    NQM Total Stats:
+	incoming_packet_lengths[1]=3
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=6
+
+	incoming_xactions=14
+	incoming_cycles=172
+	incoming_bw_utilization (max=4)=1.17527e-06
+
+	outgoing_packet_lengths[3]=3
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[21]=6
+
+	outgoing_xactions=11
+	outgoing_cycles=169
+	outgoing_bw_utilization (max=4)=1.15477e-06
+*
+NLET[6]: 
+	num_created=0, num_spawns=2, num_quits=0
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 15276378 ps, 0.000375, 40448455954 ps, 0.994
+	RunQ, 1, 15140436 ps, 0.000372, 40448455954 ps, 0.994
+	MigrQ, 1, 15351994 ps, 0.000377, 40674557802 ps, 1
+	RemoteQ, 0, 0 s, 0, 0 s, 0
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 4
+	num timed out, 0
+	num rescheduling, 0
+	num services, 0
+	num rmos out, 3
+	num insts retired, 3651286
+	IPC (max=4): 0.0249492
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 0
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 253894
+	mem b/w utilization, 0.0246499
+	num releases, 0
+
+    GC->NQM Stall Stats:
+	stall_length[0]=7
+	stall_length[1]=2
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[3]=3
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=4
+
+	outgoing_xactions=9
+	outgoing_cycles=127
+	outgoing_bw_utilization (max=4)=8.67788e-07
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[21]=2
+
+	incoming_xactions=4
+	incoming_cycles=76
+	incoming_bw_utilization (max=4)=5.19306e-07
+
+    NQM Total Stats:
+	incoming_packet_lengths[1]=3
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=6
+
+	incoming_xactions=14
+	incoming_cycles=172
+	incoming_bw_utilization (max=4)=1.17527e-06
+
+	outgoing_packet_lengths[3]=3
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[21]=6
+
+	outgoing_xactions=11
+	outgoing_cycles=169
+	outgoing_bw_utilization (max=4)=1.15477e-06
+*
+NLET[7]: 
+	num_created=0, num_spawns=2, num_quits=0
+
+    Thread Maximum Counters:
+    Total program time=40685049800 ps:
+	Queue, Max Val, 1st Max Time, 1st Max Prog Comp., Last Max Time, Last Max Prog Comp.
+	Total, 2, 17405302 ps, 0.000428, 40452054386 ps, 0.994
+	RunQ, 1, 17269360 ps, 0.000424, 40452054386 ps, 0.994
+	MigrQ, 1, 17465906 ps, 0.000429, 40677737566 ps, 1
+	RemoteQ, 0, 0 s, 0, 0 s, 0
+	DramQ, 0, 0 s, 0, 0 s, 0
+
+    Instruction Stats:
+	num migrates, 4
+	num timed out, 0
+	num rescheduling, 0
+	num services, 0
+	num rmos out, 3
+	num insts retired, 3651262
+	IPC (max=4): 0.024949
+	num insts flushed, 0
+	num fences retired, 0
+
+    Memory Stats:
+	num incoming RMOs, 0
+	num mem ops(inc RMOs), 2031841
+	num mem xactions, 253887
+	mem b/w utilization, 0.0246492
+	num releases, 0
+
+    GC->NQM Stall Stats:
+	stall_length[0]=7
+	stall_length[1]=2
+
+    GC-NQM Transaction Stats:
+	gc_to_nqm_lengths[3]=3
+	gc_to_nqm_lengths[17]=2
+	gc_to_nqm_lengths[21]=4
+
+	outgoing_xactions=9
+	outgoing_cycles=127
+	outgoing_bw_utilization (max=4)=8.67788e-07
+
+	gc_from_nqm_lengths[17]=2
+	gc_from_nqm_lengths[21]=2
+
+	incoming_xactions=4
+	incoming_cycles=76
+	incoming_bw_utilization (max=4)=5.19306e-07
+
+    NQM Total Stats:
+	incoming_packet_lengths[1]=3
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[17]=2
+	incoming_packet_lengths[21]=6
+
+	incoming_xactions=14
+	incoming_cycles=172
+	incoming_bw_utilization (max=4)=1.17527e-06
+
+	outgoing_packet_lengths[3]=3
+	outgoing_packet_lengths[17]=2
+	outgoing_packet_lengths[21]=6
+
+	outgoing_xactions=11
+	outgoing_cycles=169
+	outgoing_bw_utilization (max=4)=1.15477e-06
+*
+*
+ME[0].FromNQM[0]:
+	incoming_packet_lengths[1]=21
+	incoming_packet_lengths[21]=14
+
+	sum_incoming_xactions, 35
+	in_busy_cycles, 315
+	ME[0].FromNQM[0].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[0].IU: 2.15239e-06, 2.39154e-07, 0, 0.999998
+	ME[0].FromNQM[0].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[0].OU: 2.15239e-06, 2.39154e-07, 2.39154e-07, 0.999997
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 0, 5, 5, 5, 5, 5, 5, 5
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=36
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348717
+	depth[1]=35
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=35
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].FromNQM[1]:
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[21]=4
+
+	sum_incoming_xactions, 7
+	in_busy_cycles, 93
+	ME[0].FromNQM[1].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[1].IU: 6.35467e-07, 4.78308e-08, 0, 0.999999
+	ME[0].FromNQM[1].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[1].OU: 6.35467e-07, 4.78308e-08, 4.78308e-08, 0.999999
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 7, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=8
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348995
+	depth[1]=7
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=7
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].FromNQM[2]:
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[21]=4
+
+	sum_incoming_xactions, 7
+	in_busy_cycles, 93
+	ME[0].FromNQM[2].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[2].IU: 6.35467e-07, 4.78308e-08, 0, 0.999999
+	ME[0].FromNQM[2].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[2].OU: 6.35467e-07, 4.78308e-08, 4.78308e-08, 0.999999
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 7, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=8
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348995
+	depth[1]=7
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=7
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].FromNQM[3]:
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[21]=4
+
+	sum_incoming_xactions, 7
+	in_busy_cycles, 93
+	ME[0].FromNQM[3].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[3].IU: 6.35467e-07, 4.78308e-08, 0, 0.999999
+	ME[0].FromNQM[3].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[3].OU: 6.35467e-07, 4.78308e-08, 4.78308e-08, 0.999999
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 7, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=8
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348995
+	depth[1]=7
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=7
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].FromNQM[4]:
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[21]=4
+
+	sum_incoming_xactions, 7
+	in_busy_cycles, 93
+	ME[0].FromNQM[4].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[4].IU: 6.35467e-07, 4.78308e-08, 0, 0.999999
+	ME[0].FromNQM[4].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[4].OU: 6.35467e-07, 4.78308e-08, 4.78308e-08, 0.999999
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 7, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=8
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348995
+	depth[1]=7
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=7
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].FromNQM[5]:
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[21]=4
+
+	sum_incoming_xactions, 7
+	in_busy_cycles, 93
+	ME[0].FromNQM[5].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[5].IU: 6.35467e-07, 4.78308e-08, 0, 0.999999
+	ME[0].FromNQM[5].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[5].OU: 6.35467e-07, 4.78308e-08, 4.78308e-08, 0.999999
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 7, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=8
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348995
+	depth[1]=7
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=7
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].FromNQM[6]:
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[21]=4
+
+	sum_incoming_xactions, 7
+	in_busy_cycles, 93
+	ME[0].FromNQM[6].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[6].IU: 6.35467e-07, 4.78308e-08, 0, 0.999999
+	ME[0].FromNQM[6].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[6].OU: 6.35467e-07, 4.78308e-08, 4.78308e-08, 0.999999
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 7, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=8
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348995
+	depth[1]=7
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=7
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].FromNQM[7]:
+	incoming_packet_lengths[3]=3
+	incoming_packet_lengths[21]=4
+
+	sum_incoming_xactions, 7
+	in_busy_cycles, 93
+	ME[0].FromNQM[7].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].FromNQM[7].IU: 6.35467e-07, 4.78308e-08, 0, 0.999999
+	ME[0].FromNQM[7].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromNQM[7].OU: 6.35467e-07, 4.78308e-08, 4.78308e-08, 0.999999
+
+    Outbound destination map (no locally restored):
+	ToNQMs: 7, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Restored locally to NQMs map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Desired dests of restored packets:
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=8
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348995
+	depth[1]=7
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=7
+
+	To Out Queues-Stall AVERAGE=0
+*
+*
+ME[0].FromSysIC[0]:
+
+	incoming_xactions, 0
+	in_busy_cycles, 0
+	in_bw_utilization, 0
+	in_gather_blocked_cycles, 0
+
+
+	out_busy_cycles, 0
+	outgoing_bw_utilization, 0
+
+	ME[0].FromSysIC[0].InUtilizations: est_bandwidth; incoming_xacts, full_and_blocked, full_and_no_sender, not_full_and_no_sender
+	ME[0].FromSysIC[0].IU: 0; 0, 0, 0, 0
+	ME[0].FromSysIC[0].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromSysIC[0].OU: 0, 0, 0, 1
+
+    Outbound destination map (no stored passers-by):
+	ToNQMs: 0, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Stored passers-by map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when checking incoming FIFO (every SRIO cycle):
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349102
+
+    To Out Queues-Stall Counts:
+
+	To Out Queues-Stall AVERAGE=-nan
+*
+ME[0].FromSysIC[1]:
+
+	incoming_xactions, 0
+	in_busy_cycles, 0
+	in_bw_utilization, 0
+	in_gather_blocked_cycles, 0
+
+
+	out_busy_cycles, 0
+	outgoing_bw_utilization, 0
+
+	ME[0].FromSysIC[1].InUtilizations: est_bandwidth; incoming_xacts, full_and_blocked, full_and_no_sender, not_full_and_no_sender
+	ME[0].FromSysIC[1].IU: 0; 0, 0, 0, 0
+	ME[0].FromSysIC[1].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromSysIC[1].OU: 0, 0, 0, 1
+
+    Outbound destination map (no stored passers-by):
+	ToNQMs: 0, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Stored passers-by map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when checking incoming FIFO (every SRIO cycle):
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349102
+
+    To Out Queues-Stall Counts:
+
+	To Out Queues-Stall AVERAGE=-nan
+*
+ME[0].FromSysIC[2]:
+
+	incoming_xactions, 0
+	in_busy_cycles, 0
+	in_bw_utilization, 0
+	in_gather_blocked_cycles, 0
+
+
+	out_busy_cycles, 0
+	outgoing_bw_utilization, 0
+
+	ME[0].FromSysIC[2].InUtilizations: est_bandwidth; incoming_xacts, full_and_blocked, full_and_no_sender, not_full_and_no_sender
+	ME[0].FromSysIC[2].IU: 0; 0, 0, 0, 0
+	ME[0].FromSysIC[2].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromSysIC[2].OU: 0, 0, 0, 1
+
+    Outbound destination map (no stored passers-by):
+	ToNQMs: 0, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Stored passers-by map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when checking incoming FIFO (every SRIO cycle):
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349102
+
+    To Out Queues-Stall Counts:
+
+	To Out Queues-Stall AVERAGE=-nan
+*
+ME[0].FromSysIC[3]:
+
+	incoming_xactions, 0
+	in_busy_cycles, 0
+	in_bw_utilization, 0
+	in_gather_blocked_cycles, 0
+
+
+	out_busy_cycles, 0
+	outgoing_bw_utilization, 0
+
+	ME[0].FromSysIC[3].InUtilizations: est_bandwidth; incoming_xacts, full_and_blocked, full_and_no_sender, not_full_and_no_sender
+	ME[0].FromSysIC[3].IU: 0; 0, 0, 0, 0
+	ME[0].FromSysIC[3].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromSysIC[3].OU: 0, 0, 0, 1
+
+    Outbound destination map (no stored passers-by):
+	ToNQMs: 0, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Stored passers-by map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when checking incoming FIFO (every SRIO cycle):
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349102
+
+    To Out Queues-Stall Counts:
+
+	To Out Queues-Stall AVERAGE=-nan
+*
+ME[0].FromSysIC[4]:
+
+	incoming_xactions, 0
+	in_busy_cycles, 0
+	in_bw_utilization, 0
+	in_gather_blocked_cycles, 0
+
+
+	out_busy_cycles, 0
+	outgoing_bw_utilization, 0
+
+	ME[0].FromSysIC[4].InUtilizations: est_bandwidth; incoming_xacts, full_and_blocked, full_and_no_sender, not_full_and_no_sender
+	ME[0].FromSysIC[4].IU: 0; 0, 0, 0, 0
+	ME[0].FromSysIC[4].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromSysIC[4].OU: 0, 0, 0, 1
+
+    Outbound destination map (no stored passers-by):
+	ToNQMs: 0, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Stored passers-by map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when checking incoming FIFO (every SRIO cycle):
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349102
+
+    To Out Queues-Stall Counts:
+
+	To Out Queues-Stall AVERAGE=-nan
+*
+ME[0].FromSysIC[5]:
+
+	incoming_xactions, 0
+	in_busy_cycles, 0
+	in_bw_utilization, 0
+	in_gather_blocked_cycles, 0
+
+
+	out_busy_cycles, 0
+	outgoing_bw_utilization, 0
+
+	ME[0].FromSysIC[5].InUtilizations: est_bandwidth; incoming_xacts, full_and_blocked, full_and_no_sender, not_full_and_no_sender
+	ME[0].FromSysIC[5].IU: 0; 0, 0, 0, 0
+	ME[0].FromSysIC[5].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].FromSysIC[5].OU: 0, 0, 0, 1
+
+    Outbound destination map (no stored passers-by):
+	ToNQMs: 0, 0, 0, 0, 0, 0, 0, 0
+	ToSysIC: 0, 0, 0, 0, 0, 0
+
+    Stored passers-by map:
+	0, 0, 0, 0, 0, 0, 0, 0
+
+    Queue Depth when checking incoming FIFO (every SRIO cycle):
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349102
+
+    To Out Queues-Stall Counts:
+
+	To Out Queues-Stall AVERAGE=-nan
+*
+*
+ME[0].ToNQM[0]:
+	outgoing_packet_lengths[3]=21
+	outgoing_packet_lengths[21]=28
+
+	outgoing_xactions, 49
+	out_busy_cycles, 651
+	in_busy_cycles, 651
+	ME[0].ToNQM[0].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[0].IU: 4.44827e-06, 3.34816e-07, 0, 0.999995
+	ME[0].ToNQM[0].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[0].OU: 4.44827e-06, 3.34816e-07, 0, 0.999995
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146348451
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146348346
+	depth[1]=49
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146348402
+	total_requesters[1]=49
+    Average requesters when Receive FSM Idle=3.34817e-07
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146348451
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146348402
+	nqm_requesters[1]=49
+    Average requesters when Receive FSM Idle=3.34817e-07
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=49
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].ToNQM[1]:
+	outgoing_packet_lengths[1]=3
+	outgoing_packet_lengths[21]=2
+
+	outgoing_xactions, 5
+	out_busy_cycles, 45
+	in_busy_cycles, 45
+	ME[0].ToNQM[1].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[1].IU: 3.07484e-07, 3.41649e-08, 0, 1
+	ME[0].ToNQM[1].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[1].OU: 3.07484e-07, 3.41649e-08, 3.41649e-08, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349057
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349043
+	depth[1]=5
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349052
+	total_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349057
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349052
+	nqm_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=5
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].ToNQM[2]:
+	outgoing_packet_lengths[1]=3
+	outgoing_packet_lengths[21]=2
+
+	outgoing_xactions, 5
+	out_busy_cycles, 45
+	in_busy_cycles, 45
+	ME[0].ToNQM[2].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[2].IU: 3.07484e-07, 3.41649e-08, 0, 1
+	ME[0].ToNQM[2].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[2].OU: 3.07484e-07, 3.41649e-08, 2.04989e-08, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349057
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349046
+	depth[1]=5
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349052
+	total_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349057
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349052
+	nqm_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=5
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].ToNQM[3]:
+	outgoing_packet_lengths[1]=3
+	outgoing_packet_lengths[21]=2
+
+	outgoing_xactions, 5
+	out_busy_cycles, 45
+	in_busy_cycles, 45
+	ME[0].ToNQM[3].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[3].IU: 3.07484e-07, 3.41649e-08, 0, 1
+	ME[0].ToNQM[3].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[3].OU: 3.07484e-07, 3.41649e-08, 3.41649e-08, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349057
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349044
+	depth[1]=5
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349052
+	total_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349057
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349052
+	nqm_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=5
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].ToNQM[4]:
+	outgoing_packet_lengths[1]=3
+	outgoing_packet_lengths[21]=2
+
+	outgoing_xactions, 5
+	out_busy_cycles, 45
+	in_busy_cycles, 45
+	ME[0].ToNQM[4].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[4].IU: 3.07484e-07, 3.41649e-08, 0, 1
+	ME[0].ToNQM[4].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[4].OU: 3.07484e-07, 3.41649e-08, 2.73319e-08, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349057
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349044
+	depth[1]=5
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349052
+	total_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349057
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349052
+	nqm_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=5
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].ToNQM[5]:
+	outgoing_packet_lengths[1]=3
+	outgoing_packet_lengths[21]=2
+
+	outgoing_xactions, 5
+	out_busy_cycles, 45
+	in_busy_cycles, 45
+	ME[0].ToNQM[5].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[5].IU: 3.07484e-07, 3.41649e-08, 0, 1
+	ME[0].ToNQM[5].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[5].OU: 3.07484e-07, 3.41649e-08, 2.73319e-08, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349057
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349044
+	depth[1]=5
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349052
+	total_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349057
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349052
+	nqm_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=5
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].ToNQM[6]:
+	outgoing_packet_lengths[1]=3
+	outgoing_packet_lengths[21]=2
+
+	outgoing_xactions, 5
+	out_busy_cycles, 45
+	in_busy_cycles, 45
+	ME[0].ToNQM[6].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[6].IU: 3.07484e-07, 3.41649e-08, 0, 1
+	ME[0].ToNQM[6].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[6].OU: 3.07484e-07, 3.41649e-08, 2.04989e-08, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349057
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349047
+	depth[1]=5
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349052
+	total_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349057
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349052
+	nqm_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=5
+
+	To Out Queues-Stall AVERAGE=0
+*
+ME[0].ToNQM[7]:
+	outgoing_packet_lengths[1]=3
+	outgoing_packet_lengths[21]=2
+
+	outgoing_xactions, 5
+	out_busy_cycles, 45
+	in_busy_cycles, 45
+	ME[0].ToNQM[7].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToNQM[7].IU: 3.07484e-07, 3.41649e-08, 0, 1
+	ME[0].ToNQM[7].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToNQM[7].OU: 3.07484e-07, 3.41649e-08, 3.41649e-08, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349057
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=146349043
+	depth[1]=5
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349052
+	total_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349057
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349052
+	nqm_requesters[1]=5
+    Average requesters when Receive FSM Idle=3.41649e-08
+    Average (ex-zero) requesters when Receive FSM Idle=1
+
+    To Out Queues-Stall Counts:
+	stall_length[0-9]=5
+
+	To Out Queues-Stall AVERAGE=0
+*
+*
+ME[0].ToSysIC[0]:
+
+	sum_incoming_xactions, 0
+	new_in_busy_cycles, 0
+
+
+	sum_outgoing_xactions, 0
+	out_busy_cycles (srio clk), 0
+
+	ME[0].ToSysIC[0].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToSysIC[0].IU: 0, 0, 0, 1
+	ME[0].ToSysIC[0].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToSysIC[0].OU: 0, 0, 0, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349102
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=25428158
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+*
+ME[0].ToSysIC[1]:
+
+	sum_incoming_xactions, 0
+	new_in_busy_cycles, 0
+
+
+	sum_outgoing_xactions, 0
+	out_busy_cycles (srio clk), 0
+
+	ME[0].ToSysIC[1].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToSysIC[1].IU: 0, 0, 0, 1
+	ME[0].ToSysIC[1].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToSysIC[1].OU: 0, 0, 0, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349102
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=25428158
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+*
+ME[0].ToSysIC[2]:
+
+	sum_incoming_xactions, 0
+	new_in_busy_cycles, 0
+
+
+	sum_outgoing_xactions, 0
+	out_busy_cycles (srio clk), 0
+
+	ME[0].ToSysIC[2].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToSysIC[2].IU: 0, 0, 0, 1
+	ME[0].ToSysIC[2].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToSysIC[2].OU: 0, 0, 0, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349102
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=25428158
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+*
+ME[0].ToSysIC[3]:
+
+	sum_incoming_xactions, 0
+	new_in_busy_cycles, 0
+
+
+	sum_outgoing_xactions, 0
+	out_busy_cycles (srio clk), 0
+
+	ME[0].ToSysIC[3].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToSysIC[3].IU: 0, 0, 0, 1
+	ME[0].ToSysIC[3].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToSysIC[3].OU: 0, 0, 0, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349102
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=25428158
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+*
+ME[0].ToSysIC[4]:
+
+	sum_incoming_xactions, 0
+	new_in_busy_cycles, 0
+
+
+	sum_outgoing_xactions, 0
+	out_busy_cycles (srio clk), 0
+
+	ME[0].ToSysIC[4].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToSysIC[4].IU: 0, 0, 0, 1
+	ME[0].ToSysIC[4].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToSysIC[4].OU: 0, 0, 0, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349102
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=25428158
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+*
+ME[0].ToSysIC[5]:
+
+	sum_incoming_xactions, 0
+	new_in_busy_cycles, 0
+
+
+	sum_outgoing_xactions, 0
+	out_busy_cycles (srio clk), 0
+
+	ME[0].ToSysIC[5].InUtilizations: bandwidth, xaction_starts, idle_state_and_full, not_full_and_no_sender
+	ME[0].ToSysIC[5].IU: 0, 0, 0, 1
+	ME[0].ToSysIC[5].OutUtilizations: bandwidth, xaction_starts, sending_stalls, nothing_to_send
+	ME[0].ToSysIC[5].OU: 0, 0, 0, 1
+
+    Queue Depth when Receive FSM Idle:
+	depth[0]=146349102
+
+    Queue Depth when Sending FSM Idle:
+	depth[0]=25428158
+
+    Total requesters when Receive FSM Idle:
+	total_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    RIO requesters when Receive FSM Idle:
+	rio_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+
+    NQM requesters when Receive FSM Idle:
+	nqm_requesters[0]=146349102
+    Average requesters when Receive FSM Idle=0
+    Average (ex-zero) requesters when Receive FSM Idle=-nan
+*
+
+
+ME[0].DisAggr:
+
+	sum_outgoing_xactions, 0
+*
+
