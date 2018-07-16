@@ -32,12 +32,12 @@ void compression(int **A, int *values, int *colIndex, int *rowIndex, int m, int 
             }
         }
     }
-    printf("Values: ");
-    printArray(values, nnz);
-    printf("Col Indices: ");
-    printArray(colIndex, nnz);
-    printf("Row Indices: ");
-    printArray(rowIndex, nnz);
+    // printf("Values: ");
+    // printArray(values, nnz);
+    // printf("Col Indices: ");
+    // printArray(colIndex, nnz);
+    // printf("Row Indices: ");
+    // printArray(rowIndex, nnz);
 }
 
 /**
@@ -53,7 +53,7 @@ void compression(int **A, int *values, int *colIndex, int *rowIndex, int m, int 
  * range: Number of columns that will be part of the segmented sum
  **/
 void segmentedSolution(int *values, int *colIndex, int *rowIndex, int *x, int **segSolution, int nodlet, int start, int range) {
-    printf("Starting column: %d\n", start);
+    // printf("Starting column: %d\n", start);
 
     for(int i = 0; i < nnz; i++) {
         if(colIndex[i] >= start  && colIndex[i] < (start + range)) {
@@ -107,16 +107,17 @@ int *solutionSpMV(int *values, int *colIndex, int *rowIndex, int *x, int rows, i
     else
         colSlice = (cols / NODLETS) + 1;
 
-    printf("Column slice: %d\n", colSlice);
+    // printf("Column slice: %d\n", colSlice);
 
     // Parallel segmented sum
     for(int i = 0; i < NODLETS; i++) {
         startingCol = i * colSlice;
         cilk_spawn segmentedSolution(values,colIndex,rowIndex,x,segSolution,i,startingCol,colSlice);
-        cilk_sink;
     }
-    printMatrix(segSolution,rows,NODLETS);
-    printf("\n");
+    cilk_synk;
+
+    // printMatrix(segSolution,rows,NODLETS);
+    // printf("\n");
 
     return segmentedSum(segSolution, rows);
 }

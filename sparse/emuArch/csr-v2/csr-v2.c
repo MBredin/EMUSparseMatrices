@@ -15,36 +15,36 @@ int nnz;
 int main() {
     int m = MATRIXZISE;     // Number of rows in matrix A
     int n = MATRIXZISE;     // Number of columns in matrix A
-    printf("Rows: %d \n", m);
-    printf("Columns: %d \n", n);
+    // printf("Rows: %d \n", m);
+    // printf("Columns: %d \n", n);
 
     int **A = genSparseMatrix(m, n);        // Creates sparse matrix A
-    printf("Matrix A: \n");
-    printMatrix(A, m, n);                   // Prints matrix A
+    // printf("Matrix A: \n");
+    // printMatrix(A, m, n);                   // Prints matrix A
 
     int *x = genDenseVector(m);             // Creates vector that multiplies matrix A
-    printf("Vector x: ");
-    printArray(x,m);                        // Prints vector x
+    // printf("Vector x: ");
+    // printArray(x,m);                        // Prints vector x
 
-    int realNNZ = checkNNZ(A,m,n);
-    double sparsePercentage = (realNNZ * 100) / (double)(m*n);
-    printf("Sparse percentage: %f \n", sparsePercentage);
-    printf("\n");
+    // int realNNZ = checkNNZ(A,m,n);
+    // double sparsePercentage = (realNNZ * 100) / (double)(m*n);
+    // printf("Sparse percentage: %f \n", sparsePercentage);
+    // printf("\n");
 
     // Arrays containing the compressed information of A
-    printf("Compressed information of A: \n");
+    // printf("Compressed information of A: \n");
     int *values = (int  *)malloc(nnz * sizeof(int));            // Non-zero values contained in A;
     int *colIndex = (int *)malloc(nnz * sizeof(int));           // Column indices of the non-zero values located in A
     int *rowIndex = (int *)malloc(nnz * sizeof(int));           // Row indicex of the non-zero values located in A
 
     // Compress all valuable info about A's non-zero values in values, colIndex, and rowIndex
     compression(A, values, colIndex, rowIndex, m, n);                
-    printf("\n");
+    // printf("\n");
 
     // Solves SpMV parallely through 4 cores using the compressed information
     int *solution = solutionSpMV(values, colIndex, rowIndex, x, m, n); 
-    printf("Solution: ");
-    printArray(solution, m);
+    // printf("Solution: ");
+    // printArray(solution, m);
 
     return 0;
 }

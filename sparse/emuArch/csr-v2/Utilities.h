@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
+#include <sys/time.h>
 
 #define SPARSITY 0.5     // Percentage of sparsity in the matrix
 #define RANDOMVALRANGE 9 // Range of random values contained in the matrix (starting from zero)
@@ -99,8 +101,8 @@ int **genSparseMatrix(int m, int n) {
         A[i] = (int *)malloc(n * sizeof(int));
 
     nnz = m * n * SPARSITY;                            // Amount of non-zero elements to be stored in A
-    printf("Non-zero values to be stored: %d\n", nnz); // Prints nnz
-    int randomValue, randomRow, randomCol, r, c;
+    // printf("Non-zero values to be stored: %d\n", nnz); // Prints nnz
+    int randomValue, randomRow, randomCol, r;
 
     // Initialize the matrix with zero values
     initializeMatrix(A, m, n);
@@ -156,7 +158,7 @@ int checkNNZ(int **A, int m, int n) {
         }
     }
 
-    printf("Non-zero values stored in A: %d \n", realNNZ);
+    // printf("Non-zero values stored in A: %d \n", realNNZ);
 
     return realNNZ;
 }
