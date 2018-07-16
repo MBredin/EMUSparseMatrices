@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-// #include <memoryweb.h>
-// #include <cilk.h>
+#include <memoryweb.h>
+#include <cilk.h>
 #include "Utilities.h"
 
 #define NODLETS 4 // Number of cores to be used for parallel computations
@@ -112,9 +112,8 @@ int *solutionSpMV(int *values, int *colIndex, int *rowIndex, int *x, int rows, i
     // Parallel segmented sum
     for(int i = 0; i < NODLETS; i++) {
         startingCol = i * colSlice;
-        //cilk_spawn 
-        segmentedSolution(values,colIndex,rowIndex,x,segSolution,i,startingCol,colSlice);
-        //cilk_sink;
+        cilk_spawn segmentedSolution(values,colIndex,rowIndex,x,segSolution,i,startingCol,colSlice);
+        cilk_sink;
     }
     printMatrix(segSolution,rows,NODLETS);
     printf("\n");
