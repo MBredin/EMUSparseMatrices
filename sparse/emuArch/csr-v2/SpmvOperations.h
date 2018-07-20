@@ -110,11 +110,31 @@ int *solutionSpMV(int *values, int *colIndex, int *rowIndex, int *x, int rows, i
     // printf("Column slice: %d\n", colSlice);
 
     // Parallel segmented sum
-    for(int i = 0; i < NODLETS; i++) {
+    unsigned long nid, nidend, starttime, endtime, totalCycles; 
+    starttiming();
+
+    // Start timing
+    nid = NODE_ID();
+    starttime = CLOCK();
+    for (int i = 0; i < NODLETS; i++)
+    {
         startingCol = i * colSlice;
-        cilk_spawn segmentedSolution(values,colIndex,rowIndex,x,segSolution,i,startingCol,colSlice);
+        cilk_spawn segmentedSolution(values, colIndex, rowIndex, x, segSolution, i, startingCol, colSlice);
     }
-    cilk_synk;
+    cilk_sync;
+    // End timing
+    endtime = CLOCK();
+    nidend = NODE_ID();
+    totalCycles = endtime - starttime;
+    if (nid != nidend)
+    {
+        printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
+    }
+
+    double seconds = totalCycles * (1.0 / 1.500000);
+
+    printf("Seconds: %f\n", seconds);
+    printf("Cycles: %lu\n", totalCycles);
 
     // printMatrix(segSolution,rows,NODLETS);
     // printf("\n");
