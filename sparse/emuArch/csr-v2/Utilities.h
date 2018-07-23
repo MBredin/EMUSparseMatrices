@@ -9,6 +9,8 @@
 
 #define SPARSITY 0.5     // Percentage of sparsity in the matrix
 #define RANDOMVALRANGE 9 // Range of random values contained in the matrix (starting from zero)
+#define MATRIXZISE 8     // Size for each size of the square matrix
+#define ARRAYLENGTH(x) (sizeof(x) / sizeof((x)[0]))
 
 extern int nnz; // Amount of non-zero values contained in the sparse matrix
 
@@ -41,17 +43,12 @@ void printMatrix(int **A, int m, int n) {
  * length: Is the number of values of A
  **/
 void printArray(int *A, int length) {
+    printf("[ \n");
     for (int i = 0; i < length; i++)
     {
-        if (length == 1)
-            printf("[ %d ] \n", A[i]);
-        else if (i == 0)
-            printf("[ %d ", A[i]);
-        else if (i == (length - 1))
-            printf("%d ] \n", A[i]);
-        else
-            printf("%d ", A[i]);
+        printf("%d ", A[i]);
     }
+    printf("] \n");
 }
 
 /**
@@ -92,7 +89,8 @@ void initializeArray(int *A, int length) {
  * n: Is the number of columns of A
  * returns: nnz (number of nonzero values contained in A)
  **/
-int **genSparseMatrix(int m, int n) {
+int **genSparseMatrix(int *nodeID, int m, int n) {
+    MIGRATE(&nodeID);
     srand(time(NULL)); // Seed rand function
 
     // Declaration and allocation of memory for matrix A
@@ -161,6 +159,26 @@ int checkNNZ(int **A, int m, int n) {
     // printf("Non-zero values stored in A: %d \n", realNNZ);
 
     return realNNZ;
+}
+
+//Set values in vector to be multiplied
+void fill_x(void *ptr, int node) {
+    int *gto = (int *)ptr;
+
+    for (int i = 0; i < MATDIM; i++)
+        gto[i] = i + 1;
+}
+
+//Allocate memory for vector
+int *alloc_x(void) {
+    int *mr = mw_mallocrepl(MATRIXZISE * sizeof(int));
+    mw_replicated_init_generic(mr, genDenseVector);
+
+    return mr;
+}
+
+int arrayLength(int *array) {
+    return (sizeof(array) / sizeof(array[0]));
 }
 
 #endif

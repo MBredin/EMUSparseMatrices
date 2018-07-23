@@ -1,15 +1,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
+#include <memoryweb.h>
+#include <cilk.h>
 #include "Utilities.h"
 #include "SpmvOperations.h"
 
-#define ANSI_COLOR_BLUE "\x1b[34m"      // Color blue for specified output
-#define ANSI_COLOR_RESET "\x1b[0m"      // Reset color for specified output
-
-#define MATRIXZISE 8                    // Size for each size of the square matrix
-
-int nnz;
+replicated int *x;                      // Replicate vector across each nodelet
+int nnz;                                // Amount of non-zero values in sparse matrix 
 
 /********************************** MAIN ***********************************/
 int main() {
@@ -18,14 +16,32 @@ int main() {
     // printf("Rows: %d \n", m);
     // printf("Columns: %d \n", n);
 
-    int **A = genSparseMatrix(m, n);        // Creates sparse matrix A
+    // int **A = genSparseMatrix(m, n);        // Creates sparse matrix A
     // printf("Matrix A: \n");
     // printMatrix(A, m, n);                   // Prints matrix A
 
-    int *x = genDenseVector(m);             // Creates vector that multiplies matrix A
+    // int *x = genDenseVector(m);             // Creates vector that multiplies matrix A
     // printf("Vector x: ");
     // printArray(x,m);                        // Prints vector x
 
+    int *tempX = alloc_x();
+    mw_replicated_init((int *)&x, (int)tempX);
+
+    int *nodes = mw_malloc1dlong(NODLETS * sizeof(int *));
+    for (int i = 0; i < NODLETS; i++)
+        nodes[i] = i;
+
+    int colSlice = 0;
+    if (n % NODLETS == 0)
+        colSlice = n / NODLETS;
+    else
+        colSlice = (n / NODLETS) + 1;
+
+    int **splitA[NODLETS];
+    for (int i = 0; i < NODLETS; i++) {
+        splitA[i] = cilk_spawn genSparseMatrix(&nodes[i], m, colSlice);
+    }
+    cilk_sync
     // int realNNZ = checkNNZ(A,m,n);
     // double sparsePercentage = (realNNZ * 100) / (double)(m*n);
     // printf("Sparse percentage: %f \n", sparsePercentage);
@@ -33,16 +49,38 @@ int main() {
 
     // Arrays containing the compressed information of A
     // printf("Compressed information of A: \n");
-    int *values = (int  *)malloc(nnz * sizeof(int));            // Non-zero values contained in A;
-    int *colIndex = (int *)malloc(nnz * sizeof(int));           // Column indices of the non-zero values located in A
-    int *rowIndex = (int *)malloc(nnz * sizeof(int));           // Row indicex of the non-zero values located in A
+    int **values = (int  **)malloc(NODLETS * sizeof(int *));            // Non-zero values contained in A;
+    int **colIndex = (int **)malloc(NODLETS * sizeof(int *));           // Column indices of the non-zero values located in A
+    int **rowIndex = (int **)malloc(NODLETS * sizeof(int *));           // Row indicex of the non-zero values located in A
 
     // Compress all valuable info about A's non-zero values in values, colIndex, and rowIndex
-    compression(A, values, colIndex, rowIndex, m, n);                
+    for(int i = 0; i < NODLETS; i++) {
+        int realNNZ = checkNNZ(splitA[i]);
+
+        values[i] = (int *)malloc(realNNZ * sizeof(int));
+        initializeArray(values[i]);
+        colIndex[i] = (int *)malloc(realNNZ * sizeof(int));
+        initializeArray(colIndex[i]);
+        rowIndex[i] = (int *)malloc(realNNZ * sizeof(int));
+        initializeArray(rowIndex[i]);
+
+        cilk_spawn compression(&nodes[i], splitA[i], values[i], colIndex[i], rowIndex[i], m, colSlice);
+    }
+    cilk_sync
     // printf("\n");
 
+    // Declaration and allocation of memory for matrix segSolution
+    int **segSolution = (int **)malloc(m * sizeof(int *));
+    for (int i = 0; i < m; i++)
+        segSolution[i] = (int *)malloc(NODLETS * sizeof(int));
+
+    initializeMatrix(segSolution, m, NODLETS); // Initialize all values of matrix to zero
+
     // Solves SpMV parallely through 4 cores using the compressed information
-    int *solution = solutionSpMV(values, colIndex, rowIndex, x, m, n); 
+    solutionSpMV(nodes, segsolution, values, colIndex, rowIndex, x, m, colSlice);
+
+    int *solution = segmentedSum(segSolution, m);
+
     // printf("Solution: ");
     // printArray(solution, m);
 

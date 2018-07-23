@@ -20,14 +20,14 @@
  * m: Is the row size of A
  * n: Is the column size of A
  **/
-void compression(int **A, int *values, int *colIndex, int *rowIndex, int m, int n) {
+void compression(int *nodeID, int **A, int *values, int *colIndex, int *rowIndex, int m, int colSlice) {
     int i = 0;
-    for(int c = 0; c < n; c++) {
+    for(int c = 0; c < colSlice; c++) {
         for(int r = 0; r < m; r++) {
             if(A[r][c] != 0){
-                values[i] = A[r][c];
-                colIndex[i] = c;
-                rowIndex[i] = r;
+                values[*nodeID][i] = A[r][c];
+                colIndex[*nodeID][i] = c + (*nodeID * colSlice);
+                rowIndex[*nodeID][i] = r;
                 i++;
             }
         }
@@ -52,13 +52,11 @@ void compression(int **A, int *values, int *colIndex, int *rowIndex, int m, int 
  * start: Column index where the sum will start at
  * range: Number of columns that will be part of the segmented sum
  **/
-void segmentedSolution(int *values, int *colIndex, int *rowIndex, int *x, int **segSolution, int nodlet, int start, int range) {
+void segmentedSolution(int *node, int *values, int *colIndex, int *rowIndex, int *x, int **segSolution, int range, int realNNZ) {
     // printf("Starting column: %d\n", start);
 
-    for(int i = 0; i < nnz; i++) {
-        if(colIndex[i] >= start  && colIndex[i] < (start + range)) {
-            segSolution[rowIndex[i]][nodlet] += values[i] * x[colIndex[i]];
-        }
+    for(int i = 0; i < realNNZ; i++) {
+        segSolution[rowIndex[i]][*node] += values[i] * x[colIndex[i]];
     }
 }
 
@@ -92,20 +90,14 @@ int *segmentedSum(int **segSolution, int rows) {
  * rows: Is the row size of the given sparse matrix
  * cols: Is the column size of the given sparse matrix
  **/
-int *solutionSpMV(int *values, int *colIndex, int *rowIndex, int *x, int rows, int cols) {
-    // Declaration and allocation of memory for matrix segSolution
-    int **segSolution = (int **)malloc(rows * sizeof(int *));
-    for (int i = 0; i < rows; i++)
-        segSolution[i] = (int *)malloc(NODLETS * sizeof(int));
-
-    initializeMatrix(segSolution, rows, NODLETS);               // Initialize all values of matrix to zero
+void solutionSpMV(int *nodes, int **segSolution, int *values, int *colIndex, int *rowIndex, int *x, int rows, int colSlice) {
 
     // Computes the size of the range of columns to cover parallely in SpMV
-    int colSlice, startingCol;
-    if (cols % NODLETS == 0) 
-        colSlice = cols / NODLETS;
-    else
-        colSlice = (cols / NODLETS) + 1;
+    // int colSlice, startingCol;
+    // if (cols % NODLETS == 0) 
+    //     colSlice = cols / NODLETS;
+    // else
+    //     colSlice = (cols / NODLETS) + 1;
 
     // printf("Column slice: %d\n", colSlice);
 
@@ -116,10 +108,9 @@ int *solutionSpMV(int *values, int *colIndex, int *rowIndex, int *x, int rows, i
     // Start timing
     nid = NODE_ID();
     starttime = CLOCK();
-    for (int i = 0; i < NODLETS; i++)
-    {
-        startingCol = i * colSlice;
-        cilk_spawn segmentedSolution(values, colIndex, rowIndex, x, segSolution, i, startingCol, colSlice);
+    for (int i = 0; i < NODLETS; i++) {
+        int realNNZ = arrayLength(values[i]);
+        cilk_spawn segmentedSolution(&nodex[i], values[i], colIndex[i], rowInde[i], x, segSolution, colSlice, realNNZ);
     }
     cilk_sync;
     // End timing
@@ -138,8 +129,6 @@ int *solutionSpMV(int *values, int *colIndex, int *rowIndex, int *x, int rows, i
 
     // printMatrix(segSolution,rows,NODLETS);
     // printf("\n");
-
-    return segmentedSum(segSolution, rows);
 }
 
 #endif
