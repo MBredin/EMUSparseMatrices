@@ -6,7 +6,7 @@
 #include "Utilities.h"
 #include "SpmvOperations.h"
 
-replicated int *x;                      // Replicate vector across each nodelet
+replicated long *x;                      // Replicate vector across each nodelet
 int nnz;                                // Amount of non-zero values in sparse matrix 
 
 /********************************** MAIN ***********************************/
@@ -24,10 +24,10 @@ int main() {
     // printf("Vector x: ");
     // printArray(x,m);                        // Prints vector x
 
-    int *tempX = alloc_x();
-    mw_replicated_init((int *)&x, (int)tempX);
+    long *tempX = alloc_x();
+    mw_replicated_init((long *)&x, (long)tempX);
 
-    int *nodes = mw_malloc1dlong(NODLETS * sizeof(int *));
+    long *nodes = mw_malloc1dlong(NODLETS * sizeof(long *));
     for (int i = 0; i < NODLETS; i++)
         nodes[i] = i;
 
@@ -41,7 +41,7 @@ int main() {
     for (int i = 0; i < NODLETS; i++) {
         splitA[i] = cilk_spawn genSparseMatrix(&nodes[i], m, colSlice);
     }
-    cilk_sync
+    cilk_sync;
     // int realNNZ = checkNNZ(A,m,n);
     // double sparsePercentage = (realNNZ * 100) / (double)(m*n);
     // printf("Sparse percentage: %f \n", sparsePercentage);
@@ -55,18 +55,18 @@ int main() {
 
     // Compress all valuable info about A's non-zero values in values, colIndex, and rowIndex
     for(int i = 0; i < NODLETS; i++) {
-        int realNNZ = checkNNZ(splitA[i]);
+        int realNNZ = checkNNZ(splitA[i], m, colSlice);
 
         values[i] = (int *)malloc(realNNZ * sizeof(int));
-        initializeArray(values[i]);
+        initializeArray(values[i], realNNZ);
         colIndex[i] = (int *)malloc(realNNZ * sizeof(int));
-        initializeArray(colIndex[i]);
+        initializeArray(colIndex[i], realNNZ);
         rowIndex[i] = (int *)malloc(realNNZ * sizeof(int));
-        initializeArray(rowIndex[i]);
+        initializeArray(rowIndex[i], realNNZ);
 
         cilk_spawn compression(&nodes[i], splitA[i], values[i], colIndex[i], rowIndex[i], m, colSlice);
     }
-    cilk_sync
+    cilk_sync;
     // printf("\n");
 
     // Declaration and allocation of memory for matrix segSolution
@@ -77,7 +77,7 @@ int main() {
     initializeMatrix(segSolution, m, NODLETS); // Initialize all values of matrix to zero
 
     // Solves SpMV parallely through 4 cores using the compressed information
-    solutionSpMV(nodes, segsolution, values, colIndex, rowIndex, x, m, colSlice);
+    solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice);
 
     int *solution = segmentedSum(segSolution, m);
 

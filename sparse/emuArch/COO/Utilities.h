@@ -9,7 +9,7 @@
 
 #define SPARSITY 0.5     // Percentage of sparsity in the matrix
 #define RANDOMVALRANGE 9 // Range of random values contained in the matrix (starting from zero)
-#define MATRIXZISE 8     // Size for each size of the square matrix
+#define MATRIXZISE 2000     // Size for each size of the square matrix
 #define ARRAYLENGTH(x) (sizeof(x) / sizeof((x)[0]))
 
 extern int nnz; // Amount of non-zero values contained in the sparse matrix
@@ -89,7 +89,7 @@ void initializeArray(int *A, int length) {
  * n: Is the number of columns of A
  * returns: nnz (number of nonzero values contained in A)
  **/
-int **genSparseMatrix(int *nodeID, int m, int n) {
+int **genSparseMatrix(long *nodeID, int m, int n) {
     MIGRATE(&nodeID);
     srand(time(NULL)); // Seed rand function
 
@@ -162,17 +162,17 @@ int checkNNZ(int **A, int m, int n) {
 }
 
 //Set values in vector to be multiplied
-void fill_x(void *ptr, int node) {
-    int *gto = (int *)ptr;
+void fill_x(void *ptr, long node) {
+    long *gto = (long *)ptr;
 
-    for (int i = 0; i < MATDIM; i++)
+    for (int i = 0; i < MATRIXZISE; i++)
         gto[i] = i + 1;
 }
 
 //Allocate memory for vector
-int *alloc_x(void) {
-    int *mr = mw_mallocrepl(MATRIXZISE * sizeof(int));
-    mw_replicated_init_generic(mr, genDenseVector);
+long *alloc_x(void) {
+    long *mr = mw_mallocrepl(MATRIXZISE * sizeof(long));
+    mw_replicated_init_generic(mr, fill_x);
 
     return mr;
 }

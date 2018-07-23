@@ -8,7 +8,7 @@
 #include <cilk.h>
 #include "Utilities.h"
 
-#define NODLETS 4 // Number of cores to be used for parallel computations
+#define NODLETS 8 // Number of cores to be used for parallel computations
 
 /**
  * This method takes matrix A and separates all non-zero values information into three arrays, where:
@@ -20,14 +20,14 @@
  * m: Is the row size of A
  * n: Is the column size of A
  **/
-void compression(int *nodeID, int **A, int *values, int *colIndex, int *rowIndex, int m, int colSlice) {
+void compression(long *nodeID, int **A, int *values, int *colIndex, int *rowIndex, int m, int colSlice) {
     int i = 0;
     for(int c = 0; c < colSlice; c++) {
         for(int r = 0; r < m; r++) {
             if(A[r][c] != 0){
-                values[*nodeID][i] = A[r][c];
-                colIndex[*nodeID][i] = c + (*nodeID * colSlice);
-                rowIndex[*nodeID][i] = r;
+                values[i] = A[r][c];
+                colIndex[i] = c + (*nodeID * colSlice);
+                rowIndex[i] = r;
                 i++;
             }
         }
@@ -52,7 +52,7 @@ void compression(int *nodeID, int **A, int *values, int *colIndex, int *rowIndex
  * start: Column index where the sum will start at
  * range: Number of columns that will be part of the segmented sum
  **/
-void segmentedSolution(int *node, int *values, int *colIndex, int *rowIndex, int *x, int **segSolution, int range, int realNNZ) {
+void segmentedSolution(long *node, int *values, int *colIndex, int *rowIndex, long *x, int **segSolution, int range, int realNNZ) {
     // printf("Starting column: %d\n", start);
 
     for(int i = 0; i < realNNZ; i++) {
@@ -90,7 +90,7 @@ int *segmentedSum(int **segSolution, int rows) {
  * rows: Is the row size of the given sparse matrix
  * cols: Is the column size of the given sparse matrix
  **/
-void solutionSpMV(int *nodes, int **segSolution, int *values, int *colIndex, int *rowIndex, int *x, int rows, int colSlice) {
+void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, long *x, int rows, int colSlice) {
 
     // Computes the size of the range of columns to cover parallely in SpMV
     // int colSlice, startingCol;
@@ -110,7 +110,7 @@ void solutionSpMV(int *nodes, int **segSolution, int *values, int *colIndex, int
     starttime = CLOCK();
     for (int i = 0; i < NODLETS; i++) {
         int realNNZ = arrayLength(values[i]);
-        cilk_spawn segmentedSolution(&nodex[i], values[i], colIndex[i], rowInde[i], x, segSolution, colSlice, realNNZ);
+        cilk_spawn segmentedSolution(&nodes[i], values[i], colIndex[i], rowIndex[i], x, segSolution, colSlice, realNNZ);
     }
     cilk_sync;
     // End timing
