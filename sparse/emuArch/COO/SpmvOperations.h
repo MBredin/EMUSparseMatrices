@@ -13,25 +13,41 @@
 /**
  * This method takes matrix A and separates all non-zero values information into three arrays, where:
  * 
+ * *nodeID: ID of nodlet being used
  * A: Is the matrix to compress
  * values: Is the array containing all non-zero values of A
  * colIndex: Is the array containing the column indices of the non-zero values in A
  * rowIndex: Is the array containing the row indices of the non-zero values in A
  * m: Is the row size of A
- * n: Is the column size of A
+ * colSlice: Is the column size of A
  **/
-void compression(long *nodeID, int **A, int *values, int *colIndex, int *rowIndex, int m, int colSlice) {
+void compression(long *nodeID, int **A, int **values, int **colIndex, int **rowIndex, int m, int colSlice) {
+    MIGRATE(&nodeID);
+
+    int realNNZ = checkNNZ(A, m, colSlice);
+
+    int *localValues = (int *)malloc(realNNZ * sizeof(int));
+    initializeArray(localValues, realNNZ);
+    int *localColIndex = (int *)malloc(realNNZ * sizeof(int));
+    initializeArray(localColIndex, realNNZ);
+    int *localRowIndex = (int *)malloc(realNNZ * sizeof(int));
+    initializeArray(localRowIndex, realNNZ);
+
     int i = 0;
     for(int c = 0; c < colSlice; c++) {
         for(int r = 0; r < m; r++) {
             if(A[r][c] != 0){
-                values[i] = A[r][c];
-                colIndex[i] = c + (*nodeID * colSlice);
-                rowIndex[i] = r;
+                localValues[i] = A[r][c];
+                localColIndex[i] = c + (*nodeID * colSlice);
+                localRowIndex[i] = r;
                 i++;
             }
         }
     }
+
+    *values = localValues;
+    *colIndex = localColIndex;
+    *rowIndex = localRowIndex;
     // printf("Values: ");
     // printArray(values, nnz);
     // printf("Col Indices: ");
@@ -43,21 +59,27 @@ void compression(long *nodeID, int **A, int *values, int *colIndex, int *rowInde
 /**
  * This method computes SpMV over a range of columns using the compressed information of an sparse matrix, where:
  * 
+ * *nodeID: ID of nodlet being used
  * values: Is the array containing all non-zero values of the given sparse matrix
  * colIndex: Is the array containing all the column indices of the nonzero values in the given sparse matrix
  * rowIndex: Is the array containing all the row indices of the nonzero values in the given sparse matrix
  * x: Is the array representing the vector multiplying the given sparse matrix
  * segSolution: is the matrix containing all the sums performed by each nodlet (core).
- * nodlet: Nodlet currently performing the segmented SpMV
- * start: Column index where the sum will start at
- * range: Number of columns that will be part of the segmented sum
+ * rows: Row size of segSolution matrix 
+ * realNNZ: Real number of non-zero values within values
  **/
-void segmentedSolution(long *node, int *values, int *colIndex, int *rowIndex, long *x, int **segSolution, int range, int realNNZ) {
+void segmentedSolution(long *nodeID, int *values, int *colIndex, int *rowIndex, long *x, int **segSolution, int rows, int realNNZ) {
     // printf("Starting column: %d\n", start);
+    MIGRATE(&nodeID);
+
+    int *segLocalSolution = (int *)malloc(rows * sizeof(int));
+    initializeArray(segLocalSolution, rows);
 
     for(int i = 0; i < realNNZ; i++) {
-        segSolution[rowIndex[i]][*node] += values[i] * x[colIndex[i]];
+        segLocalSolution[rowIndex[i]] +=  1 ; // values[i] * x[colIndex[i]];
     }
+
+    *segSolution = segLocalSolution;
 }
 
 /**
@@ -83,24 +105,16 @@ int *segmentedSum(int **segSolution, int rows) {
 /**
  * This method computes SpMV parallely using the compressed info of the given sparse matrix, where:
  * 
+ * *nodes: ID of nodlet being used
+ * segSolution: is the matrix containing all the sums performed by each nodlet (core).
  * values: Is the array containing all non-zero values of the given sparse matrix
  * colIndex: Is the array containing the column indices of the non-zero values in the given sparse matrix
  * rowIndex: Is the array containing the row indices of the non-zero values in the given sparse matrix
  * x: Dense array (vector) multiplying the given sparse matrix
  * rows: Is the row size of the given sparse matrix
- * cols: Is the column size of the given sparse matrix
+ * colSlice: Is the column size of the given sparse matrix
  **/
 void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, long *x, int rows, int colSlice) {
-
-    // Computes the size of the range of columns to cover parallely in SpMV
-    // int colSlice, startingCol;
-    // if (cols % NODLETS == 0) 
-    //     colSlice = cols / NODLETS;
-    // else
-    //     colSlice = (cols / NODLETS) + 1;
-
-    // printf("Column slice: %d\n", colSlice);
-
     // Parallel segmented sum
     unsigned long nid, nidend, starttime, endtime, totalCycles; 
     starttiming();
@@ -110,7 +124,7 @@ void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, 
     starttime = CLOCK();
     for (int i = 0; i < NODLETS; i++) {
         int realNNZ = arrayLength(values[i]);
-        cilk_spawn segmentedSolution(&nodes[i], values[i], colIndex[i], rowIndex[i], x, segSolution, colSlice, realNNZ);
+        cilk_spawn segmentedSolution(&nodes[i], values[i], colIndex[i], rowIndex[i], x, &segSolution[i], rows, realNNZ);
     }
     cilk_sync;
     // End timing

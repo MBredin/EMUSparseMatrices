@@ -9,7 +9,7 @@
 
 #define SPARSITY 0.5     // Percentage of sparsity in the matrix
 #define RANDOMVALRANGE 9 // Range of random values contained in the matrix (starting from zero)
-#define MATRIXZISE 2000     // Size for each size of the square matrix
+#define MATRIXZISE 2048     // Size for each size of the square matrix
 #define ARRAYLENGTH(x) (sizeof(x) / sizeof((x)[0]))
 
 extern int nnz; // Amount of non-zero values contained in the sparse matrix
@@ -84,7 +84,7 @@ void initializeArray(int *A, int length) {
 /**
  * This method generates random values for making a sparse matrix A, where:
  * 
- * A: Is the matrix to fill up
+ * *nodeID: ID of nodlet being used
  * m: Is the number of rows of A 
  * n: Is the number of columns of A
  * returns: nnz (number of nonzero values contained in A)
@@ -161,7 +161,9 @@ int checkNNZ(int **A, int m, int n) {
     return realNNZ;
 }
 
-//Set values in vector to be multiplied
+/**
+ * Special method that fills up the vector to be replicated by mw_replicated_init().
+ **/
 void fill_x(void *ptr, long node) {
     long *gto = (long *)ptr;
 
@@ -169,7 +171,9 @@ void fill_x(void *ptr, long node) {
         gto[i] = i + 1;
 }
 
-//Allocate memory for vector
+/**
+ * Special method that allocates the memory for the vector to be used by mw_replicated_init().
+ **/
 long *alloc_x(void) {
     long *mr = mw_mallocrepl(MATRIXZISE * sizeof(long));
     mw_replicated_init_generic(mr, fill_x);
@@ -177,6 +181,12 @@ long *alloc_x(void) {
     return mr;
 }
 
+/**
+ * This method takes an array and count the number of elements in it based on the size
+ * of each element and the size of the array, where:
+ * 
+ * array: Is the array which length is going to be calculated.
+ **/
 int arrayLength(int *array) {
     return (sizeof(array) / sizeof(array[0]));
 }
