@@ -1,0 +1,62 @@
+Threads: 512
+Matrix Size: 512
+Threads per Core: 512
+Compilation cycles: 78845674
+Threads: 512
+Matrix Size: 512
+Threads per Core: 512
+Solution cycles: 15396796
+Threads: 512
+Matrix Size: 1024
+Threads per Core: 512
+Compilation cycles: 122983211
+Threads: 512
+Matrix Size: 1024
+Threads per Core: 512
+Solution cycles: 14009226
+Threads: 512
+Matrix Size: 2048
+Threads per Core: 512
+Compilation cycles: 35358559
+Threads: 512
+tsr[0]=0xdead03ff0004a800.
+tsr[1]=0xdead03ff0004a800.
+tsr[2]=0xdead03ff0004a800.
+tsr[3]=0xdead03ff0004a800.
+tsr[4]=0xdead03ff0004a800.
+tsr[5]=0xdead03ff0004a800.
+tsr[6]=0xdead03ff0004a800.
+tsr[7]=0xdead03ff0004a800.
+tsr[8]=0xdead03ff0004a800.
+tsr[9]=0xdead03ff0004a800.
+tsr[10]=0xdead03ff0004a800.
+tsr[11]=0xdead03ff0004a800.
+tsr[12]=0xdead03ff0004a800.
+tsr[13]=0xdead03ff0004a800.
+tsr[14]=0xdead03ff0004a800.
+tsr[15]=0xdead03ff0004a800.
+tsr[16]=0xdead03ff0004a800.
+tsr[17]=0xdead03ff0004a800.
+tsr[18]=0xdead03ff0004a800.
+tsr[19]=0xdead03ff0004a800.
+tsr[20]=0xdead03ff0004a800.
+tsr[21]=0xdead03ff0004a800.
+tsr[22]=0xdead03ff0004a800.
+tsr[23]=0xdead03ff0004a800.
+tsr[24]=0xdead03ff0004a800.
+tsr[25]=0xdead03ff0004a800.
+tsr[26]=0xdead03ff0004a800.
+tsr[27]=0xdead03ff0004a800.
+tsr[28]=0xdead03ff0004a800.
+tsr[29]=0xdead03ff0004a800.
+tsr[30]=0xdead03ff0004a800.
+tsr[31]=0xdead03ff0004a800.
+channel = 1, rank = 0, (null).
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/src/tsr_structs.c:35:nmb_struct_is_bad_node bad NMB node = 0x3ff. max node = 0x1
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/src/checkpoint.c:638:run_full_checkpoint Error reading checkpoint flag.
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/include/common.h:268:ack_words_written data mismatch.
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/include/common.h:268:ack_words_written data mismatch.
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/include/common.h:268:ack_words_written data mismatch.
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/include/common.h:268:ack_words_written data mismatch.
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/include/common.h:268:ack_words_written data mismatch.
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/include/common.h:268:ack_words_written data mismatch.
