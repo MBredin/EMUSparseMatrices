@@ -1,0 +1,38 @@
+tsr[0]=0x17ad035086480006.
+tsr[1]=0x180000000008640.
+tsr[2]=0x180000000008640.
+tsr[3]=0x180000000008640.
+tsr[4]=0x180000000008640.
+tsr[5]=0x180000000008640.
+tsr[6]=0x0.
+tsr[7]=0x0.
+tsr[8]=0x0.
+tsr[9]=0x0.
+tsr[10]=0x0.
+tsr[11]=0x0.
+tsr[12]=0x0.
+tsr[13]=0x0.
+tsr[14]=0x0.
+tsr[15]=0x0.
+tsr[16]=0x0.
+tsr[17]=0x0.
+tsr[18]=0x0.
+tsr[19]=0x0.
+tsr[20]=0x0.
+tsr[21]=0x0.
+tsr[22]=0x0.
+tsr[23]=0x0.
+tsr[24]=0x0.
+tsr[25]=0x0.
+tsr[26]=0x0.
+tsr[27]=0x0.
+tsr[28]=0x0.
+tsr[29]=0x0.
+tsr[30]=0x0.
+tsr[31]=0x0.
+channel = 0, rank = 0, (null).
+[FATALERROR]: in /home/repoman/QorIQ-SDK-V2.0-20160527-yocto/build_emunode/tmp/work/ppc64e5500-fsl-linux/sc-driver/2.2.3-rc9/git/src/tsr_structs.c:35:nmb_struct_is_bad_node bad NMB node = 0x350. max node = 0x1
+
+Interrupt caught...
+
+Hangup caught...

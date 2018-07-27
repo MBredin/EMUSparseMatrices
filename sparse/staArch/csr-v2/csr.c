@@ -4,6 +4,9 @@
 #include <time.h>
 #include <sys/time.h>
 #include <cilk/cilk.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/mman.h>
 
 //Print matrix operations and solution
 #define SANITY 0
@@ -15,7 +18,7 @@
 
 //System Specs
 #define THREADS 8
-#define MATDIM 2000
+#define MATDIM 20000
 
 //Constants for random generated matrix
 #define SPARSITY 0.5
@@ -23,11 +26,13 @@
 
 struct timeval tval_before, tval_after, tval_result;
 
-long **Generate(long threadId);
-void Compress(long threadId, long **stamat, long **data, long **index, long **pointer);
-long *Solution(long threadId, long **stamat, long *loc_data, long *loc_ind, long *loc_ptr, long *x);
+void Generate(long *splitData);
+void Compress(long threadId, long *stamat, long *data, long *index, long pointer);
+void Solution(long *data, long *ind, long *ptr, long *x, long *sol);
 
 int main(){
+	//Child Tracking
+	pid_t pid;
 	//Thread Array
 	long *threadId = malloc(THREADS * sizeof(long));
 	for(int i = 0; i < THREADS; i++)
@@ -37,177 +42,182 @@ int main(){
         for(int i = 0; i < MATDIM; i++)
                 x[i] = i+1;
 
-	long **splitData[THREADS];
+	//Set up a shared memory matrix
+	//3rd dimension defines the row chunk
+	long *splitData;
+	int protection = PROT_READ | PROT_WRITE;
+	int visibility = MAP_ANONYMOUS | MAP_SHARED;
+	splitData =  mmap(NULL, MATDIM*MATDIM*sizeof(long), protection, visibility, 0, 0);
 	//Matrix Generation
-	for(int i = 0; i < THREADS; i++){
-		splitData[i] = cilk_spawn Generate(threadId[i]);
-	}
-	cilk_sync;
+	Generate(splitData);
+	printf("Program is continuing to the compression algorithm\n");
+
 	//Matrix Compression
-	long *data[THREADS];
-	long *index[THREADS];
-	long *pointer[THREADS];
 	gettimeofday(&tval_before, NULL);
-	for(int i = 0; i < THREADS; i++){
-		cilk_spawn Compress(threadId[i], splitData[i], &data[i], &index[i], &pointer[i]);
+
+	int cnt = 0;
+	int rowSplit = MATDIM / THREADS;
+	long *data;
+	long *index;
+	long *pointer;
+	pointer =  mmap(NULL, (MATDIM+1)*sizeof(long), protection, visibility, 0, 0);
+	pointer[0] = 0;
+	
+	cnt = 0;
+	for(int i = 0; i < MATDIM; i++){
+		for(int j = 0; j < MATDIM; j++){
+			if(splitData[i * MATDIM + j] != 0){
+				cnt++;
+			}
+		}
+		pointer[i+1] = cnt;
 	}
-	cilk_sync;
+
+	data =  mmap(NULL, pointer[MATDIM]*sizeof(long), protection, visibility, 0, 0);
+	index =  mmap(NULL, pointer[MATDIM]*sizeof(long), protection, visibility, 0, 0);
+
+	for(int i = 0; i < THREADS; i++){
+		pid = fork();
+		if(pid != 0){
+			//Parent is idle
+		}
+		//Process is child, execute the function
+		else{
+			//printf("Child Spawned: %d PID: %d\n", i, getpid());
+			Compress(i, splitData, data, index, pointer[i * rowSplit]);
+			exit(0);
+		}
+	}
+	for(int i = 0; i < THREADS; i++)
+		wait(NULL);
+	printf("Program is continuing to the solution algorithm\n");
+
+	gettimeofday(&tval_after, NULL);
 	timersub(&tval_after, &tval_before, &tval_result);
         long compTime = (long int)tval_result.tv_usec;
 
 	//Solution
-	long *solution[THREADS];
 	gettimeofday(&tval_before, NULL);
-	for(int i = 0; i < THREADS; i++){
-		solution[i] = cilk_spawn Solution(threadId[i], splitData[i], data[i], index[i], pointer[i], x);
-	}
-	cilk_sync;	
+	long *solution = mmap(NULL, MATDIM*sizeof(long), protection, visibility, 0, 0);
+	
+	Solution(data, index, pointer, x, solution);
+
+	printf("Solution has completed\n");
+	gettimeofday(&tval_after, NULL);
 	timersub(&tval_after, &tval_before, &tval_result);
         long execTime = (long int)tval_result.tv_usec;
-	
 
 	//Sanity Check
 	#if SANITY
-		int nodeRows = MATDIM / THREADS;
-		int cnt = 0;
+		cnt = 0;
 		//Print Starting Matrix
-		for(int i = 0; i < THREADS; i++){
-			if(i == THREADS-1)
-				nodeRows += MATDIM % THREADS;
-			for(int j = 0; j < nodeRows; j++){
-				printf("|");
-				for(int k = 0; k < MATDIM; k++){
-					printf("%3ld", splitData[i][j][k]);
-					if(splitData[i][j][k] != 0)
-						cnt++;
-				}
-				printf("|\n");
+		for(int i = 0; i < MATDIM; i++){
+			printf("|");
+			for(int j = 0; j < MATDIM; j++){
+				printf("%3ld", splitData[i * MATDIM + j]);
+				if(splitData[i * MATDIM + j] != 0)
+					cnt++;
 			}
+			printf("|\n");
 		}
 		printf("Sparsity: %d%%\n", (int)(100.0 * (double)cnt/(MATDIM*MATDIM)));
-		//Print Solution
-		nodeRows = MATDIM / THREADS;
-		printf("[");
-		for(int i = 0; i < THREADS; i++){
-			if(i != 0)
-				printf("|");
-			if(i == THREADS-1)
-				nodeRows += MATDIM % THREADS;
-			for(int j = 0; j < nodeRows; j++)
-				printf("%3ld", solution[i][j]);
-		}
+		
+		//Print Data
+		printf("Data = [");
+		for(int i = 0; i < pointer[MATDIM]; i++)
+			printf("%3ld", data[i]);
 		printf("]\n");
+		
+		//Print Index
+		printf("Index = [");
+		for(int i = 0; i < pointer[MATDIM]; i++)
+			printf("%3ld", index[i]);
+		printf("]\n");
+
+		//Printf Pointer
+		printf("Pointer = [");
+		for(int i = 0; i <= MATDIM; i++)
+			printf("%4ld", pointer[i]);
+		printf("]\n");
+		
+		//Print Solution
+		printf("Solution :\n");
+		for(int i = 0; i < MATDIM; i++)
+			printf("|%ld|\n", solution[i]);
+		
 	#endif
 	printf("Execution Time: %ld\n", execTime);
-        printf("Compression Time: %ld\n", compTime);
+	printf("Compression Time: %ld\n", compTime);
+
 }
 
-long **Generate(long threadId){
+void Generate(long *splitData){
 	////////////////////////////////////
 	/////Allocate and Define Matrix/////
 	////////////////////////////////////
-	int rowSplit = MATDIM / THREADS;
-	int nodeRows = rowSplit;
-	double rowPer, colPer, matRow, randNum;
-	if(threadId == THREADS-1)
-		nodeRows += MATDIM % THREADS;
-	long **stamat = malloc(nodeRows * sizeof(long *));
-
-	//Allocate memory for given node
-	for(int j = 0; j < nodeRows; j++){
-		stamat[j] = malloc(MATDIM * sizeof(long));
-	}
-		
-	//int temp = threadId * rowSplit;
-	for(int i = 0; i < nodeRows; i++){
-		matRow = i + (threadId * rowSplit);
-		rowPer = (double)(matRow) / (double)MATDIM;
+	double randNum;
+	for(int i = 0; i < MATDIM; i++){
 		for(int j = 0; j < MATDIM; j++){
-			colPer = (double)j / (double)MATDIM;
 			#if RANDOMMATRIX
 				randNum = rand() % RANDRANGE;
 				if(randNum/RANDRANGE >= SPARSITY)
-					stamat[i][j] = rand() % RANDRANGE;
+					splitData[i * MATDIM + j] = rand() % RANDRANGE;
 				else
-					stamat[i][j] = 0;
+					splitData[i * MATDIM + j] = 0;
 			#endif
 			#if DIAGMATRIX
 				if(matRow == j)
-					stamat[i][j] = 2;
+					splitData[i * MATDIM + j] = 2;
 				else if(abs(matRow - j) == 1)
-					stamat[i][j] = 1;
+					splitData[i * MATDIM + j] = 1;
 				else
-					stamat[i][j] = 0;
+					splitData[i * MATDIM + j] = 0;
 			#endif
-			
+			/*
 			#if CROSSMATRIX
-				if((rowPer >= 0.2 && rowPer <= 0.3) || (colPer >= 0.2 && colPer <= 0.3))
-					stamat[i][j] = 0;
+				if(( >= 0.2 && rowPer <= 0.3) || (colPer >= 0.2 && colPer <= 0.3))
+					splitData[i * MATDIM + j] = 0;
 	 			else
- 					stamat[i][j] = rand() % 10 + 1;
+ 					splitData[i * MATDIM + j] = rand() % 10 + 1;
 			#endif
+			*/
 			
 		}
 	}
-	return(stamat);
+	return;
 }
 
-void Compress(long threadId, long **stamat, long **data, long **index, long **pointer){
-	
+void Compress(long threadId, long *stamat, long *data, long *index, long pointer){
 	/////////////////////////////////////
 	/////////////COMPRESSION/////////////
 	/////////////////////////////////////
-	int rowSplit = MATDIM / THREADS;
-	int nodeRows = rowSplit;
+	int rowSplit = (MATDIM / THREADS);
+	int rowStart = rowSplit * threadId;
+	int rowEnd = rowStart + rowSplit;
+	double rowPer, colPer, matRow, randNum;
 	if(threadId == THREADS-1)
-		nodeRows += MATDIM % THREADS;
+		rowEnd += MATDIM % THREADS;
 	long cnt = 0;
-	for(int i = 0; i < nodeRows; i++){
+	for(int i = rowStart; i < rowEnd; i++){
 		for(int j = 0; j < MATDIM; j++){
-			if(stamat[i][j] != 0){
-				cnt++;
+			if(stamat[i * MATDIM + j] != 0){
+				data[pointer] = stamat[i * MATDIM + j];
+				index[pointer] = j;
+				pointer++;
 			}
 		}
 	}
-	long *loc_data = malloc(cnt * sizeof(long));
-	long *loc_ind = malloc(cnt * sizeof(long));
-	long *loc_ptr = malloc((nodeRows + 1) * sizeof(long));
-	loc_ptr[0] = 0;
-
-	cnt = 0;
-	long pcnt = 0;
-	for(int i = 0; i < nodeRows; i++){
-		pcnt = 0;
-		for(int j = 0; j < MATDIM; j++){
-			if(stamat[i][j] != 0){				
-				loc_data[cnt] = stamat[i][j];
-				loc_ind[cnt] = j;
-				cnt++;
-				pcnt++;
-			}
-		}
-		loc_ptr[i+1] = loc_ptr[i] + pcnt;
-	}
-	*data = loc_data;
-	*index = loc_ind;
-	*pointer = loc_ptr;
 }
 
-long *Solution(long threadId, long **stamat, long *loc_data, long *loc_ind, long *loc_ptr, long *x){
-
+void Solution(long *data, long *ind, long *ptr, long *x, long *sol){
 	//////////////////////////////////
 	/////////////SOLUTION/////////////
 	//////////////////////////////////
-	int rowSplit = MATDIM / THREADS;
-	int nodeRows = rowSplit;
-	if(threadId == THREADS-1)
-		nodeRows += MATDIM % THREADS;
-	long *loc_sol = malloc(nodeRows * sizeof(long));
-	for(int i = 0; i < nodeRows; i++){
-		loc_sol[i] = 0;
-		for(int j = loc_ptr[i]; j < loc_ptr[i+1]; j++){
-			loc_sol[i] += loc_data[j] * x[loc_ind[j]];
+	for(int i = 0; i < MATDIM; i++){
+		sol[i] = 0;
+		for(int j = ptr[i]; j < ptr[i+1]; j++){
+			sol[i] += data[j] * x[ind[j]];
 		}
 	}
-	return(loc_sol);
+	return;
 }

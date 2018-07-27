@@ -17,17 +17,15 @@
 #define SPARSITY 0.5
 #define RANDRANGE 10
 
-#define MATDIM 2000
+#define MATDIM 20
 
 #pragma grainsize = 8
 
 struct timeval tval_before, tval_after, tval_result;
 
-void generateMatrix(double **matrix);
+void generateMatrix(long **matrix);
 void csr_comp(long **matrix, long *ptr, long *ind, long *data);
-
 void csr_sclr(long ptr[], long ind[], long data[], long x[], long *res);
-void csr_seg(long ptr[], long ind[], long data[], long x[], long *res, int size);
 
 int main(){
 	srand(time(NULL));
@@ -124,7 +122,7 @@ int main(){
 
 }
 
-void generateMatrix(double ***matrix){
+void generateMatrix(long **matrix){
 
 	for(int i = 0; i < MATDIM; i++){
 		double rowPer, colPer, randNum;
