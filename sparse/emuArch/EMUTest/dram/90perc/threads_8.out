@@ -1,0 +1,42 @@
+Threads: 64Matrix Size: 512
+Threads per Core: 64
+Compression Cycles: 14725911
+Threads: 64Matrix Size: 512
+Threads per Core: 64
+Solution Cycles: 14720085
+
+Threads: 64Matrix Size: 1024
+Threads per Core: 64
+Compression Cycles: 51417972
+Threads: 64Matrix Size: 1024
+Threads per Core: 64
+Solution Cycles: 51138804
+
+Threads: 64Matrix Size: 2048
+Threads per Core: 64
+Compression Cycles: 40773809
+Threads: 64Matrix Size: 2048
+Threads per Core: 64
+Solution Cycles: 41455080
+
+Threads: 64Matrix Size: 4096
+Threads per Core: 64
+Compression Cycles: 161072466
+Threads: 64Matrix Size: 4096
+Threads per Core: 64
+Solution Cycles: 161124745
+
+Threads: 64Matrix Size: 8192
+Threads per Core: 64
+Compression Cycles: 641087139
+Threads: 64Matrix Size: 8192
+Threads per Core: 64
+Solution Cycles: 650933785
+
+Threads: 64Matrix Size: 16384
+Threads per Core: 64
+Compression Cycles: 2520247646
+Threads: 64Matrix Size: 16384
+Threads per Core: 64
+Solution Cycles: 2485669107
+
