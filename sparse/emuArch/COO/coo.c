@@ -19,22 +19,14 @@ int main(int argc, char **argv) {
     }
     else
     {
-        threads = NODELETS * atoi(argv[1]);
+        threads = NODLETS * atoi(argv[1]);
     }
-    printf("Threads: %d", threads);
+    printf("Threads: %d\n", threads);
+
+    printf("Matrix Size: %d\nThreads per Core: %d\n", MATRIXZISE, threads);
 
     int m = MATRIXZISE;     // Number of rows in matrix A
     int n = MATRIXZISE;     // Number of columns in matrix A
-    // printf("Rows: %d \n", m);
-    // printf("Columns: %d \n", n);
-
-    // int **A = genSparseMatrix(m, n);        // Creates sparse matrix A
-    // printf("Matrix A: \n");
-    // printMatrix(A, m, n);                   // Prints matrix A
-
-    // int *x = genDenseVector(m);             // Creates vector that multiplies matrix A
-    // printf("Vector x: ");
-    // printArray(x,m);                        // Prints vector x
 
     long *tempX = alloc_x();
     mw_replicated_init((long *)&x, (long)tempX);
@@ -45,7 +37,7 @@ int main(int argc, char **argv) {
 
     // Computes the size of the range of columns to cover parallely in SpMV
     int colSlice = 0;
-    if (n % NODLETS == 0)
+    if (n % threads == 0)
         colSlice = n / threads;
     else
         colSlice = (n / threads) + 1;
@@ -69,6 +61,7 @@ int main(int argc, char **argv) {
 
     // Compresses all valuable info about non-zero values contained in the clusters of 
     // splitA within arrays: values, colIndex, and rowIndex
+    unsigned long nid, nidend, starttime, endtime, totalCycles; 
     starttiming();
 
     // Start timing
@@ -87,10 +80,7 @@ int main(int argc, char **argv) {
         printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
     }
 
-    double seconds = totalCycles * (1.0 / 1.500000);
-
-    printf("Seconds: %f\n", seconds);
-    printf("Cycles: %lu\n", totalCycles);
+    printf("Compilation cycles: %lu\n", totalCycles);
 
     // printf("\n");
 
@@ -99,15 +89,17 @@ int main(int argc, char **argv) {
     // Declaration and allocation of memory for matrix segSolution
     // int **segSolution = (int **)malloc(m * sizeof(int *));
     // for (int i = 0; i < m; i++)
-    //     segSolution[i] = (int *)malloc(NODLETS * sizeof(int));
-    // initializeMatrix(segSolution, m, NODLETS); // Initialize all values of matrix to zero
+    //     segSolution[i] = (int *)malloc(threads * sizeof(int));
+    // initializeMatrix(segSolution, m, threads); // Initialize all values of matrix to zero
     
     int *segSolution[threads];
 
     // Solves SpMV parallely through 4 cores using the compressed information
-    solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice);
+    solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice, threads);
 
-    // int *solution = segmentedSum(segSolution, m);
+
+
+    // int *solution = segmentedSum(segSolution, m, threads);
 
     // printf("Solution: ");
     // printArray(solution, m);

@@ -88,13 +88,13 @@ void segmentedSolution(long *nodeID, int *values, int *colIndex, int *rowIndex, 
  * segSolution: is the matrix containing all the sums performed by each nodlet (core).
  * rows: Row length of the segSolution matrix
  **/
-int *segmentedSum(int **segSolution, int rows) {
+int *segmentedSum(int **segSolution, int rows, long threads) {
     int *solution = (int *)malloc(rows * sizeof(int));  // Allocation of memory for solution array
 
     initializeArray(solution, rows);                    // Initialize solution array with all values being zero
 
     for(int r = 0; r < rows; r++) {
-        for(int c = 0; c < NODLETS; c++) {
+        for(int c = 0; c < threads; c++) {
             solution[r] += segSolution[r][c];
         }
     }
@@ -114,34 +114,31 @@ int *segmentedSum(int **segSolution, int rows) {
  * rows: Is the row size of the given sparse matrix
  * colSlice: Is the column size of the given sparse matrix
  **/
-void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, long *x, int rows, int colSlice) {
+void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, long *x, int rows, int colSlice, long threads) {
     // Parallel segmented sum
-    unsigned long nid, nidend, starttime, endtime, totalCycles; 
+    // unsigned long nid, nidend, starttime, endtime, totalCycles; 
     // starttiming();
 
     // Start timing
-    nid = NODE_ID();
-    starttime = CLOCK();
-    for (int i = 0; i < NODLETS; i++) {
+    // nid = NODE_ID();
+    // starttime = CLOCK();
+    for (int i = 0; i < threads; i++) {
         int realNNZ = arrayLength(values[i]);
         cilk_spawn segmentedSolution(&nodes[i], values[i], colIndex[i], rowIndex[i], x, &segSolution[i], rows, realNNZ);
     }
     cilk_sync;
     // End timing
-    endtime = CLOCK();
-    nidend = NODE_ID();
-    totalCycles = endtime - starttime;
-    if (nid != nidend)
-    {
-        printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
-    }
+    // endtime = CLOCK();
+    // nidend = NODE_ID();
+    // totalCycles = endtime - starttime;
+    // if (nid != nidend)
+    // {
+    //     printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
+    // }
 
-    double seconds = totalCycles * (1.0 / 1.500000);
+    // printf("Solution cycles: %lu\n", totalCycles);
 
-    printf("Seconds: %f\n", seconds);
-    printf("Cycles: %lu\n", totalCycles);
-
-    // printMatrix(segSolution,rows,NODLETS);
+    // printMatrix(segSolution,rows,threads);
     // printf("\n");
 }
 

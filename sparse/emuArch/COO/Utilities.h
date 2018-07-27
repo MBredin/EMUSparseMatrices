@@ -9,7 +9,7 @@
 
 #define SPARSITY 0.5     // Percentage of sparsity in the matrix
 #define RANDOMVALRANGE 9 // Range of random values contained in the matrix (starting from zero)
-#define MATRIXZISE 2048     // Size for each size of the square matrix
+#define MATRIXZISE 16384     // Size for each size of the square matrix
 #define ARRAYLENGTH(x) (sizeof(x) / sizeof((x)[0]))
 
 extern int nnz; // Amount of non-zero values contained in the sparse matrix
@@ -113,7 +113,7 @@ int **genSparseMatrix(long *nodeID, int m, int n) {
         randomCol = rand() % n;
         // A[randomRow][randomCol] = randomValue;
         if (randomValue / RANDOMVALRANGE >= SPARSITY)
-            A[randomRow][randomCol] = rand() % RANDRANGE;
+            A[randomRow][randomCol] = rand() % RANDOMVALRANGE;
         else
             A[randomRow][randomCol] = 0;
     }
