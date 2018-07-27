@@ -10,7 +10,19 @@ replicated long *x;                      // Replicate vector across each nodelet
 int nnz;                                // Amount of non-zero values in sparse matrix 
 
 /********************************** MAIN ***********************************/
-int main() {
+int main(int argc, char **argv) {
+    long threads = 0;
+    if (argc != 2)
+    {
+        printf("Command Line Input Error\n");
+        exit(1);
+    }
+    else
+    {
+        threads = NODELETS * atoi(argv[1]);
+    }
+    printf("Threads: %d", threads);
+
     int m = MATRIXZISE;     // Number of rows in matrix A
     int n = MATRIXZISE;     // Number of columns in matrix A
     // printf("Rows: %d \n", m);
@@ -27,20 +39,20 @@ int main() {
     long *tempX = alloc_x();
     mw_replicated_init((long *)&x, (long)tempX);
 
-    long *nodes = mw_malloc1dlong(NODLETS * sizeof(long *));
-    for (int i = 0; i < NODLETS; i++)
+    long *nodes = mw_malloc1dlong(threads * sizeof(long *));
+    for (int i = 0; i < threads; i++)
         nodes[i] = i;
 
     // Computes the size of the range of columns to cover parallely in SpMV
     int colSlice = 0;
     if (n % NODLETS == 0)
-        colSlice = n / NODLETS;
+        colSlice = n / threads;
     else
-        colSlice = (n / NODLETS) + 1;
+        colSlice = (n / threads) + 1;
 
     // Generates a cluster of the sparse matrix per nodlet and stores it in splitA parallely 
-    int **splitA[NODLETS];
-    for (int i = 0; i < NODLETS; i++) {
+    int **splitA[threads];
+    for (int i = 0; i < threads; i++) {
         splitA[i] = cilk_spawn genSparseMatrix(&nodes[i], m, colSlice);
     }
     cilk_sync;
@@ -51,9 +63,9 @@ int main() {
 
     // Arrays containing the compressed information of A
     // printf("Compressed information of A: \n");
-    int *values[NODLETS];               // Non-zero values contained in A;
-    int *colIndex[NODLETS];             // Column indices of the non-zero values located in A
-    int *rowIndex[NODLETS];             // Row indicex of the non-zero values located in A
+    int *values[threads];               // Non-zero values contained in A;
+    int *colIndex[threads];             // Column indices of the non-zero values located in A
+    int *rowIndex[threads];             // Row indicex of the non-zero values located in A
 
     // Compresses all valuable info about non-zero values contained in the clusters of 
     // splitA within arrays: values, colIndex, and rowIndex
@@ -62,7 +74,7 @@ int main() {
     // Start timing
     nid = NODE_ID();
     starttime = CLOCK();
-    for(int i = 0; i < NODLETS; i++) {
+    for(int i = 0; i < threads; i++) {
         cilk_spawn compression(&nodes[i], splitA[i], &values[i], &colIndex[i], &rowIndex[i], m, colSlice);
     }
     cilk_sync;
@@ -79,7 +91,7 @@ int main() {
 
     printf("Seconds: %f\n", seconds);
     printf("Cycles: %lu\n", totalCycles);
-    
+
     // printf("\n");
 
     // free(splitA);
@@ -90,7 +102,7 @@ int main() {
     //     segSolution[i] = (int *)malloc(NODLETS * sizeof(int));
     // initializeMatrix(segSolution, m, NODLETS); // Initialize all values of matrix to zero
     
-    int *segSolution[NODLETS];
+    int *segSolution[threads];
 
     // Solves SpMV parallely through 4 cores using the compressed information
     solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice);

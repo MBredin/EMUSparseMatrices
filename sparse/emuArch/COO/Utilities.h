@@ -111,7 +111,7 @@ int **genSparseMatrix(long *nodeID, int m, int n) {
         randomValue = (rand() % RANDOMVALRANGE) + 1;
         randomRow = rand() % m;
         randomCol = rand() % n;
-        //A[randomRow][randomCol] = randomValue;
+        // A[randomRow][randomCol] = randomValue;
         if (randomValue / RANDOMVALRANGE >= SPARSITY)
             A[randomRow][randomCol] = rand() % RANDRANGE;
         else
