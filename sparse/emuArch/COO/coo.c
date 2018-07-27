@@ -58,10 +58,28 @@ int main() {
     // Compresses all valuable info about non-zero values contained in the clusters of 
     // splitA within arrays: values, colIndex, and rowIndex
     starttiming();
+
+    // Start timing
+    nid = NODE_ID();
+    starttime = CLOCK();
     for(int i = 0; i < NODLETS; i++) {
         cilk_spawn compression(&nodes[i], splitA[i], &values[i], &colIndex[i], &rowIndex[i], m, colSlice);
     }
     cilk_sync;
+    // End timing
+    endtime = CLOCK();
+    nidend = NODE_ID();
+    totalCycles = endtime - starttime;
+    if (nid != nidend)
+    {
+        printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
+    }
+
+    double seconds = totalCycles * (1.0 / 1.500000);
+
+    printf("Seconds: %f\n", seconds);
+    printf("Cycles: %lu\n", totalCycles);
+    
     // printf("\n");
 
     // free(splitA);

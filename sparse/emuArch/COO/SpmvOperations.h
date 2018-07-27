@@ -76,7 +76,7 @@ void segmentedSolution(long *nodeID, int *values, int *colIndex, int *rowIndex, 
     initializeArray(segLocalSolution, rows);
 
     for(int i = 0; i < realNNZ; i++) {
-        segLocalSolution[rowIndex[i]] +=  1 ; // values[i] * x[colIndex[i]];
+        segLocalSolution[rowIndex[i]] += values[i] * x[colIndex[i]];
     }
 
     *segSolution = segLocalSolution;
@@ -117,7 +117,7 @@ int *segmentedSum(int **segSolution, int rows) {
 void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, long *x, int rows, int colSlice) {
     // Parallel segmented sum
     unsigned long nid, nidend, starttime, endtime, totalCycles; 
-    starttiming();
+    // starttiming();
 
     // Start timing
     nid = NODE_ID();

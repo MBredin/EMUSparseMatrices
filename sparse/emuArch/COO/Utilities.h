@@ -100,13 +100,13 @@ int **genSparseMatrix(long *nodeID, int m, int n) {
 
     nnz = m * n * SPARSITY;                            // Amount of non-zero elements to be stored in A
     // printf("Non-zero values to be stored: %d\n", nnz); // Prints nnz
-    int randomValue, randomRow, randomCol, r;
+    int randomValue, randomRow, randomCol;
 
     // Initialize the matrix with zero values
     initializeMatrix(A, m, n);
 
     // Fills up matrix with nnz values ranging from one to RANDOMVALRANGE
-    for (r = 0; r < nnz; r++)
+    for (int r = 0; r < nnz; r++)
     {
         randomValue = (rand() % RANDOMVALRANGE) + 1;
         randomRow = rand() % m;
