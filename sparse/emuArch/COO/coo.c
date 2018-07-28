@@ -6,7 +6,7 @@
 #include "Utilities.h"
 #include "SpmvOperations.h"
 
-replicated long *x;                      // Replicate vector across each nodelet
+replicated long *x;                     // Replicate vector across each nodelet
 int nnz;                                // Amount of non-zero values in sparse matrix 
 
 /********************************** MAIN ***********************************/
@@ -48,10 +48,6 @@ int main(int argc, char **argv) {
         splitA[i] = cilk_spawn genSparseMatrix(&nodes[i], m, colSlice);
     }
     cilk_sync;
-    // int realNNZ = checkNNZ(A,m,n);
-    // double sparsePercentage = (realNNZ * 100) / (double)(m*n);
-    // printf("Sparse percentage: %f \n", sparsePercentage);
-    // printf("\n");
 
     // Arrays containing the compressed information of A
     // printf("Compressed information of A: \n");
@@ -81,23 +77,11 @@ int main(int argc, char **argv) {
     }
 
     printf("Compilation cycles: %lu\n", totalCycles);
-
-    // printf("\n");
-
-    // free(splitA);
-
-    // Declaration and allocation of memory for matrix segSolution
-    // int **segSolution = (int **)malloc(m * sizeof(int *));
-    // for (int i = 0; i < m; i++)
-    //     segSolution[i] = (int *)malloc(threads * sizeof(int));
-    // initializeMatrix(segSolution, m, threads); // Initialize all values of matrix to zero
     
     int *segSolution[threads];
 
     // Solves SpMV parallely through 4 cores using the compressed information
     solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice, threads);
-
-
 
     // int *solution = segmentedSum(segSolution, m, threads);
 
