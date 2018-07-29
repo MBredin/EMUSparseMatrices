@@ -57,33 +57,33 @@ int main(int argc, char **argv) {
 
     // Compresses all valuable info about non-zero values contained in the clusters of 
     // splitA within arrays: values, colIndex, and rowIndex
-    unsigned long nid, nidend, starttime, endtime, totalCycles; 
-    starttiming();
+    // unsigned long nid, nidend, starttime, endtime, totalCycles; 
+    // starttiming();
 
     // Start timing
-    nid = NODE_ID();
-    starttime = CLOCK();
+    // nid = NODE_ID();
+    // starttime = CLOCK();
     for(int i = 0; i < threads; i++) {
         cilk_spawn compression(&nodes[i], splitA[i], &values[i], &colIndex[i], &rowIndex[i], m, colSlice);
     }
     cilk_sync;
     // End timing
-    endtime = CLOCK();
-    nidend = NODE_ID();
-    totalCycles = endtime - starttime;
-    if (nid != nidend)
-    {
-        printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
-    }
+    // endtime = CLOCK();
+    // nidend = NODE_ID();
+    // totalCycles = endtime - starttime;
+    // if (nid != nidend)
+    // {
+    //     printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
+    // }
 
-    printf("Compilation cycles: %lu\n", totalCycles);
+    // printf("Compilation cycles: %lu\n", totalCycles);
     
     int *segSolution[threads];
 
     // Solves SpMV parallely through 4 cores using the compressed information
     solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice, threads);
 
-    // int *solution = segmentedSum(segSolution, m, threads);
+    int *solution = segmentedSum(segSolution, m, threads);
 
     // printf("Solution: ");
     // printArray(solution, m);

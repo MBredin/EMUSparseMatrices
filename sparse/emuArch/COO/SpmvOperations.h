@@ -69,7 +69,6 @@ void compression(long *nodeID, int **A, int **values, int **colIndex, int **rowI
  * realNNZ: Real number of non-zero values within values
  **/
 void segmentedSolution(long *nodeID, int *values, int *colIndex, int *rowIndex, long *x, int **segSolution, int rows, int realNNZ) {
-    // printf("Starting column: %d\n", start);
     MIGRATE(&nodeID);
 
     int *segLocalSolution = (int *)malloc(rows * sizeof(int));
@@ -116,27 +115,27 @@ int *segmentedSum(int **segSolution, int rows, long threads) {
  **/
 void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, long *x, int rows, int colSlice, long threads) {
     // Parallel segmented sum
-    // unsigned long nid, nidend, starttime, endtime, totalCycles; 
-    // starttiming();
+    unsigned long nid, nidend, starttime, endtime, totalCycles; 
+    starttiming();
 
     // Start timing
-    // nid = NODE_ID();
-    // starttime = CLOCK();
+    nid = NODE_ID();
+    starttime = CLOCK();
     for (int i = 0; i < threads; i++) {
         int realNNZ = arrayLength(values[i]);
         cilk_spawn segmentedSolution(&nodes[i], values[i], colIndex[i], rowIndex[i], x, &segSolution[i], rows, realNNZ);
     }
     cilk_sync;
     // End timing
-    // endtime = CLOCK();
-    // nidend = NODE_ID();
-    // totalCycles = endtime - starttime;
-    // if (nid != nidend)
-    // {
-    //     printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
-    // }
+    endtime = CLOCK();
+    nidend = NODE_ID();
+    totalCycles = endtime - starttime;
+    if (nid != nidend)
+    {
+        printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
+    }
 
-    // printf("Solution cycles: %lu\n", totalCycles);
+    printf("Solution cycles: %lu\n", totalCycles);
 
     // printMatrix(segSolution,rows,threads);
     // printf("\n");
