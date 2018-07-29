@@ -48,10 +48,6 @@ int main(int argc, char **argv) {
         splitA[i] = cilk_spawn genSparseMatrix(&nodes[i], m, colSlice);
     }
     cilk_sync;
-    // int realNNZ = checkNNZ(A,m,n);
-    // double sparsePercentage = (realNNZ * 100) / (double)(m*n);
-    // printf("Sparse percentage: %f \n", sparsePercentage);
-    // printf("\n");
 
     // Arrays containing the compressed information of A
     // printf("Compressed information of A: \n");
@@ -81,16 +77,6 @@ int main(int argc, char **argv) {
     }
 
     printf("Compilation cycles: %lu\n", totalCycles);
-
-    // printf("\n");
-
-    // free(splitA);
-
-    // Declaration and allocation of memory for matrix segSolution
-    // int **segSolution = (int **)malloc(m * sizeof(int *));
-    // for (int i = 0; i < m; i++)
-    //     segSolution[i] = (int *)malloc(threads * sizeof(int));
-    // initializeMatrix(segSolution, m, threads); // Initialize all values of matrix to zero
     
     int *segSolution[threads];
 
