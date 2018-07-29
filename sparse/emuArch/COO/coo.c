@@ -6,7 +6,7 @@
 #include "Utilities.h"
 #include "SpmvOperations.h"
 
-replicated long *x;                      // Replicate vector across each nodelet
+replicated long *x;                     // Replicate vector across each nodelet
 int nnz;                                // Amount of non-zero values in sparse matrix 
 
 /********************************** MAIN ***********************************/
@@ -82,8 +82,6 @@ int main(int argc, char **argv) {
 
     // Solves SpMV parallely through 4 cores using the compressed information
     solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice, threads);
-
-
 
     // int *solution = segmentedSum(segSolution, m, threads);
 
