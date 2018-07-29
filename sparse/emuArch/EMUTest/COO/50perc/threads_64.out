@@ -1,0 +1,10 @@
+Threads: 512
+Matrix Size: 512
+Threads per Core: 512
+Compilation cycles: 27990340
+Threads: 512
+
+Hangup caught...
+Matrix Size: 512
+Threads per Core: 512
+Solution cycles: 17778494

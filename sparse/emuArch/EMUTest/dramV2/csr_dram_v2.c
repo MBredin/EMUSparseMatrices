@@ -19,13 +19,10 @@
 #define NODELETS 8
 //#define THREADSPERNODELET 16 //2, 4, 8, 16, 32, 64
 //#define THREADS (NODELETS * THREADSPERNODELET) //16, 32, 64, 128, 256, 512
-#define MATDIM 512 //512, 1024, 2048, 4096, 8192, 16384
-
-//Time Solution
-#define SOLUTIONTIME 1
+#define MATDIM 16384 //512, 1024, 2048, 4096, 8192, 16384
 
 //Constants for random generated matrix
-#define SPARSITY 0.1
+#define SPARSITY 0.9
 #define RANDRANGE 10
 
 struct timeval tval_before, tval_after, tval_result;
@@ -50,7 +47,8 @@ long *alloc_x(void){
 }
 
 long **Generate(long *nodeId, long threads);
-long *csrSpMV(long *nodeId, long **emuRows, long threads);
+void csrCompress(long *nodeId, long **emuRows, long **data, long **index, long **pointer, long threads);
+long* csrSpMV(long *nodeId, long threads, long *loc_data, long *loc_ind, long *loc_ptr);
 
 int main(int argc, char** argv){
 	long threads = 0;
@@ -61,14 +59,13 @@ int main(int argc, char** argv){
 	else{
 		threads = NODELETS * atoi(argv[1]);
 	}
-	unsigned long long starttime, endtime, comptime;
+	unsigned long long starttime, endtime, comptime, soltime;
 	long *tempX = alloc_x();
 	mw_replicated_init((long *)&repx, (long)tempX);
 	
 	long *nodes = mw_malloc1dlong(threads * sizeof(long *));
 	for(int i = 0; i < threads; i++)
 		nodes[i] = i;
-
 	#if SANITY	
 		for(int i = 0; i < threads; i++){
 			MIGRATE(&nodes[i]);
@@ -92,12 +89,26 @@ int main(int argc, char** argv){
 	//Matrix Compression
 	starttiming();
 	starttime = CLOCK();
-	long *solution[threads];
+	long *data[threads];
+	long *index[threads];
+	long *pointer[threads];
+	
 	for(int i = 0; i < threads; i++){
-		solution[i] = cilk_spawn csrSpMV(&nodes[i], splitData[i], threads);
+		cilk_spawn csrCompress(&nodes[i], splitData[i], &data[i], &index[i], &pointer[i], threads);
 	}
 	cilk_sync;
 	endtime = CLOCK();
+	comptime = endtime - starttime;
+	
+	long *solution[threads];
+	//SpMV
+	starttime = CLOCK();
+	for(int i = 0; i < threads; i++){
+		solution[i] =  cilk_spawn csrSpMV(&nodes[i], threads, data[i], index[i], pointer[i]);
+	}
+	cilk_sync;
+	endtime = CLOCK();
+	soltime = endtime - starttime;
 
 	//Sanity Check
 	#if SANITY
@@ -118,20 +129,15 @@ int main(int argc, char** argv){
 			}
 		}
 		printf("DENSITY: %d%%\n", (int)(100.0 * (double)cnt/(MATDIM*MATDIM)));
-
-		printf("Split: %d", nodeRows);
-		printf("Solution:");
+		printf("Solution: \n");
 		for(int i = 0; i < threads; i++)
 			for(int j = 0; j < nodeRows; j++)
-				printf("|%15ld|\n", solution[i][j]);
+				printf("|%8ld|\n", solution[i][j]);
+		printf("\n");
 	#endif
-	comptime = endtime - starttime; 
 	printf("Matrix Size: %d\nThreads per Core: %d\n", MATDIM, threads);
-	#if SOLUTIONTIME
-		printf("Solution Cycles: %ld\n\n", comptime);
-	#else
-		printf("Compression Cycles: %ld\n", comptime);
-	#endif
+	printf("Compression Cycles: %ld\n", comptime);
+	printf("Solution Cycles: %ld\n\n", soltime);
 }
 
 long **Generate(long *nodeId, long threads){
@@ -183,7 +189,7 @@ long **Generate(long *nodeId, long threads){
 	return(emuRows);
 }
 
-long *csrSpMV(long *nodeId, long **emuRows, long threads){
+void csrCompress(long *nodeId, long **emuRows, long **data, long **index, long **pointer, long threads){
 	/////////////////////////////////////
 	/////////////COMPRESSION/////////////
 	/////////////////////////////////////
@@ -216,17 +222,21 @@ long *csrSpMV(long *nodeId, long **emuRows, long threads){
 		}
 		loc_ptr[i+1] = cnt;
 	}
-	#if SOLUTIONTIME
-		//Solution Section
-		long *loc_sol = malloc(rowSplit * sizeof(long));
-		for(int i = 0; i < rowSplit; i++){
-			loc_sol[i] = 0;
-			for(int j = loc_ptr[i]; j < loc_ptr[i+1]; j++){
-				loc_sol[i] += loc_data[j] * repx[loc_ind[j]];
-			}
-		}
-
-		return(loc_sol);
-	#endif
+	
+	*data = loc_data;
+	*index = loc_ind;
+	*pointer = loc_ptr;
 }
 
+long* csrSpMV(long *nodeId, long threads, long *loc_data, long *loc_ind, long *loc_ptr){
+	int rowSplit = MATDIM / threads;
+	//Solution Section
+	long *loc_sol = malloc(rowSplit * sizeof(long));
+	for(int i = 0; i < rowSplit; i++){
+		loc_sol[i] = 0;
+		for(int j = loc_ptr[i]; j < loc_ptr[i+1]; j++){
+			loc_sol[i] += loc_data[j] * repx[loc_ind[j]];
+		}
+	}
+	return(loc_sol);
+}
