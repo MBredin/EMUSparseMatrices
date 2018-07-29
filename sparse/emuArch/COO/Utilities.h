@@ -7,9 +7,9 @@
 #include <time.h>
 #include <sys/time.h>
 
-#define SPARSITY 0.1     // Percentage of sparsity in the matrix
+#define SPARSITY 0.9     // Percentage of sparsity in the matrix
 #define RANDOMVALRANGE 9 // Range of random values contained in the matrix (starting from zero)
-#define MATRIXZISE 16384     // Size for each size of the square matrix
+#define MATRIXZISE 512     // Size for each size of the square matrix
 #define ARRAYLENGTH(x) (sizeof(x) / sizeof((x)[0]))
 
 extern int nnz; // Amount of non-zero values contained in the sparse matrix

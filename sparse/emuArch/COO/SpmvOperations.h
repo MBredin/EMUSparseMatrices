@@ -21,17 +21,18 @@
  * m: Is the row size of A
  * colSlice: Is the column size of A
  **/
-void compression(long *nodeID, int **A, int **values, int **colIndex, int **rowIndex, int m, int colSlice) {
+void compression(long *nodeID, int **A, int **values, int **colIndex, int **rowIndex, int *realNNZ, int m, int colSlice) {
     MIGRATE(&nodeID);
 
-    int realNNZ = checkNNZ(A, m, colSlice);
+    int nnzIndex = checkNNZ(A, m, colSlice);
+    *realNNZ = nnzIndex;
 
-    int *localValues = (int *)malloc(realNNZ * sizeof(int));
-    initializeArray(localValues, realNNZ);
-    int *localColIndex = (int *)malloc(realNNZ * sizeof(int));
-    initializeArray(localColIndex, realNNZ);
-    int *localRowIndex = (int *)malloc(realNNZ * sizeof(int));
-    initializeArray(localRowIndex, realNNZ);
+    int *localValues = (int *)malloc(nnzIndex * sizeof(int));
+    initializeArray(localValues, nnzIndex);
+    int *localColIndex = (int *)malloc(nnzIndex * sizeof(int));
+    initializeArray(localColIndex, nnzIndex);
+    int *localRowIndex = (int *)malloc(nnzIndex * sizeof(int));
+    initializeArray(localRowIndex, nnzIndex);
 
     int i = 0;
     for(int c = 0; c < colSlice; c++) {
@@ -76,7 +77,10 @@ void segmentedSolution(long *nodeID, int *values, int *colIndex, int *rowIndex, 
 
     for(int i = 0; i < realNNZ; i++) {
         segLocalSolution[rowIndex[i]] += values[i] * x[colIndex[i]];
+        
     }
+    //printArray(segLocalSolution, rows);
+
 
     *segSolution = segLocalSolution;
 }
@@ -109,29 +113,13 @@ int *segmentedSum(long *nodeID, int *solution, int **segSolution, int rows, long
  * rows: Is the row size of the given sparse matrix
  * colSlice: Is the column size of the given sparse matrix
  **/
-void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, long *x, int rows, int colSlice, long threads) {
+void solutionSpMV(long *nodes, int **segSolution, int **values, int **colIndex, int **rowIndex, int *realNNZ, long *x, int rows, int colSlice, long threads) {
     // Parallel segmented sum
-    unsigned long nid, nidend, starttime, endtime, totalCycles; 
-    starttiming();
 
-    // Start timing
-    nid = NODE_ID();
-    starttime = CLOCK();
-    for (int i = 0; i < threads; i++) {
-        int realNNZ = arrayLength(values[i]);
-        cilk_spawn segmentedSolution(&nodes[i], values[i], colIndex[i], rowIndex[i], x, &segSolution[i], rows, realNNZ);
+    for (int i = 0; i < threads; i++) {        
+        cilk_spawn segmentedSolution(&nodes[i], values[i], colIndex[i], rowIndex[i], x, &segSolution[i], rows, realNNZ[i]);
     }
     cilk_sync;
-    // End timing
-    endtime = CLOCK();
-    nidend = NODE_ID();
-    totalCycles = endtime - starttime;
-    if (nid != nidend)
-    {
-        printf("ERROR: timing problem: start node (%d), end node (%lu)\n", nid, nidend);
-    }
-
-    printf("Solution cycles: %lu\n", totalCycles);
 
     // printMatrix(segSolution,rows,threads);
     // printf("\n");

@@ -54,17 +54,19 @@ int main(int argc, char **argv) {
     int *values[threads];               // Non-zero values contained in A;
     int *colIndex[threads];             // Column indices of the non-zero values located in A
     int *rowIndex[threads];             // Row indicex of the non-zero values located in A
+    //int realNNZ[threads];
+    int *realNNZ =(int *)malloc(threads * sizeof(int));
 
     // Compresses all valuable info about non-zero values contained in the clusters of 
     // splitA within arrays: values, colIndex, and rowIndex
     // unsigned long nid, nidend, starttime, endtime, totalCycles; 
-    // starttiming();
+    starttiming();
 
     // Start timing
     // nid = NODE_ID();
     // starttime = CLOCK();
     for(int i = 0; i < threads; i++) {
-        cilk_spawn compression(&nodes[i], splitA[i], &values[i], &colIndex[i], &rowIndex[i], m, colSlice);
+        cilk_spawn compression(&nodes[i], splitA[i], &values[i], &colIndex[i], &rowIndex[i], &realNNZ[i], m, colSlice);
     }
     cilk_sync;
     // End timing
@@ -81,7 +83,19 @@ int main(int argc, char **argv) {
     int *segSolution[threads];
 
     // Solves SpMV parallely through 4 cores using the compressed information
-    solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice, threads);
+    unsigned long starttime, endtime, totalCycles; 
+    //starttiming();
+
+    // Start timing
+    starttime = CLOCK();
+
+    solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, realNNZ, x, m, colSlice, threads);
+    
+    // End timing
+    endtime = CLOCK();
+    totalCycles = endtime - starttime;
+
+    printf("Solution cycles: %lu\n", totalCycles);
     
     int *solution = (int *)malloc(m * sizeof(int));  // Allocation of memory for solution array
     initializeArray(solution, m);                    // Initialize solution array with all values being zero
