@@ -87,15 +87,11 @@ void segmentedSolution(long *nodeID, int *values, int *colIndex, int *rowIndex, 
  * segSolution: is the matrix containing all the sums performed by each nodlet (core).
  * rows: Row length of the segSolution matrix
  **/
-int *segmentedSum(int **segSolution, int rows, long threads) {
-    int *solution = (int *)malloc(rows * sizeof(int));  // Allocation of memory for solution array
-
-    initializeArray(solution, rows);                    // Initialize solution array with all values being zero
+int *segmentedSum(long *nodeID, int *solution, int **segSolution, int rows, long thread) {
+    //MIGRATE(&nodeID);
 
     for(int r = 0; r < rows; r++) {
-        for(int c = 0; c < threads; c++) {
-            solution[r] += segSolution[r][c];
-        }
+        solution[r] += segSolution[r][thread];
     }
 
     return solution;

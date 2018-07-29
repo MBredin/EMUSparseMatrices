@@ -82,8 +82,12 @@ int main(int argc, char **argv) {
 
     // Solves SpMV parallely through 4 cores using the compressed information
     solutionSpMV(nodes, segSolution, values, colIndex, rowIndex, x, m, colSlice, threads);
-
-    int *solution = segmentedSum(segSolution, m, threads);
+    
+    int *solution = (int *)malloc(m * sizeof(int));  // Allocation of memory for solution array
+    initializeArray(solution, m);                    // Initialize solution array with all values being zero
+    for(int c = 0; c < threads; c++) {
+        segmentedSum(&nodes[c], solution, segSolution, m, c);
+    }
 
     // printf("Solution: ");
     // printArray(solution, m);
