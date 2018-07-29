@@ -9,7 +9,7 @@
 #include <sys/mman.h>
 
 //Print matrix operations and solution
-#define SANITY 0
+#define SANITY 1
 
 //Bool for which matrix to generate (one must be on, the rest must be 0)
 #define RANDOMMATRIX 1
@@ -18,11 +18,11 @@
 
 //System Specs
 #define CORES 8
-#define THREADS 64 //2, 4, 8, 16, 32, 64
-#define MATDIM 16384 //512, 1024, 2048, 4096, 8192, 16384
+#define THREADS 1 //2, 4, 8, 16, 32, 64
+#define MATDIM 8 //512, 1024, 2048, 4096, 8192, 16384
 
 //Constants for random generated matrix
-#define SPARSITY 0.9
+#define SPARSITY 0.5
 #define RANDRANGE 10
 
 struct timeval tval_before, tval_after, tval_result;
@@ -129,6 +129,8 @@ int main(){
 		cnt = 0;
 		//Print Starting Matrix
 		for(int i = 0; i < MATDIM; i++){
+			if(i%2==0)
+				printf("\nNodelet %d:\n", i);
 			printf("|");
 			for(int j = 0; j < MATDIM; j++){
 				printf("%3ld", splitData[i * MATDIM + j]);

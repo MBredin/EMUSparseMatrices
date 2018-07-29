@@ -19,13 +19,13 @@
 #define NODELETS 8
 //#define THREADSPERNODELET 16 //2, 4, 8, 16, 32, 64
 //#define THREADS (NODELETS * THREADSPERNODELET) //16, 32, 64, 128, 256, 512
-#define MATDIM 4096 //512, 1024, 2048, 4096, 8192, 16384
+#define MATDIM 16384 //512, 1024, 2048, 4096, 8192, 16384
 
 //Time Solution
 #define SOLUTIONTIME 1
 
 //Constants for random generated matrix
-#define SPARSITY 0.9
+#define SPARSITY 0.1
 #define RANDRANGE 10
 
 struct timeval tval_before, tval_after, tval_result;
@@ -90,13 +90,13 @@ int main(int argc, char** argv){
 	cilk_sync;
 
 	//Matrix Compression
-	///starttiming();
-	///starttime = CLOCK();
+	starttiming();
+	starttime = CLOCK();
 	for(int i = 0; i < threads; i++){
 		cilk_spawn csrSpMV(&nodes[i], splitData[i], threads);
 	}
 	cilk_sync;
-	///endtime = CLOCK();
+	endtime = CLOCK();
 
 	//Sanity Check
 	#if SANITY
@@ -118,12 +118,12 @@ int main(int argc, char** argv){
 		}
 		printf("DENSITY: %d%%\n", (int)(100.0 * (double)cnt/(MATDIM*MATDIM)));
 	#endif
-	///comptime = endtime - starttime; 
+	comptime = endtime - starttime; 
 	printf("Matrix Size: %d\nThreads per Core: %d\n", MATDIM, threads);
 	#if SOLUTIONTIME
-	///	printf("Solution Cycles: %ld\n\n", comptime);
+		printf("Solution Cycles: %ld\n\n", comptime);
 	#else
-	///	printf("Compression Cycles: %ld\n", comptime);
+		printf("Compression Cycles: %ld\n", comptime);
 	#endif
 }
 
