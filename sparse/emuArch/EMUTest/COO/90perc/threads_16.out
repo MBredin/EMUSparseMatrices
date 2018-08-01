@@ -1,0 +1,30 @@
+Threads: 128
+Matrix Size: 512
+Threads per Core: 128
+Compilation cycles: 2858733
+Threads: 128
+Threads: 128
+Matrix Size: 1024
+Threads per Core: 128
+Compilation cycles: 9584607
+Threads: 128
+Threads: 128
+Matrix Size: 2048
+Threads per Core: 128
+Compilation cycles: 36376885
+Threads: 128
+Threads: 128
+Matrix Size: 4096
+Threads per Core: 128
+Compilation cycles: 142820287
+Threads: 128
+Threads: 128
+Matrix Size: 8192
+Threads per Core: 128
+Compilation cycles: 564432937
+Threads: 128
+Threads: 128
+Matrix Size: 16384
+Threads per Core: 128
+Compilation cycles: 2223544600
+Threads: 128

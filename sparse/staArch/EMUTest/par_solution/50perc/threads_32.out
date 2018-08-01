@@ -1,0 +1,30 @@
+Matrix Size: 512
+Threads per Core: 32
+Compression Cycles: 11646197  Time:3435
+Solution    Cycles: 4108334  Time:1212
+
+Matrix Size: 1024
+Threads per Core: 32
+Compression Cycles: 34940772  Time:10303
+Solution    Cycles: 5355404  Time:1581
+
+Matrix Size: 2048
+Threads per Core: 32
+Compression Cycles: 131716366  Time:38830
+Solution    Cycles: 14104754  Time:4160
+
+Matrix Size: 4096
+Threads per Core: 32
+Compression Cycles: 490878313  Time:144703
+Solution    Cycles: 53456443  Time:15761
+
+Matrix Size: 8192
+Threads per Core: 32
+Compression Cycles: 1928813667  Time:568585
+Solution    Cycles: 158843301  Time:46827
+
+Matrix Size: 16384
+Threads per Core: 32
+Compression Cycles: 7479583129  Time:204823
+Solution    Cycles: 606795925  Time:178884
+

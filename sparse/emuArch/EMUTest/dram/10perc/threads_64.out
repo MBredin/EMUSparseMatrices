@@ -1,0 +1,14 @@
+Threads: 512Matrix Size: 512
+Threads per Core: 512
+Compression Cycles: 21951008
+Threads: 512Matrix Size: 512
+Threads per Core: 512
+Solution Cycles: 24290580
+
+Threads: 512Matrix Size: 1024
+Threads per Core: 512
+Compression Cycles: 29314211
+
+Interrupt caught...
+
+Hangup caught...
