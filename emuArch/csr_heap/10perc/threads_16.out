@@ -1,0 +1,30 @@
+Matrix Size: 512
+Threads per Core: 128
+Compression Cycles: 2193841
+Solution Cycles: 5792975
+
+Matrix Size: 1024
+Threads per Core: 128
+Compression Cycles: 7242516
+Solution Cycles: 10528923
+
+Matrix Size: 2048
+Threads per Core: 128
+Compression Cycles: 27372448
+Solution Cycles: 23785253
+
+Matrix Size: 4096
+Threads per Core: 128
+Compression Cycles: 107957581
+Solution Cycles: 80644070
+
+Matrix Size: 8192
+Threads per Core: 128
+Compression Cycles: 426704871
+Solution Cycles: 326763477
+
+Matrix Size: 16384
+Threads per Core: 128
+Compression Cycles: 1696658279
+Solution Cycles: 1222749803
+

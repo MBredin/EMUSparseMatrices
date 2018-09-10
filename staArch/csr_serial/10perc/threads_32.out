@@ -1,0 +1,84 @@
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Matrix Size: 512
+ Threads per Core: 32
+Compression Cycles: 10809969  Time:3189
+Solution    Cycles: 3083827  Time:909
+
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Matrix Size: 1024
+ Threads per Core: 32
+Compression Cycles: 26401089  Time:7795
+Solution    Cycles: 12781649  Time:3768
+
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Matrix Size: 2048
+ Threads per Core: 32
+Compression Cycles: 104054437  Time:30677
+Solution    Cycles: 52756937  Time:15552
+
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Matrix Size: 4096
+ Threads per Core: 32
+Compression Cycles: 372383522  Time:109774
+Solution    Cycles: 191300881  Time:56391
+
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Matrix Size: 8192
+ Threads per Core: 32
+Compression Cycles: 1408943708  Time:415338
+Solution    Cycles: 738221393  Time:217612
+
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Program is continuing to the compression algorithm
+Matrix Size: 16384
+ Threads per Core: 32
+Compression Cycles: 5468682745  Time:612054
+Solution    Cycles: 3008832090  Time:886939
+
