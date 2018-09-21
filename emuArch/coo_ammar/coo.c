@@ -63,11 +63,11 @@ int main(int argc, char** argv){
 	unsigned long long starttime, endtime, comptime, soltime;
 	long *tempX = alloc_x();
 	mw_replicated_init((long *)&repx, (long)tempX);
-	
+
 	long *nodes = mw_malloc1dlong(threads * sizeof(long *));
 	for(int i = 0; i < NODELETS; i++)
 		nodes[i] = i;
-	#if SANITY	
+	#if SANITY
 		for(int i = 0; i < NODELETS; i++){
 			MIGRATE(&nodes[i]);
 			printf("Node %ld: [", nodes[i]);
@@ -77,7 +77,7 @@ int main(int argc, char** argv){
 			printf("End Node: %ld}\n", NODE_ID());
 		}
 	#endif
-	
+
 
 	long **splitData[NODELETS];
 	//Matrix Generation
@@ -94,25 +94,25 @@ int main(int argc, char** argv){
 	long **rowInd[NODELETS];
 	long **colInd[NODELETS];
 	long **nzCount[NODELETS];
-	
+
 	for(int i = 0; i < NODELETS; i++){
 		cilk_spawn nodeletsComp(&nodes[i], splitData[i], &value[i], &rowInd[i], &colInd[i], &nzCount[i], threads);
 	}
 	cilk_sync;
 	////endtime = CLOCK();
 	////comptime = endtime - starttime;
-	
-/*
+
+
 	long *solution[NODELETS];
 	//SpMV
 	starttime = CLOCK();
 	for(int i = 0; i < NODELETS; i++){
-		solution[i] =  cilk_spawn csrSpMV(&nodes[i], threads, data[i], index[i], pointer[i]);
+		solution[i] =  cilk_spawn csrSpMV(&nodes[i], threads, &value[i], &colInd[i], &rowInd[i]);
 	}
 	cilk_sync;
 	endtime = CLOCK();
 	soltime = endtime - starttime;
-*/
+
 	//Sanity Check
 	#if SANITY
 		int nodeSplit = MATDIM / NODELETS;
@@ -157,7 +157,7 @@ int main(int argc, char** argv){
 
 long **Generate(long *nodeId){
 	MIGRATE(&nodeId);
-	
+
 	////////////////////////////////////
 	/////Allocate and Define Matrix/////
 	////////////////////////////////////
@@ -169,7 +169,7 @@ long **Generate(long *nodeId){
 	for(int j = 0; j < rowSplit; j++){
 		emuRows[j] = malloc(MATDIM * sizeof(long));
 	}
-		
+
 	//int temp = *nodeId * rowSplit;
 	for(int i = 0; i < rowSplit; i++){
 		matRow = i + (*nodeId * rowSplit);
@@ -191,14 +191,14 @@ long **Generate(long *nodeId){
 				else
 					emuRows[i][j] = 0;
 			#endif
-			
+
 			#if CROSSMATRIX
 				if((rowPer >= 0.2 && rowPer <= 0.3) || (colPer >= 0.2 && colPer <= 0.3))
 					emuRows[i][j] = 0;
 	 			else
  					emuRows[i][j] = rand() % 10 + 1;
 			#endif
-			
+
 		}
 	}
 	return(emuRows);
@@ -226,7 +226,7 @@ void nodeletsComp(long *nodeId, long **emuRows, long ***valArr, long ***rowArr, 
 	////long *value = malloc(cnt * sizeof(long));
 	////long *colIndex = malloc(cnt * sizeof(long));
 	////long *rowIndex = malloc(cnt * sizeof(long));
-	
+
 	for(int i = 0; i < threads; i++){
 		nonZero[i] = cilk_spawn cooComp(emuRows, &value, &rowIndex, &colIndex, nodeSplit, threads, i);
 	}
@@ -241,7 +241,7 @@ void nodeletsComp(long *nodeId, long **emuRows, long ***valArr, long ***rowArr, 
 long cooComp(long **emuRows, long **value, long **rowIndex, long **colIndex, int nodeSplit, long threads, int threadId){
 	long colSplit = MATDIM / threads;
 	colSplit += (MATDIM%threads < threadId);
-	int startCol = threadId * colSplit; 
+	int startCol = threadId * colSplit;
 	int endCol = (threadId+1) * ((MATDIM/threads) + (MATDIM%threads < (threadId+1)));
 	long cnt = 0;
 	printf("Col Range: %3d -> %3d\n", startCol, endCol);
@@ -267,7 +267,7 @@ long cooComp(long **emuRows, long **value, long **rowIndex, long **colIndex, int
 			if(emuRows[i][j] != 0){
 				loc_data[cnt] = emuRows[i][j];
 				loc_col[cnt] = j;
-				loc_row[cnt] = i;	
+				loc_row[cnt] = i;
 				cnt++;
 			}
 		}
@@ -279,15 +279,15 @@ long cooComp(long **emuRows, long **value, long **rowIndex, long **colIndex, int
 	return(cnt);
 }
 
-long* csrSpMV(long *nodeId, long threads, long *loc_data, long *loc_ind, long *loc_ptr){
+long* csrSpMV(long *nodeId, long threads, long *loc_data, long *loc_ind, long *loc_row){
 	int rowSplit = MATDIM / threads;
 	//Solution Section
 	long *loc_sol = malloc(rowSplit * sizeof(long));
-	for(int i = 0; i < rowSplit; i++){
-		loc_sol[i] = 0;
-		for(int j = loc_ptr[i]; j < loc_ptr[i+1]; j++){
-			loc_sol[i] += loc_data[j] * repx[loc_ind[j]];
-		}
+	for(int i = 0; i < rowSplit; ++i){
+		//loc_sol[i] = 0;
+		//for(int j = loc_ptr[i]; j < loc_ptr[i+1]; j++){
+			loc_sol[loc_row[i]] += loc_data[i] * repx[loc_ind[i]];
+		//}
 	}
 	return(loc_sol);
 }
