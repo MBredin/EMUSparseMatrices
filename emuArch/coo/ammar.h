@@ -1,4 +1,5 @@
 typedef struct element_ {
+  int index; /* index for each element */
   int row; /* the row index for the element */
   int column; /* the column index for the element */
   int value; /* the value of the element */
