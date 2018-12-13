@@ -37,7 +37,7 @@ int main(int argc, char** argv){
 	}
 
 	sizeRow = 16;
-	sizeCol = 8;
+	sizeCol = 16;
 
 	int **matrix = createMatrix();
 	int *vector = createVector();
