@@ -36,8 +36,8 @@ int main(int argc, char** argv){
 		threads = atoi(argv[1]);
 	}
 
-	sizeRow = 8192;
-	sizeCol = 4096;
+	sizeRow = 16;
+	sizeCol = 8;
 
 	int **matrix = createMatrix();
 	int *vector = createVector();
@@ -77,14 +77,13 @@ int main(int argc, char** argv){
 
 int **createMatrix(){
 	//Generating Matrix
-	int **matrix = malloc(sizeRow*sizeof(int*));
+	int **matrix = mw_malloc2d(sizeRow*sizeof(int*), sizeCol*sizeof(int));
 
 	if (PRINT) {
 		printf("Matrix:_\n");
 	}
 
 	for(int i = 0; i < sizeRow; i++){
-		matrix[i] = malloc(sizeCol*sizeof(int));
 		
 		if (PRINT){			
 			printf("|");
@@ -112,7 +111,7 @@ int **createMatrix(){
 
 int *createVector(){
 	//Generating Vector
-	int *vector = malloc(sizeCol*sizeof(int));
+	int *vector = mw_malloc1dlong(sizeCol*sizeof(int));
 	if (PRINT){
 		printf("Vector:_\n");
 	}
@@ -156,7 +155,7 @@ void cooMultiply(int *vector, int threads){
 
 void insert(int row, int column, int value){
 	//Insertion into linked list
-	element * temp = malloc(sizeof(element));
+	element * temp = mw_malloc1dlong(sizeof(element));
 	temp->row = row;
 	temp->column = column;
 	temp->value = value;
