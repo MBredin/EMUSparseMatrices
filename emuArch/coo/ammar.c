@@ -52,7 +52,7 @@ int main(int argc, char** argv){
 	comptime = end - start;
 	printf("Compression cycles are %f\n", comptime);
 
-	sum = malloc(sizeRow*sizeof(int));
+	sum = mw_malloc1dlong(sizeRow*sizeof(int));
 	cilk_for(int i = 0; i < sizeRow; i++){
 		sum[i] = 0;
 	}
