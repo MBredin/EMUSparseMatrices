@@ -16,7 +16,7 @@ int *createVector();
 void cooCompress(int **matrix, int *vector, int threads);
 void cooMultiply(int *vector, int threads);
 void insert(int row, int column, int value);
-element* find(int index);  
+element* find(int index);
 
 static list nonZeroElements;
 static int sizeRow;
@@ -28,24 +28,23 @@ unsigned long start, end, soltime, comptime;
 
 int main(int argc, char** argv){
 	long threads = 0;
-	if(argc != 2){
+	if(argc != 4){
 		printf("Command Line Input Error\n");
 		exit(1);
 	}
 	else{
 		threads = atoi(argv[1]);
+		sizeRow = atoi(argv[2]);
+		sizeCol = atoi(argv[3]);
 	}
-
-	sizeRow = 16;
-	sizeCol = 16;
 
 	int **matrix = createMatrix();
 	int *vector = createVector();
-	
+
 	nonZeroElements.size = 0;
-	
+
 	starttiming();
-	
+
 	start = clock();
 	cooCompress(matrix, vector, threads);
 	end = clock();
@@ -62,7 +61,7 @@ int main(int argc, char** argv){
 	end = clock();
 	soltime = end - start;
 	printf("Solution cycles are %f\n", soltime);
-	
+
 	if(PRINT){
 		printf("\nResult:_\n");
 		int k = 0;
@@ -84,28 +83,28 @@ int **createMatrix(){
 	}
 
 	for(int i = 0; i < sizeRow; i++){
-		
-		if (PRINT){			
+
+		if (PRINT){
 			printf("|");
 		}
-		
+
 		for(int j = 0; j < sizeCol; j++){
 			matrix[i][j] = rand()%3+j;
-			if (PRINT){			
+			if (PRINT){
 				printf(" %d ", matrix[i][j]);
 			}
-		
+
 		}
-		if (PRINT) {			
+		if (PRINT) {
 			printf("|\n");
 		}
-	
+
 	}
 
-	if (PRINT){	
+	if (PRINT){
 		printf("\n");
 	}
-	
+
 	return matrix;
 }
 
@@ -116,10 +115,10 @@ int *createVector(){
 		printf("Vector:_\n");
 	}
 
-	for(int i = 0; i < sizeCol; i++){		
+	for(int i = 0; i < sizeCol; i++){
 		vector[i] = rand()%3+i+1;
 		if(PRINT){
-			printf("|");		
+			printf("|");
 			printf(" %d ", vector[i]);
 			printf("|\n");
 		}
@@ -128,7 +127,7 @@ int *createVector(){
 	if (PRINT){
 		printf("\n");
 	}
-	
+
 	return vector;
 }
 
@@ -146,11 +145,11 @@ void cooMultiply(int *vector, int threads){
 	int length = nonZeroElements.size;
 	int grainL = (length/threads)==0?1:(length/threads);
 	//Start of Solution
-	#pragma cilk grainsize = grainL	
+	#pragma cilk grainsize = grainL
 	cilk_for(int i = 0; i < length; ++i) {
 		sum[find(i)->row] += find(i)?find(i)->value*vector[find(i)->column]:0;
 	}
-	//End of Solution	
+	//End of Solution
 }
 
 void insert(int row, int column, int value){
@@ -166,7 +165,7 @@ void insert(int row, int column, int value){
 		nonZeroElements.head = temp;
 		nonZeroElements.tail = temp;
 	}
-	else {	
+	else {
 		nonZeroElements.tail->next = temp;
 		temp->index = nonZeroElements.tail->index+1;
 		temp->prev = nonZeroElements.tail;
