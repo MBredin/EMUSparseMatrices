@@ -9,10 +9,14 @@
 #include "ammar.h"
 
 //For printing The Matrix, Vector and Result
-#define PRINT 0
+static int PRINT = 0;
+
+//For Timing
+static int TIME = 0;
 
 int **createMatrix();
 int *createVector();
+void read_ints (const char* file_name);
 void cooCompress(int **matrix, int *vector, int threads);
 void cooMultiply(int *vector, int threads);
 void insert(int row, int column, int value);
@@ -28,7 +32,7 @@ unsigned long start, end, soltime, comptime;
 
 int main(int argc, char** argv){
 	long threads = 0;
-	if(argc != 4){
+	if(argc != 6){
 		printf("Command Line Input Error\n");
 		exit(1);
 	}
@@ -36,20 +40,27 @@ int main(int argc, char** argv){
 		threads = atoi(argv[1]);
 		sizeRow = atoi(argv[2]);
 		sizeCol = atoi(argv[3]);
+		PRINT = atoi(argv[4]);
+		TIME = atoi(argv[5]);
 	}
+
+
+	//read_ints("matrix.txt");
 
 	int **matrix = createMatrix();
 	int *vector = createVector();
 
 	nonZeroElements.size = 0;
 
-	starttiming();
+	if(TIME == 1){
+		starttiming();
+	}
 
 	start = clock();
 	cooCompress(matrix, vector, threads);
 	end = clock();
 	comptime = end - start;
-	printf("Compression cycles are %f\n", comptime);
+	printf("Compression cycles are %d\n", comptime);
 
 	sum = mw_malloc1dlong(sizeRow*sizeof(int));
 	cilk_for(int i = 0; i < sizeRow; i++){
@@ -60,9 +71,9 @@ int main(int argc, char** argv){
 	cooMultiply(vector, threads);
 	end = clock();
 	soltime = end - start;
-	printf("Solution cycles are %f\n", soltime);
+	printf("Solution cycles are %d\n", soltime);
 
-	if(PRINT){
+	if(PRINT==1){
 		printf("\nResult:_\n");
 		int k = 0;
 		while (k < sizeRow) {
@@ -74,34 +85,49 @@ int main(int argc, char** argv){
 
 }
 
+void read_ints (const char* file_name)
+{
+  FILE* file = fopen (file_name, "r");
+  int i = 0;
+
+  fscanf (file, "%d", &i);
+  while (!feof (file))
+    {
+      printf ("%d ", i);
+      fscanf (file, "%d", &i);
+    }
+  fclose (file);
+}
+
 int **createMatrix(){
 	//Generating Matrix
 	int **matrix = mw_malloc2d(sizeRow*sizeof(int*), sizeCol*sizeof(int));
 
-	if (PRINT) {
+	if (PRINT==1) {
 		printf("Matrix:_\n");
 	}
 
 	for(int i = 0; i < sizeRow; i++){
 
-		if (PRINT){
+		if (PRINT==1){
 			printf("|");
 		}
 
 		for(int j = 0; j < sizeCol; j++){
 			matrix[i][j] = rand()%3+j;
-			if (PRINT){
+			//printf("%d\n",NODE_ID());
+			if (PRINT==1){
 				printf(" %d ", matrix[i][j]);
 			}
 
 		}
-		if (PRINT) {
+		if (PRINT==1) {
 			printf("|\n");
 		}
 
 	}
 
-	if (PRINT){
+	if (PRINT==1){
 		printf("\n");
 	}
 
@@ -111,20 +137,20 @@ int **createMatrix(){
 int *createVector(){
 	//Generating Vector
 	int *vector = mw_malloc1dlong(sizeCol*sizeof(int));
-	if (PRINT){
+	if (PRINT==1){
 		printf("Vector:_\n");
 	}
 
 	for(int i = 0; i < sizeCol; i++){
 		vector[i] = rand()%3+i+1;
-		if(PRINT){
+		if(PRINT==1){
 			printf("|");
 			printf(" %d ", vector[i]);
 			printf("|\n");
 		}
 	}
 
-	if (PRINT){
+	if (PRINT==1){
 		printf("\n");
 	}
 
