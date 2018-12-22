@@ -19,7 +19,7 @@ int *createVector();
 void read_ints (const char* file_name);
 void cooCompress(int **matrix, int *vector, int threads);
 void cooMultiply(int *vector, int threads);
-void insert(int row, int column, int value);
+void insert(int row, int column, int value, void * localpointer);
 element* find(int index);
 
 static list nonZeroElements;
@@ -162,7 +162,7 @@ void cooCompress(int **matrix, int *vector, int threads){
 	//Start of Compression
 	#pragma cilk grainsize = grainT
 	cilk_for(int k = 0; k < (sizeRow*sizeCol); k++){
-		matrix[k%sizeRow][k/sizeRow] != 0?insert(k%sizeRow,k/sizeRow,matrix[k%sizeRow][k/sizeRow]):NULL;
+		matrix[k%sizeRow][k/sizeRow] != 0?insert(k%sizeRow,k/sizeRow,matrix[k%sizeRow][k/sizeRow],matrix[k%sizeRow][k/sizeRow]):NULL;
 	}
 	//End of Compression
 }
@@ -178,9 +178,9 @@ void cooMultiply(int *vector, int threads){
 	//End of Solution
 }
 
-void insert(int row, int column, int value){
+void insert(int row, int column, int value, void * localpointer){
 	//Insertion into linked list
-	element * temp = mw_malloc1dlong(sizeof(element));
+	element * temp = mw_localmalloc(sizeof(element), &localpointer);
 	temp->row = row;
 	temp->column = column;
 	temp->value = value;
