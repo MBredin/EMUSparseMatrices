@@ -1,0 +1,159 @@
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Wed Oct 10 01:50:30 2018
+
+Starting Program with 8
+End untimed simulation with local date and time= Wed Oct 10 02:02:39 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Wed Oct 10 02:02:39 2018
+
+Simulation @1 ms with local date and time= Wed Oct 10 02:02:42 2018
+
+Simulation @2 ms with local date and time= Wed Oct 10 02:02:46 2018
+
+Simulation @3 ms with local date and time= Wed Oct 10 02:02:49 2018
+
+Simulation @4 ms with local date and time= Wed Oct 10 02:02:53 2018
+
+Simulation @5 ms with local date and time= Wed Oct 10 02:02:56 2018
+
+Simulation @6 ms with local date and time= Wed Oct 10 02:03:00 2018
+
+Simulation @7 ms with local date and time= Wed Oct 10 02:03:03 2018
+
+Simulation @8 ms with local date and time= Wed Oct 10 02:03:06 2018
+
+Simulation @9 ms with local date and time= Wed Oct 10 02:03:09 2018
+
+Simulation @10 ms with local date and time= Wed Oct 10 02:03:12 2018
+
+Simulation @11 ms with local date and time= Wed Oct 10 02:03:15 2018
+
+Simulation @12 ms with local date and time= Wed Oct 10 02:03:18 2018
+
+Simulation @13 ms with local date and time= Wed Oct 10 02:03:21 2018
+
+Simulation @14 ms with local date and time= Wed Oct 10 02:03:24 2018
+
+Simulation @15 ms with local date and time= Wed Oct 10 02:03:27 2018
+
+Simulation @16 ms with local date and time= Wed Oct 10 02:03:30 2018
+
+Simulation @17 ms with local date and time= Wed Oct 10 02:03:33 2018
+
+Simulation @18 ms with local date and time= Wed Oct 10 02:03:37 2018
+
+Simulation @19 ms with local date and time= Wed Oct 10 02:03:40 2018
+
+Simulation @20 ms with local date and time= Wed Oct 10 02:03:43 2018
+
+Simulation @21 ms with local date and time= Wed Oct 10 02:03:46 2018
+
+Simulation @22 ms with local date and time= Wed Oct 10 02:03:49 2018
+
+Simulation @23 ms with local date and time= Wed Oct 10 02:03:52 2018
+
+Simulation @24 ms with local date and time= Wed Oct 10 02:03:55 2018
+
+Simulation @25 ms with local date and time= Wed Oct 10 02:04:03 2018
+
+Simulation @26 ms with local date and time= Wed Oct 10 02:04:06 2018
+
+Simulation @27 ms with local date and time= Wed Oct 10 02:04:09 2018
+
+Simulation @28 ms with local date and time= Wed Oct 10 02:04:12 2018
+
+Simulation @29 ms with local date and time= Wed Oct 10 02:04:16 2018
+
+Simulation @30 ms with local date and time= Wed Oct 10 02:04:19 2018
+
+Simulation @31 ms with local date and time= Wed Oct 10 02:04:22 2018
+
+Simulation @32 ms with local date and time= Wed Oct 10 02:04:25 2018
+
+Simulation @33 ms with local date and time= Wed Oct 10 02:04:28 2018
+
+Simulation @34 ms with local date and time= Wed Oct 10 02:04:31 2018
+
+Simulation @35 ms with local date and time= Wed Oct 10 02:04:34 2018
+
+Simulation @36 ms with local date and time= Wed Oct 10 02:04:37 2018
+
+Simulation @37 ms with local date and time= Wed Oct 10 02:04:40 2018
+
+Simulation @38 ms with local date and time= Wed Oct 10 02:04:43 2018
+
+Simulation @39 ms with local date and time= Wed Oct 10 02:04:46 2018
+
+Simulation @40 ms with local date and time= Wed Oct 10 02:04:50 2018
+
+Simulation @41 ms with local date and time= Wed Oct 10 02:04:53 2018
+
+Simulation @42 ms with local date and time= Wed Oct 10 02:04:56 2018
+
+Simulation @43 ms with local date and time= Wed Oct 10 02:04:59 2018
+
+Simulation @44 ms with local date and time= Wed Oct 10 02:05:02 2018
+
+Simulation @45 ms with local date and time= Wed Oct 10 02:05:05 2018
+
+Simulation @46 ms with local date and time= Wed Oct 10 02:05:08 2018
+
+Simulation @47 ms with local date and time= Wed Oct 10 02:05:11 2018
+
+Simulation @48 ms with local date and time= Wed Oct 10 02:05:14 2018
+
+Simulation @49 ms with local date and time= Wed Oct 10 02:05:17 2018
+
+Simulation @50 ms with local date and time= Wed Oct 10 02:05:21 2018
+
+Simulation @51 ms with local date and time= Wed Oct 10 02:05:24 2018
+
+Simulation @52 ms with local date and time= Wed Oct 10 02:05:27 2018
+
+Simulation @53 ms with local date and time= Wed Oct 10 02:05:30 2018
+
+Simulation @54 ms with local date and time= Wed Oct 10 02:05:34 2018
+
+Simulation @55 ms with local date and time= Wed Oct 10 02:05:37 2018
+
+Simulation @56 ms with local date and time= Wed Oct 10 02:05:40 2018
+
+Simulation @57 ms with local date and time= Wed Oct 10 02:05:43 2018
+
+Simulation @58 ms with local date and time= Wed Oct 10 02:05:46 2018
+
+Simulation @59 ms with local date and time= Wed Oct 10 02:05:49 2018
+
+Simulation @60 ms with local date and time= Wed Oct 10 02:05:52 2018
+
+Simulation @61 ms with local date and time= Wed Oct 10 02:05:55 2018
+
+Simulation @62 ms with local date and time= Wed Oct 10 02:05:58 2018
+
+Simulation @63 ms with local date and time= Wed Oct 10 02:06:01 2018
+
+Simulation @64 ms with local date and time= Wed Oct 10 02:06:04 2018
+
+Simulation @65 ms with local date and time= Wed Oct 10 02:06:07 2018
+
+Simulation @66 ms with local date and time= Wed Oct 10 02:06:10 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Threads: 64
+Spawned: 0Spawned: 1Spawned: 2Spawned: 3Spawned: 4Spawned: 5Spawned: 6Spawned: 7Spawned: 8Spawned: 9Spawned: 10Spawned: 11Spawned: 12Spawned: 13Spawned: 14Spawned: 15Spawned: 16Spawned: 17Spawned: 18Spawned: 19Spawned: 20Spawned: 21Spawned: 22Spawned: 23Spawned: 24Spawned: 25Spawned: 26Spawned: 27Spawned: 28Spawned: 29Spawned: 30Spawned: 31Spawned: 32Spawned: 33Spawned: 34Spawned: 35Spawned: 36Spawned: 37Spawned: 38Spawned: 39Spawned: 40Spawned: 41Spawned: 42Spawned: 43Spawned: 44Spawned: 45Spawned: 46Spawned: 47Spawned: 48Spawned: 49Spawned: 50Spawned: 51Spawned: 52Spawned: 53Spawned: 54Spawned: 55Spawned: 56Spawned: 57Spawned: 58Spawned: 59Spawned: 60Spawned: 61Spawned: 62Spawned: 63(Preset Matrix): 
+   Split Cycles: 11035134 
+   Solution Cycles: 8757670
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.

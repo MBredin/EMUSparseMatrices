@@ -1,0 +1,510 @@
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:14:11 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:14:16 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:14:16 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:14:19 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:14:22 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:14:25 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:14:28 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:14:31 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:14:35 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:14:38 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:14:42 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:14:45 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:14:48 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:14:51 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:14:55 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:14:55 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:15:00 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:15:00 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:15:03 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:15:06 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:15:10 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:15:13 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:15:17 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:15:20 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:15:23 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:15:27 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:15:30 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:15:33 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:15:37 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:15:40 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:15:40 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:15:46 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:15:46 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:15:49 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:15:52 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:15:55 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:15:59 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:16:02 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:16:05 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:16:09 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:16:12 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:16:16 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:16:19 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:16:22 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:16:26 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:16:26 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:16:31 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:16:31 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:16:34 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:16:38 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:16:41 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:16:44 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:16:47 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:16:50 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:16:54 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:16:57 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:17:00 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:17:03 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:17:06 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:17:10 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:17:10 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:17:15 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:17:15 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:17:19 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:17:22 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:17:25 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:17:28 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:17:32 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:17:35 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:17:38 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:17:42 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:17:45 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:17:48 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:17:52 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:17:55 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:17:55 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:18:01 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:18:01 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:18:04 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:18:08 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:18:11 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:18:15 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:18:19 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:18:22 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:18:25 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:18:29 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:18:32 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:18:36 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:18:39 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:18:42 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:18:43 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:18:48 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:18:48 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:18:51 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:18:55 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:18:58 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:19:01 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:19:05 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:19:08 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:19:11 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:19:14 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:19:18 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:19:21 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:19:24 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:19:27 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:19:27 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:19:33 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:19:33 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:19:36 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:19:39 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:19:43 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:19:46 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:19:49 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:19:52 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:19:55 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:19:59 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:20:02 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:20:05 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:20:08 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:20:12 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:20:12 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:20:17 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:20:17 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:20:20 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:20:24 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:20:27 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:20:30 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:20:33 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:20:37 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:20:40 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:20:43 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:20:47 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:20:50 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:20:53 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:20:56 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Mon Oct  8 22:20:57 2018
+
+Starting Program with 2
+End untimed simulation with local date and time= Mon Oct  8 22:21:02 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Mon Oct  8 22:21:02 2018
+
+Simulation @1 ms with local date and time= Mon Oct  8 22:21:05 2018
+
+Simulation @2 ms with local date and time= Mon Oct  8 22:21:08 2018
+
+Simulation @3 ms with local date and time= Mon Oct  8 22:21:12 2018
+
+Simulation @4 ms with local date and time= Mon Oct  8 22:21:15 2018
+
+Simulation @5 ms with local date and time= Mon Oct  8 22:21:18 2018
+
+Simulation @6 ms with local date and time= Mon Oct  8 22:21:22 2018
+
+Simulation @7 ms with local date and time= Mon Oct  8 22:21:25 2018
+
+Simulation @8 ms with local date and time= Mon Oct  8 22:21:28 2018
+
+Simulation @9 ms with local date and time= Mon Oct  8 22:21:31 2018
+
+Simulation @10 ms with local date and time= Mon Oct  8 22:21:35 2018
+
+Simulation @11 ms with local date and time= Mon Oct  8 22:21:38 2018
+
+Simulation @12 ms with local date and time= Mon Oct  8 22:21:41 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sanity Check: 1907139 and 1396966
+(Preset Matrix): 
+   Compression Average: 1907139 
+   Solution Average: 1396966
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.

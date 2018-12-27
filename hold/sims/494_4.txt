@@ -1,0 +1,47 @@
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Wed Oct 10 01:33:52 2018
+
+Starting Program with 4
+End untimed simulation with local date and time= Wed Oct 10 01:33:57 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Wed Oct 10 01:33:57 2018
+
+Simulation @1 ms with local date and time= Wed Oct 10 01:34:01 2018
+
+Simulation @2 ms with local date and time= Wed Oct 10 01:34:04 2018
+
+Simulation @3 ms with local date and time= Wed Oct 10 01:34:08 2018
+
+Simulation @4 ms with local date and time= Wed Oct 10 01:34:11 2018
+
+Simulation @5 ms with local date and time= Wed Oct 10 01:34:14 2018
+
+Simulation @6 ms with local date and time= Wed Oct 10 01:34:18 2018
+
+Simulation @7 ms with local date and time= Wed Oct 10 01:34:21 2018
+
+Simulation @8 ms with local date and time= Wed Oct 10 01:34:24 2018
+
+Simulation @9 ms with local date and time= Wed Oct 10 01:34:28 2018
+
+Simulation @10 ms with local date and time= Wed Oct 10 01:34:31 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Threads: 32
+Spawned: 0Spawned: 1Spawned: 2Spawned: 3Spawned: 4Spawned: 5Spawned: 6Spawned: 7Spawned: 8Spawned: 9Spawned: 10Spawned: 11Spawned: 12Spawned: 13Spawned: 14Spawned: 15Spawned: 16Spawned: 17Spawned: 18Spawned: 19Spawned: 20Spawned: 21Spawned: 22Spawned: 23Spawned: 24Spawned: 25Spawned: 26Spawned: 27Spawned: 28Spawned: 29Spawned: 30Spawned: 31(Preset Matrix): 
+   Split Cycles: 281928 
+   Solution Cycles: 2551085
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.

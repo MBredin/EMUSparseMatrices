@@ -10,15 +10,8 @@
 //Print matrix operations and solution
 #define SANITY 0
 
-//Bool for which matrix to generate (one must be on, the rest must be 0)
-#define RANDOMMATRIX 1
-#define DIAGMATRIX 0
-#define CROSSMATRIX 0
-
 //System Specs
 #define NODELETS 8
-//#define THREADSPERNODELET 16 //2, 4, 8, 16, 32, 64
-//#define THREADS (NODELETS * THREADSPERNODELET) //16, 32, 64, 128, 256, 512
 #define MATDIM 16384 //512, 1024, 2048, 4096, 8192, 16384
 
 //Constants for random generated matrix
@@ -140,62 +133,75 @@ int main(int argc, char** argv){
 	printf("Solution Cycles: %ld\n\n", soltime);
 }
 
+/*
+ * Function: matrix = Generate(nodeId, threads)
+ * Description: This function will generate a randomized sparse matrix of and evenly 
+ * 		distrubte the rows of said matrix across the given nodelets
+ * Input Argument:
+ * 	nodeId -> The ID for the nodelets that will be performing the operation
+ *	threads -> The total number of threads that will spawned through the system
+ * Output Argument:
+ *	A 2-Dimensional array that contains the entirety of the generated matrix
+ */
 long **Generate(long *nodeId, long threads){
+	//Migrate thread to the relevent nodelet
 	MIGRATE(&nodeId);
 	
-	////////////////////////////////////
-	/////Allocate and Define Matrix/////
-	////////////////////////////////////
+	//Define the number of rows each thread is responsible for
 	int rowSplit = MATDIM / threads;
 	double rowPer, colPer, matRow, randNum;
-	long **emuRows = malloc(rowSplit * sizeof(long *));
 
-	//Allocate memory for given node
+	//Allocate space for the matrix
+	long **emuRows = malloc(rowSplit * sizeof(long *));
 	for(int j = 0; j < rowSplit; j++){
 		emuRows[j] = malloc(MATDIM * sizeof(long));
 	}
 		
-	//int temp = *nodeId * rowSplit;
+	
+	//Define values for the matrix
 	for(int i = 0; i < rowSplit; i++){
 		matRow = i + (*nodeId * rowSplit);
 		rowPer = (double)(matRow) / (double)MATDIM;
 		for(int j = 0; j < MATDIM; j++){
 			colPer = (double)j / (double)MATDIM;
-			#if RANDOMMATRIX
-				randNum = rand() % RANDRANGE;
-				if(randNum/RANDRANGE >= SPARSITY)
-					emuRows[i][j] = rand() % RANDRANGE;
-				else
-					emuRows[i][j] = 0;
-			#endif
-			#if DIAGMATRIX
-				if(matRow == j)
-					emuRows[i][j] = 2;
-				else if(abs(matRow - j) == 1)
-					emuRows[i][j] = 1;
-				else
-					emuRows[i][j] = 0;
-			#endif
-			
-			#if CROSSMATRIX
-				if((rowPer >= 0.2 && rowPer <= 0.3) || (colPer >= 0.2 && colPer <= 0.3))
-					emuRows[i][j] = 0;
-	 			else
- 					emuRows[i][j] = rand() % 10 + 1;
-			#endif
+			randNum = rand() % RANDRANGE;
+			if(randNum/RANDRANGE >= SPARSITY)
+				emuRows[i][j] = rand() % RANDRANGE;
+			else
+				emuRows[i][j] = 0;
 			
 		}
 	}
 	return(emuRows);
 }
 
+/*
+ * Function: csrComprss(nodeId, emuRows, data, index, pointer, threads)
+ * Description: This function will compress an input matrix into CSR format. This function
+ * operates under the assumption that the matrix data being compressed has already been split
+ * amongst the relevent nodelets. 
+ * Input Argument:
+ * 	nodeId -> The ID for the nodelets that will be performing the operation
+ *	threads -> The number of threads that will spawned on each given nodelet
+ *	emuRows -> A two dimensional array that contains the original matrix. 
+ * 		this matrix should already be split amongst the nodelets
+ *	data -> An array of the given compressed non-zeros values allocated to the 
+ *		relevent nodelet
+ *	index -> An array of indexs relevent to the CSR compressed matrix allocated
+ *		to the relevent nodelet 
+ *	pointer -> An array containing the count for the row pointer values in
+ *		the CSR compression method allocated to the relevent nodelet
+ * Output Argument:
+ *	An array that contains the results of the SpMV for CSR compressed data
+ */
 void csrCompress(long *nodeId, long **emuRows, long **data, long **index, long **pointer, long threads){
-	/////////////////////////////////////
-	/////////////COMPRESSION/////////////
-	/////////////////////////////////////
+	//Migrate the thread to the relevent nodelet
 	MIGRATE(nodeId);
+	//Define the number of rows that will be distrubuted for each thread
 	int rowSplit = MATDIM / threads;
 	long cnt = 0;
+
+	//Run through the matrix section and count the number of non-zero values present
 	for(int i = 0; i < rowSplit; i++){
 		for(int j = 0; j < MATDIM; j++){
 			if(emuRows[i][j] != 0){
@@ -203,15 +209,15 @@ void csrCompress(long *nodeId, long **emuRows, long **data, long **index, long *
 			}
 		}
 	}
-	//long loc_data[cnt];
-	//long loc_ind[cnt];
-	//long loc_ptr[rowSplit + 1];
+	
+	//Allolcate space for the compressed data
 	long* loc_data = malloc(cnt * sizeof(long));
 	long* loc_ind = malloc(cnt * sizeof(long));
 	long* loc_ptr = malloc((rowSplit+1) * sizeof(long));
 	loc_ptr[0] = 0;
 
 	cnt = 0;
+	//Compress the matrix into CSR format
 	for(int i = 0; i < rowSplit; i++){
 		for(int j = 0; j < MATDIM; j++){
 			if(emuRows[i][j] != 0){
@@ -223,17 +229,43 @@ void csrCompress(long *nodeId, long **emuRows, long **data, long **index, long *
 		loc_ptr[i+1] = cnt;
 	}
 	
+	//Give the memory addressed of the localized compressed data back to the main function
 	*data = loc_data;
 	*index = loc_ind;
 	*pointer = loc_ptr;
 }
 
+/*
+ * Function result = csrSpMV(*nodeId, threads, data, index, pointer)
+ * Desription: This function takes compressed data in the form of CSR
+ * 		and will output a solution for a sprase matrix vector 
+ * 		multiplcation. This fuction assumes that data has
+ * 		been split amongst nodelets, and that a vector for 
+ * 		multiplication has been replicated across the system.
+ * Input Argument:
+ * 	nodeId -> The ID for the nodelets that will be performing the operation
+ *	threads -> The number of threads that will spawned on each given nodelet
+ *	data -> An array of the given compressed non-zeros values allocated to the 
+ *		relevent nodelet
+ *	index -> An array of indexs relevent to the CSR compressed matrix allocated
+ *		to the relevent nodelet 
+ *	pointer -> An array containing the count for the row pointer values in
+ *		the CSR compression method allocated to the relevent nodelet
+ * Output Argument:
+ *	An array that contains the results of the SpMV for CSR compressed data
+ */
 long* csrSpMV(long *nodeId, long threads, long *loc_data, long *loc_ind, long *loc_ptr){
+	//Define the number of rows that each thread will be responsible for handling
 	int rowSplit = MATDIM / threads;
-	//Solution Section
+
+	//Define an array for the solution of the SpMV
 	long *loc_sol = malloc(rowSplit * sizeof(long));
+
+	//Loop through the row pointer array
 	for(int i = 0; i < rowSplit; i++){
+		//Initialize current solution column to 0
 		loc_sol[i] = 0;
+		//Loop through relevent non-zero values and perform SpMV
 		for(int j = loc_ptr[i]; j < loc_ptr[i+1]; j++){
 			loc_sol[i] += loc_data[j] * repx[loc_ind[j]];
 		}

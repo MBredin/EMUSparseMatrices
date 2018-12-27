@@ -1,0 +1,560 @@
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 2068872
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 2401061
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 1724163
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 2885738
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 2141326
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 2149462
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 1704150
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 2761550
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 1930246
+
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+Starting Program with 4
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Sizes: 494 494 1080
+(Preset Matrix): Solution Time: 1821356
+

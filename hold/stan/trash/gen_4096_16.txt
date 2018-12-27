@@ -1,0 +1,396 @@
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+(Generated Matrix): 
+   Compression Average: 401207053 
+   Solution Average: 91422587
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+(Generated Matrix): 
+   Compression Average: 417849900 
+   Solution Average: 100277739
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+(Generated Matrix): 
+   Compression Average: 402811557 
+   Solution Average: 87556897
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+(Generated Matrix): 
+   Compression Average: 392620083 
+   Solution Average: 100018623
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+
+Starting Program with 16
+   Preset Matrix: 0
+   Matrix Dimension (if not preset): 4096
+   Matrix Sparsity (if no preset): 10% 
+

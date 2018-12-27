@@ -19,13 +19,13 @@
 
 struct timeval tval_before, tval_after, tval_result;
 
-void Generate(double *splitData, int threads, int *rParams);
-void Compress(int id, double *stamat, double *data, int *index, int pointer, int threads, int *rParams);
-void Solution(int id, double *data, int *ind, int *ptr, double *x, double *sol, int threads, int rParams);
+void Generate(double *splitData, int threads, long *rParams);
+void Compress(int id, double *stamat, double *data, int *index, long pointer, int threads, long *rParams);
+void Solution(int id, double *data, int *ind, int *ptr, double *x, double *sol, int threads, long rowDim);
 double** readMat(char *fileName);
 double** coo2Csr(int *dims, int *rowInd, int *colInd, double *values);
 unsigned long long* csrPresetTest(long threads, char fileName[50]);
-unsigned long long csrRandomTest(long threads, long *rParams);
+unsigned long long* csrRandomTest(long threads, long *rParams);
 
 static __inline__ unsigned long long rdtsc(void){
 	unsigned hi, lo;
@@ -33,7 +33,7 @@ static __inline__ unsigned long long rdtsc(void){
 	return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 );
 }
 
-unsigned long long csrRandomTest(long threads, long *rParams){
+unsigned long long* csrRandomTest(long threads, long *rParams){
 	unsigned long long starttime, endtime, comCyc, solCyc;
 	unsigned long long *timesOut = malloc(2 * sizeof(unsigned long long));
 	//Child Tracking
@@ -43,7 +43,7 @@ unsigned long long csrRandomTest(long threads, long *rParams){
 	for(int i = 0; i < CORES; i++)
 		coreId[i] = i;
 	//Initialize the vector to be multiplied
-        long *x = malloc(rParams[0] * sizeof(long));
+        double *x = malloc(rParams[0] * sizeof(double));
         for(int i = 0; i < rParams[0]; i++)
                 x[i] = (i%RANDRANGE)+1;
 
@@ -54,7 +54,7 @@ unsigned long long csrRandomTest(long threads, long *rParams){
 	int visibility = MAP_ANONYMOUS | MAP_SHARED;
 	splitData =  mmap(NULL, rParams[0]*rParams[0]*sizeof(double), protection, visibility, 0, 0);
 	//Matrix Generation
-	Generate(splitData);
+	Generate(splitData, threads, rParams);
 	//printf("Program is continuing to the compression algorithm\n");
 
 	//Matrix Compression
@@ -91,7 +91,7 @@ unsigned long long csrRandomTest(long threads, long *rParams){
 		else{
 			//printf("Child Spawned: %d PID: %d\n", i, getpid());
 			for(int j = 0; j < threads; j++)
-				cilk_spawn Compress(i * threads + j, splitData, data, index, pointer[(i * threads + j) * rowSplit]);
+				cilk_spawn Compress(i * threads + j, splitData, data, index, pointer[(i * threads + j) * rowSplit], threads, rParams);
 			exit(0);
 		}
 	}
@@ -108,7 +108,7 @@ unsigned long long csrRandomTest(long threads, long *rParams){
 	//Solution
 	gettimeofday(&tval_before, NULL);
 	starttime = rdtsc();
-	long *solution = mmap(NULL, rParams[0]*sizeof(long), protection, visibility, 0, 0);
+	double *solution = mmap(NULL, rParams[0]*sizeof(double), protection, visibility, 0, 0);
 	
 	for(int i = 0; i < CORES; i++){
 		pid = fork();
@@ -119,7 +119,7 @@ unsigned long long csrRandomTest(long threads, long *rParams){
 		else{
 			//printf("Child Spawned: %d PID: %d\n", i, getpid());
 			for(int j = 0; j < threads; j++)
-				Solution(i * threads + j, data, index, pointer, x, solution);
+				Solution(i * threads + j, data, index, pointer, x, solution, threads, rParams[0]);
 			exit(0);
 		}
 	}
@@ -134,59 +134,13 @@ unsigned long long csrRandomTest(long threads, long *rParams){
 	timersub(&tval_after, &tval_before, &tval_result);
         long execTime = (long int)tval_result.tv_usec;
 
-	//Sanity Check
-	#if SANITY
-		cnt = 0;
-		//Print Starting Matrix
-		for(int i = 0; i < rParams[0]; i++){
-			printf("|");
-			for(int j = 0; j < rParams[0]; j++){
-				printf("%3ld", splitData[i * rParams[0] + j]);
-				if(splitData[i * rParams[0] + j] != 0)
-					cnt++;
-			}
-			printf("|\n");
-		}
-		printf("Sparsity: %d%%\n", (int)(100.0 * (double)cnt/(rParams[0]*rParams[0])));
-		
-		//Print Data
-		printf("Data = [");
-		for(int i = 0; i < pointer[rParams[0]]; i++)
-			printf("%3ld", data[i]);
-		printf("]\n");
-		
-		//Print Index
-		printf("Index = [");
-		for(int i = 0; i < pointer[rParams[0]]; i++)
-			printf("%3ld", index[i]);
-		printf("]\n");
-
-		//Printf Pointer
-		printf("Pointer = [");
-		for(int i = 0; i <= rParams[0]; i++)
-			printf("%4ld", pointer[i]);
-		printf("]\n");
-		
-		//Print Solution
-		printf("Solution :\n");
-		for(int i = 0; i < rParams; i++)
-			printf("|%ld|\n", solution[i]);
-		
-	#endif
-	printf("Matrix Size: %d\nThreads per Core: %d\n", rParams, threads);
-        printf("Compression Cycles: %llu  Time:%lu\n", comCyc, compTime);
-        printf("Solution    Cycles: %llu  Time:%lu\n\n", solCyc, execTime);
-
 	timesOut[0] = comCyc;
 	timesOut[1] = solCyc;
 
 	return(timesOut);
 }
 
-void Generate(long *splitData, int threads, int *rParams){
-	////////////////////////////////////
-	/////Allocate and Define Matrix/////
-	////////////////////////////////////
+void Generate(double *splitData, int threads, long *rParams){
 	double randNum;
 	for(int i = 0; i < rParams[0]; i++){
 		for(int j = 0; j < rParams[0]; j++){
@@ -200,10 +154,7 @@ void Generate(long *splitData, int threads, int *rParams){
 	return;
 }
 
-void Compress(int id, double *stamat, int *data, int *index, long pointer, int threads, int *rParams){
-	/////////////////////////////////////
-	/////////////COMPRESSION/////////////
-	/////////////////////////////////////
+void Compress(int id, double *stamat, double *data, int *index, long pointer, int threads, long *rParams){
 	int rowSplit = rParams[0] / (CORES * threads);
 	int rowStart = rowSplit * id;
 	int rowEnd = rowStart + rowSplit;
@@ -220,19 +171,32 @@ void Compress(int id, double *stamat, int *data, int *index, long pointer, int t
 	}
 }
 
-void Solution(int id, double *data, int *ind, int *ptr, double *x, double *sol, int threads, int *rParams){
-	//////////////////////////////////
-	/////////////SOLUTION/////////////
-	//////////////////////////////////
-	int rowSplit = rParams[0] / (CORES * threads);
+void Solution(int id, double *data, int *ind, int *ptr, double *x, double *sol, int threads, long rowDim){
+	int splits = CORES * threads;
+	int rowSplit = rowDim / splits;
 	int rowStart = rowSplit * id;
+	if(rowSplit % splits > id){
+		rowStart += id;
+		rowSplit++;
+	}
+	else{
+		rowStart += rowSplit % splits;
+	}
+	if(id != 0)
+		rowStart--;
 	int rowEnd = rowStart + rowSplit;
+	int sanity = 0;
+	//printf("Start: %d Stop: %d\n", rowStart, rowEnd);
 	for(int i = rowStart; i < rowEnd; i++){
 		sol[i] = 0;
+		//printf("Range --> start: %d --- end: %d\n", ptr[i], ptr[i+1]);
 		for(int j = ptr[i]; j < ptr[i+1]; j++){
 			sol[i] += data[j] * x[ind[j]];
+			sanity++;
+			//printf("row %d: Solution: %lf\n", i, sol[i]);
 		}
 	}
+	//printf("ID: %d --> Item Count: %d\n", id, sanity);
 	return;
 }
 
@@ -307,7 +271,6 @@ double** readMat(char *fileName){
 				rowInd[cooInd] = hold[1] - 1;
 				values[cooInd] = hold[2];
 				//printf("Test: %lf, %lf, %lf\n", hold[0], hold[1], hold[2]);
-				//printf("Test: %lf, %lf, %lf\n", coo_comp[1][cooInd], coo_comp[2][cooInd], coo_comp[3][cooInd]);
 				//printf("Iteration: %d, Buffer: %d\n", cooInd, buffSize);
 				cooInd++;
 			}
@@ -398,8 +361,7 @@ double** coo2Csr(int *dims, int *rowInd, int *colInd, double *values){
 unsigned long long* csrPresetTest(long threads, char fileName[50]){
 	//Define output for cycles and times
 	unsigned long long *timesOut = malloc(2 * sizeof(unsigned long long));
-	unsigned long long starttime, endtime, splittime, soltime;
-	threads = threads * NODELETS;
+	unsigned long long starttime, endtime, comCyc, solCyc;
 	//Create double pointer for return arrays
 	double **coo_set = malloc(4 * sizeof(double *));
 	
@@ -410,6 +372,7 @@ unsigned long long* csrPresetTest(long threads, char fileName[50]){
 	int *dims = malloc(3 * sizeof(int));
 	for(int i = 0; i < 3; i++)
 		dims[i] = (int)coo_set[0][i];
+	//printf("Sizes: %d %d %d\n", dims[0], dims[1], dims[2]);
 	int *colInd = malloc(dims[2] * sizeof(int));
 	int *rowInd = malloc(dims[2] * sizeof(int));
 	double *values = malloc(dims[2] * sizeof(double));
@@ -420,14 +383,13 @@ unsigned long long* csrPresetTest(long threads, char fileName[50]){
 	}
 
 	//Check if threads excede number of rows and correct
-	if(threads > dims[0]){
+	if(threads * CORES > dims[0]){
 		printf("Thread count too large, terminating program...\n");
-		printf("   Threads: %d Dim: %lf", threads, dims[0]);
+		printf("   Threads: %ld Dim: %d", threads, dims[0]);
 		exit(1);
 		//threads = dims[0];
 	}
 	
-	unsigned long long starttime, endtime, comCyc, solCyc;
 	//Child Tracking
 	pid_t pid;
 	//Thread Array
@@ -435,8 +397,8 @@ unsigned long long* csrPresetTest(long threads, char fileName[50]){
 	for(int i = 0; i < CORES; i++)
 		coreId[i] = i;
 	//Initialize the vector to be multiplied
-        long *x = malloc(MATDIM * sizeof(long));
-        for(int i = 0; i < MATDIM; i++)
+        double *x = malloc(dims[0] * sizeof(double));
+        for(int i = 0; i < dims[0]; i++)
                 x[i] = (i%RANDRANGE)+1;
 
 	//Convert data to CSR format
@@ -452,17 +414,12 @@ unsigned long long* csrPresetTest(long threads, char fileName[50]){
 	//3rd dimension defines the row chunk
 	int protection = PROT_READ | PROT_WRITE;
 	int visibility = MAP_ANONYMOUS | MAP_SHARED;
-	double *values;
-	int *rowInd;
 	int *rowPtr;
-	data =  mmap(NULL, (dims[2])*sizeof(double), protection, visibility, 0, 0);
-	pointer =  mmap(NULL, (dims[2])*sizeof(long), protection, visibility, 0, 0);
-	index =  mmap(NULL, (dims[0]+1)*sizeof(long), protection, visibility, 0, 0);
+	values =  mmap(NULL, (dims[2])*sizeof(double), protection, visibility, 0, 0);
+	rowPtr =  mmap(NULL, (dims[0]+1)*sizeof(int), protection, visibility, 0, 0);
+	rowInd =  mmap(NULL, (dims[2])*sizeof(int), protection, visibility, 0, 0);
 
 	//Unpack CSR data	
-	rowInd = malloc(dims[2] * sizeof(int));
-	int *rowPtr = malloc((dims[0]+1) * sizeof(int));
-	values = malloc(dims[2] * sizeof(double));
 	for(int i = 0; i < dims[0] + 1; i++){
 		rowPtr[i] = (int)csr_set[0][i];
 	}
@@ -471,10 +428,18 @@ unsigned long long* csrPresetTest(long threads, char fileName[50]){
 		values[i] = csr_set[2][i];
 	}
 
+//	for(int i = 0; i < dims[2]; i++){
+//		printf("%9.8lf | %8d ", values[i], rowInd[i]);
+//		if(i <= dims[0]){
+//			printf("| %8d", rowPtr[i]);
+//		}
+//		printf("\n");
+//	}
+
 	//Solution
 	gettimeofday(&tval_before, NULL);
 	starttime = rdtsc();
-	long *solution = mmap(NULL, rParams[0]*sizeof(long), protection, visibility, 0, 0);
+	double *solution = mmap(NULL, dims[0]*sizeof(double), protection, visibility, 0, 0);
 	
 	for(int i = 0; i < CORES; i++){
 		pid = fork();
@@ -484,24 +449,30 @@ unsigned long long* csrPresetTest(long threads, char fileName[50]){
 		//Process is child, execute the function
 		else{
 			//printf("Child Spawned: %d PID: %d\n", i, getpid());
-			for(int j = 0; j < threads; j++)
-				Solution(i * threads + j, data, index, pointer, x, solution);
+			for(int j = 0; j < threads; j++){
+				Solution(i * threads + j, values, rowInd, rowPtr, x, solution, threads, dims[0]);
+			}
 			exit(0);
 		}
 	}
 	for(int i = 0; i < CORES; i++)
 		wait(NULL);
 	//printf("Program is continuing to the solution algorithm\n");
-
+	
+//	for(int i = 0; i < dims[0]; i++)
+//		printf("%lf\n", solution[i]);
 	//printf("Solution has completed\n");
 	endtime = rdtsc();
 	solCyc = endtime - starttime;
 
-	return(solCyc);
+	timesOut[0] = 0;
+	timesOut[1] = solCyc;
+
+	return(timesOut);
 }
 
 int main(int argc, char** argv){
-	int threads, preset, matdim, sparsity;
+	long threads, preset, matdim, sparsity;
 	
 	if(argc != 5){
 		printf("Command Line Input Error\n");
@@ -509,30 +480,30 @@ int main(int argc, char** argv){
 	}
 	else{
 		//Set number of threads
-		threads = atoi(argv[1]);
+		threads = (long)atoi(argv[1]);
 		//set file name
-		preset = atoi(argv[2]);
+		preset = (long)atoi(argv[2]);
 		//Set Mat. dimension
-		matdim = atoi(argv[3]);
+		matdim = (long)atoi(argv[3]);
 		//Set sparsity value (0 - 100)
-		sparsity = atoi(argv[4]);
+		sparsity = (long)atoi(argv[4]);
 	}
-	printf("Starting Program with %d\n", threads);
-	printf("   Preset Matrix: %d\n", preset);
-	printf("   Matrix Dimension (if not preset): %d\n", matdim);
-	printf("   Matrix Sparsity (if no preset): %d%% \n\n", sparsity);
+//	printf("Starting Program with %ld\n", threads);
+//	printf("   Preset Matrix: %ld\n", preset);
+//	printf("   Matrix Dimension (if not preset): %ld\n", matdim);
+//	printf("   Matrix Sparsity (if no preset): %ld%% \n\n", sparsity);
 
 	//Define Parameters for generated matrix (0 - matrix dimension (square matrix), 1 - sparsity (0 - 100))
 	long rParams[2] = {matdim, sparsity};
 	unsigned long long *hold = malloc(2 * sizeof(unsigned long long));
 	//Run Trials, sum totals for average
-	char fileName[50] = "494_bus.mtx";
+	char fileName[50] = "spaceStation_6.mtx";
 	if(preset == 1){
-		hold[0] = csrPresetTest(2, fileName);
-		printf("(Preset Matrix): Solution Time: %ld\n\n", hold[0]);
+		hold = csrPresetTest(threads, fileName);
+		printf("(Preset Matrix): Solution Time: %llu\n\n", hold[1]);
 	}
 	else{
-		hold = csrRandomTest(2, rParams);
-		printf("(Generated Matrix): \n   Compression Average: %ld \n   Solution Average: %ld\n\n", hold[0], hold[1]);
+		hold = csrRandomTest(threads, rParams);
+		printf("(Generated Matrix): \n   Compression Average: %llu \n   Solution Average: %llu\n\n", hold[0], hold[1]);
 	}
 }

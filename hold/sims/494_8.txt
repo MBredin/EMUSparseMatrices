@@ -1,0 +1,63 @@
+
+        SystemC 2.3.1-Accellera --- Apr  9 2018 12:53:29
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+Start untimed simulation with local date and time= Wed Oct 10 01:34:31 2018
+
+Starting Program with 8
+End untimed simulation with local date and time= Wed Oct 10 01:34:36 2018
+
+SysC Enumeration done. Program launching...
+Simulation @0 s with local date and time= Wed Oct 10 01:34:36 2018
+
+Simulation @1 ms with local date and time= Wed Oct 10 01:34:40 2018
+
+Simulation @2 ms with local date and time= Wed Oct 10 01:34:43 2018
+
+Simulation @3 ms with local date and time= Wed Oct 10 01:34:47 2018
+
+Simulation @4 ms with local date and time= Wed Oct 10 01:34:50 2018
+
+Simulation @5 ms with local date and time= Wed Oct 10 01:34:53 2018
+
+Simulation @6 ms with local date and time= Wed Oct 10 01:34:57 2018
+
+Simulation @7 ms with local date and time= Wed Oct 10 01:35:00 2018
+
+Simulation @8 ms with local date and time= Wed Oct 10 01:35:03 2018
+
+Simulation @9 ms with local date and time= Wed Oct 10 01:35:07 2018
+
+Simulation @10 ms with local date and time= Wed Oct 10 01:35:10 2018
+
+Simulation @11 ms with local date and time= Wed Oct 10 01:35:13 2018
+
+Simulation @12 ms with local date and time= Wed Oct 10 01:35:17 2018
+
+Simulation @13 ms with local date and time= Wed Oct 10 01:35:20 2018
+
+Simulation @14 ms with local date and time= Wed Oct 10 01:35:23 2018
+
+Simulation @15 ms with local date and time= Wed Oct 10 01:35:27 2018
+
+Simulation @16 ms with local date and time= Wed Oct 10 01:35:30 2018
+
+Simulation @17 ms with local date and time= Wed Oct 10 01:35:33 2018
+
+Simulation @18 ms with local date and time= Wed Oct 10 01:35:37 2018
+
+   Preset Matrix: 1
+   Matrix Dimension (if not preset): 0
+   Matrix Sparsity (if no preset): 0% 
+
+Threads: 64
+Spawned: 0Spawned: 1Spawned: 2Spawned: 3Spawned: 4Spawned: 5Spawned: 6Spawned: 7Spawned: 8Spawned: 9Spawned: 10Spawned: 11Spawned: 12Spawned: 13Spawned: 14Spawned: 15Spawned: 16Spawned: 17Spawned: 18Spawned: 19Spawned: 20Spawned: 21Spawned: 22Spawned: 23Spawned: 24Spawned: 25Spawned: 26Spawned: 27Spawned: 28Spawned: 29Spawned: 30Spawned: 31Spawned: 32Spawned: 33Spawned: 34Spawned: 35Spawned: 36Spawned: 37Spawned: 38Spawned: 39Spawned: 40Spawned: 41Spawned: 42Spawned: 43Spawned: 44Spawned: 45Spawned: 46Spawned: 47Spawned: 48Spawned: 49Spawned: 50Spawned: 51Spawned: 52Spawned: 53Spawned: 54Spawned: 55Spawned: 56Spawned: 57Spawned: 58Spawned: 59Spawned: 60Spawned: 61Spawned: 62Spawned: 63(Preset Matrix): 
+   Split Cycles: 444323 
+   Solution Cycles: 5049860
+
+Mem Unit, ActiveMps=0
+Mem Unit, CamQ=0
+Mem Unit, RecycleQ=0
+Mem Unit, CommandQ=0
+
+Info: /OSCI/SystemC: Simulation stopped by user.

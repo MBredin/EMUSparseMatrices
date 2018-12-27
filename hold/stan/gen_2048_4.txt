@@ -1,0 +1,20 @@
+(Generated Matrix): 
+   Compression Average: 98158825 
+   Solution Average: 36896795
+
+(Generated Matrix): 
+   Compression Average: 106925101 
+   Solution Average: 32719060
+
+(Generated Matrix): 
+   Compression Average: 103532252 
+   Solution Average: 33013206
+
+(Generated Matrix): 
+   Compression Average: 105018532 
+   Solution Average: 32453642
+
+(Generated Matrix): 
+   Compression Average: 104596257 
+   Solution Average: 24518760
+
