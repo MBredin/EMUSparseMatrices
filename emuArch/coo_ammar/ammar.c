@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <assert.h>
 #include <math.h>
 #include <time.h>
 #include <memoryweb.h>
@@ -17,7 +19,8 @@ static int TIME = 0;
 
 double **createMatrix();
 double *createVector();
-void read_ints (const char* file_name);
+char** str_split(char* a_str, const char a_delim);
+double ** read_mat (const char* file_name);
 void cooCompress(double **matrix, double *vector, int threads);
 void cooMultiply(double *vector, int threads);
 void insert(int row, int column, double value, void * localpointer);
@@ -27,6 +30,7 @@ static list nonZeroElements;
 static int sizeRow;
 static int sizeCol;
 static double *sum;
+static char * FILENAME;
 
 unsigned long start, end, soltime, comptime;
 
@@ -43,12 +47,20 @@ int main(int argc, char** argv){
 		sizeCol = atoi(argv[3]);
 		PRINT = atoi(argv[4]);
 		TIME = atoi(argv[5]);
+		//if(sizeRow == 0 && sizeCol == 0) {
+			//FILENAME = atoi(argv[6]);
+		//}
 	}
 
 
-	//read_ints("matrix.txt");
-
-	double **matrix = createMatrix();
+	double **matrix;
+	if(sizeRow == 0 && sizeCol == 0){
+		matrix = read_mat("494_bus.mtx");
+		sizeCol = 3;
+		sizeRow = 1081;
+	} else{
+		matrix = createMatrix();
+	}
 	double *vector = createVector();
 
 	nonZeroElements.size = 0;
@@ -86,18 +98,78 @@ int main(int argc, char** argv){
 
 }
 
-void read_ints (const char* file_name)
+char** str_split(char* a_str, const char a_delim)
 {
-  FILE* file = fopen (file_name, "r");
-  int i = 0;
+    char** result    = 0;
+    size_t count     = 0;
+    char* tmp        = a_str;
+    char* last_comma = 0;
+    char delim[2];
+    delim[0] = a_delim;
+    delim[1] = 0;
 
-  fscanf (file, "%d", &i);
-  while (!feof (file))
+    /* Count how many elements will be extracted. */
+    while (*tmp)
     {
-      printf ("%d ", i);
-      fscanf (file, "%d", &i);
+        if (a_delim == *tmp)
+        {
+            count++;
+            last_comma = tmp;
+        }
+        tmp++;
     }
+
+    /* Add space for trailing token. */
+    count += last_comma < (a_str + strlen(a_str) - 1);
+
+    /* Add space for terminating null string so caller
+       knows where the list of returned strings ends. */
+    count++;
+
+    result = malloc(sizeof(char*) * count);
+
+    if (result)
+    {
+        size_t idx  = 0;
+        char* token = strtok(a_str, delim);
+
+        while (token)
+        {
+            assert(idx < count);
+            *(result + idx++) = strdup(token);
+            token = strtok(0, delim);
+        }
+        assert(idx == count - 1);
+        *(result + idx) = 0;
+    }
+
+    return result;
+}
+
+double ** read_mat (const char* file_name)
+{
+	double **matrix = (double **) mw_malloc2d(1081, 3*sizeof(double));
+  FILE* file = fopen (file_name, "r");
+	if(file == NULL){
+		printf("Error reading file\n");
+		exit(1);
+	}
+
+	char * line = NULL;
+  size_t len = 0;
+	ssize_t read;
+	char ** temp;
+	int j = 0;
+
+	while ((read = getline(&line, &len, file)) != -1) {
+			temp = str_split(line, ' ');
+			for(int i = 0; i < 3; i++){
+				matrix[j][i] = atof(temp[i]);
+			}
+			j++;
+  }
   fclose (file);
+	return matrix;
 }
 
 double **createMatrix(){
